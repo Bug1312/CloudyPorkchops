@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[30,)"
+license="All rights reserved"
+issueTrackerURL="https://github.com/Bug1312/CloudyPorkchops/issues"
+[[mods]]
+modId="cloudy_porkchops"
+version="0.0.0"
+displayName="Cloudy Porkchops"
+displayURL="SomeForgeLinkOrSomething"
+logoFile="logo.png"
+authors="Bug1312, rainbowdestiny"
+description='''Cloudy With A Chance of Meatballs brought to Minecraft!'''
+
+[[dependencies.cloudy_porkchops]]
+    modId="forge"
+    mandatory=true
+    versionRange="[30,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.cloudy_porkchops]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5]"
+    ordering="NONE"
+    side="BOTH"
