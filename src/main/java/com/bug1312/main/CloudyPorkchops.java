@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.bug1312.client.init.Item3DRegister;
 import com.bug1312.common.RegistryHandler;
 import com.bug1312.common.event.EventHandlerGeneral;
 import com.bug1312.common.init.DMContainer;
@@ -75,9 +74,7 @@ public class CloudyPorkchops {
 	}
 	
 	private void clientSetup(final FMLClientSetupEvent event) {
-		Item3DRegister.registerItems();
-	}
-	
+	}	
 
 	private void processIMC(final InterModProcessEvent event) {
 		LOGGER.info("Got IMC {}",
