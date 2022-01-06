@@ -53,7 +53,7 @@ public class CloudyPorkchops {
 
 		DMContainer.CONTAINER_TYPE.register(modEventBus);
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec, "dalekmod-server.toml");
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec, "cloudyporkchops-server.toml");
 
 		bothSideSetup(modEventBus);
 		MinecraftForge.EVENT_BUS.register(this);
