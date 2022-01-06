@@ -6,6 +6,8 @@ import net.minecraft.item.Item;
 
 public class Item3D extends Item {
 	
+	// Don't forget to add to Item3DRegister
+		
 	public Item3D(Properties properties) {
 		super(properties);
 	}

@@ -6,7 +6,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class DMContainer {
+public class Containers {
     public static final DeferredRegister<ContainerType<?>> CONTAINER_TYPE = DeferredRegister.create(ForgeRegistries.CONTAINERS, CloudyPorkchops.MODID);
 
   

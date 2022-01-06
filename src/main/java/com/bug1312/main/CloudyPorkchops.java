@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.bug1312.client.init.Item3DRegister;
 import com.bug1312.common.RegistryHandler;
 import com.bug1312.common.event.EventHandlerGeneral;
-import com.bug1312.common.init.DMContainer;
+import com.bug1312.common.init.Containers;
+import com.bug1312.common.items.Item3D;
 import com.bug1312.network.NetworkHandler;
 import com.mojang.brigadier.CommandDispatcher;
 
@@ -34,37 +36,25 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @SuppressWarnings("unused")
 @Mod(CloudyPorkchops.MODID)
 public class CloudyPorkchops {
-	public static Random RANDOM = new Random();
-	public static CloudyPorkchops INSTANCE;
-	public static final Logger LOGGER = LogManager.getLogger();
 	public static final String MODID = "cloudyporkchops";
 
-	public static Feature<BlockStateFeatureConfig> LAKE, SAND_PATCH;
-
 	public CloudyPorkchops() {
-		INSTANCE = this;
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		RegistryHandler.init();
 
 		modEventBus.addListener(this::serverSetup);
 		modEventBus.addListener(this::clientSetup);
-		modEventBus.addListener(this::processIMC);
 
-		DMContainer.CONTAINER_TYPE.register(modEventBus);
+		Containers.CONTAINER_TYPE.register(modEventBus);
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec, "cloudyporkchops-server.toml");
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec, MODID + "-server.toml");
 
 		bothSideSetup(modEventBus);
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(EventHandlerGeneral.class);
-
-		IEventBus vengaBus = MinecraftForge.EVENT_BUS;
-		vengaBus.addListener(EventPriority.HIGH, this::biomeModification);
 	}
 
-	public void biomeModification(final BiomeLoadingEvent event) {
-	}
 
 	private void bothSideSetup(IEventBus modEventBus) {
 	}
@@ -74,11 +64,7 @@ public class CloudyPorkchops {
 	}
 	
 	private void clientSetup(final FMLClientSetupEvent event) {
-	}	
-
-	private void processIMC(final InterModProcessEvent event) {
-		LOGGER.info("Got IMC {}",
-				event.getIMCStream().map(m -> m.getMessageSupplier().get()).collect(Collectors.toList()));
+		Item3DRegister.registerItems();
 	}
 
 	@SubscribeEvent
