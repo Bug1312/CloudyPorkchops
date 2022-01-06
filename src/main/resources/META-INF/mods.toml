@@ -3,7 +3,7 @@ loaderVersion="[30,)"
 license="All rights reserved"
 issueTrackerURL="https://github.com/Bug1312/CloudyPorkchops/issues"
 [[mods]]
-modId="cloudy_porkchops"
+modId="cloudyporkchops"
 version="0.0.0"
 displayName="Cloudy Porkchops"
 displayURL="SomeForgeLinkOrSomething"
