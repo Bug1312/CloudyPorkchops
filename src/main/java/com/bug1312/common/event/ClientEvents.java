@@ -33,7 +33,7 @@ public class ClientEvents {
 		Map<ResourceLocation, IBakedModel> modelRegistry = event.getModelRegistry();
 
 		for (ItemRenderInfo renderInfo : Item3DRendering.getRenders()) {
-			IBakedModel baseItem = modelRegistry.get(renderInfo.getBaseLocation());
+			IBakedModel baseModel = modelRegistry.get(renderInfo.getBaseLocation());
 
 			for (OtherModel otherModel : renderInfo.getTransforms().values()) {
 				otherModel.setModel(modelRegistry.get(otherModel.getLocation()));
@@ -43,21 +43,24 @@ public class ClientEvents {
 			IBakedModel bakedModel = new IBakedModel() {
 				@Override
 				public IBakedModel handlePerspective(ItemCameraTransforms.TransformType transformType, MatrixStack mat) {
-					return ForgeHooksClient.handlePerspective(renderInfo.getTransforms().get(transformType).getModel(), transformType, mat);
+					IBakedModel model = renderInfo.getTransforms().get(transformType).getModel();
+					if(model == null) model = baseModel;
+
+					return ForgeHooksClient.handlePerspective(model, transformType, mat);
 				}
 				
 				@Override
-				public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand) { return baseItem.getQuads(state, side, rand); }
+				public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand) { return baseModel.getQuads(state, side, rand); }
 				@Override
-				public boolean useAmbientOcclusion() { return baseItem.useAmbientOcclusion(); }
+				public boolean useAmbientOcclusion() { return baseModel.useAmbientOcclusion(); }
 				@Override
-				public boolean isGui3d() { return baseItem.isGui3d(); }
+				public boolean isGui3d() { return baseModel.isGui3d(); }
 				@Override
-				public boolean isCustomRenderer() { return baseItem.isCustomRenderer(); }
+				public boolean isCustomRenderer() { return baseModel.isCustomRenderer(); }
 				@Override
-				public TextureAtlasSprite getParticleIcon() { return baseItem.getParticleIcon(); }
+				public TextureAtlasSprite getParticleIcon() { return baseModel.getParticleIcon(); }
 				@Override
-				public ItemOverrideList getOverrides() { return baseItem.getOverrides(); }
+				public ItemOverrideList getOverrides() { return baseModel.getOverrides(); }
 				@Override
 				public boolean usesBlockLight() { return false; }
 			};
