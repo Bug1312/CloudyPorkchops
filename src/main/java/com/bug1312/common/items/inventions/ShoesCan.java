@@ -24,13 +24,17 @@ import net.minecraft.world.World;
  */
 public class ShoesCan extends Item3D {
 
+	private int requiredTicks = 2 * 20;
+	private SprayCanUse currentUse = SprayCanUse.NONE;
+	private int tickAfterChange;
+
 	public ShoesCan(Properties properties) {
 		super(properties);
 	}
 
 	@Override
 	public int getUseDuration(ItemStack itemstack) {
-		return 2 * 20;
+		return 72000;
 	}
 
 	public UseAction getUseAnimation(ItemStack p_77661_1_) {
@@ -45,26 +49,47 @@ public class ShoesCan extends Item3D {
 	}
 
 	@Override
-	public ItemStack finishUsingItem(ItemStack itemstack, World world, LivingEntity entity) {
-		if(!entity.level.isClientSide) {
-			ItemStack boots = new ItemStack(Items.SPRAY_ON_BOOTS.get());
-			
-			boots.enchant(Enchantments.BINDING_CURSE, 1);
-			entity.setItemSlot(EquipmentSlotType.FEET, boots);
-		}
+	public void onUseTick(World world, LivingEntity entity, ItemStack itemstack, int ticksUsed) {
+		if(entity.getYHeadRot() > 60) {
+			if(tickAfterChange != 0) tickAfterChange = (int) world.dayTime();
+			currentUse = SprayCanUse.SELF;
+		} else if(currentUse == SprayCanUse.SELF) currentUse = SprayCanUse.NONE;
 		
-		return super.finishUsingItem(itemstack, world, entity);
+		if (tickAfterChange != 0 && world.dayTime() >= tickAfterChange + requiredTicks) {
+			switch(currentUse) {
+			case NONE: default: break;
+			case BLOCK:
+				
+				break;
+			case ENTITY:
+
+				break;
+			case SELF:
+				ItemStack boots = new ItemStack(Items.SPRAY_ON_BOOTS.get());
+
+				boots.enchant(Enchantments.BINDING_CURSE, 1);
+				entity.setItemSlot(EquipmentSlotType.FEET, boots);
+				break;
+			}
+		}
+		super.onUseTick(world, entity, itemstack, ticksUsed);
 	}
 	
+	
+
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-		// TODO Auto-generated method stub
-		super.onUsingTick(stack, player, count);
+	public void releaseUsing(ItemStack itemstack, World world, LivingEntity entity, int totalTicksUsed) {
+		tickAfterChange = 0;
+		super.releaseUsing(itemstack, world, entity, totalTicksUsed);
 	}
-	
+
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
 		// TODO Auto-generated method stub
 		return super.onLeftClickEntity(stack, player, entity);
+	}
+
+	public enum SprayCanUse {
+		NONE, SELF, ENTITY, BLOCK;
 	}
 }
