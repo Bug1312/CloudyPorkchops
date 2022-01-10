@@ -50,33 +50,54 @@ public class ShoesCan extends Item3D {
 
 	@Override
 	public void onUseTick(World world, LivingEntity entity, ItemStack itemstack, int ticksUsed) {
-		if(entity.getYHeadRot() > 60) {
-			if(tickAfterChange != 0) tickAfterChange = (int) world.dayTime();
-			currentUse = SprayCanUse.SELF;
-		} else if(currentUse == SprayCanUse.SELF) currentUse = SprayCanUse.NONE;
-		
-		if (tickAfterChange != 0 && world.dayTime() >= tickAfterChange + requiredTicks) {
-			switch(currentUse) {
-			case NONE: default: break;
-			case BLOCK:
-				
-				break;
-			case ENTITY:
+		if(world.isClientSide()) {
+			
+			// Self Check
+			if(entity.getRotationVector().x >= 80) {
+				if(tickAfterChange == 0) tickAfterChange = (int) world.getGameTime();
+				currentUse = SprayCanUse.SELF;
+			}
+			
+			
+			if (tickAfterChange != 0 && world.getGameTime() >= tickAfterChange + requiredTicks) {
+				switch(currentUse) {
+				case NONE: default: break;
+				case BLOCK: break;
+				case ENTITY: break;
+				case SELF:
+					ItemStack boots = new ItemStack(Items.SPRAY_ON_BOOTS.get());
 
-				break;
-			case SELF:
-				ItemStack boots = new ItemStack(Items.SPRAY_ON_BOOTS.get());
-
-				boots.enchant(Enchantments.BINDING_CURSE, 1);
-				entity.setItemSlot(EquipmentSlotType.FEET, boots);
-				break;
+					boots.enchant(Enchantments.BINDING_CURSE, 1);
+					entity.setItemSlot(EquipmentSlotType.FEET, boots);
+					resetUse();
+					break;
+				}
+			} else {
+				switch(currentUse) {
+				case NONE: default: break;
+				case BLOCK: break;
+				case ENTITY: break;
+				case SELF: 
+					if(entity.getRotationVector().x < 80) 
+						resetUse(); 
+					break;
+				}
 			}
 		}
+
+		// Destroy
+		if (world.getGameTime() % 20 == 0) 
+			itemstack.hurtAndBreak(1, entity, e -> e.broadcastBreakEvent(e.getUsedItemHand()));
+		
 		super.onUseTick(world, entity, itemstack, ticksUsed);
 	}
 	
-	
+	private void resetUse() {
+		currentUse = SprayCanUse.NONE;
+		tickAfterChange = 0;
+	}
 
+	
 	@Override
 	public void releaseUsing(ItemStack itemstack, World world, LivingEntity entity, int totalTicksUsed) {
 		tickAfterChange = 0;
@@ -85,7 +106,6 @@ public class ShoesCan extends Item3D {
 
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
-		// TODO Auto-generated method stub
 		return super.onLeftClickEntity(stack, player, entity);
 	}
 

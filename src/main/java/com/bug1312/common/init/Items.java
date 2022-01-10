@@ -16,7 +16,7 @@ public class Items {
 
 	public static RegistryObject<Item> SPRAY_ON_SHOES_CAN = register(
 			"spray_on",
-			() -> new ShoesCan(new Properties().durability(5))
+			() -> new ShoesCan(new Properties().durability(20))
 		);
 	
 	public static RegistryObject<Item> SPRAY_ON_BOOTS = register(
