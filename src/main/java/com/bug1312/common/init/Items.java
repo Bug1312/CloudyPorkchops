@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import com.bug1312.common.RegistryHandler;
 import com.bug1312.common.items.Materials;
-import com.bug1312.common.items.ShoesCan;
+import com.bug1312.common.items.inventions.ShoesCan;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;

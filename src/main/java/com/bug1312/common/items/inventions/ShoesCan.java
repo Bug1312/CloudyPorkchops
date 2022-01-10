@@ -1,6 +1,7 @@
-package com.bug1312.common.items;
+package com.bug1312.common.items.inventions;
 
 import com.bug1312.common.init.Items;
+import com.bug1312.common.items.Item3D;
 
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
