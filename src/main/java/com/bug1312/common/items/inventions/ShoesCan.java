@@ -15,6 +15,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -38,6 +39,7 @@ public class ShoesCan extends Item3D {
 	private UUID currentEntityUUID;
 	private int entityBackupTime;
 	private BlockPos currentBlockPos;
+	private Direction currentBlockFace;
 
 	public ShoesCan(Properties properties) {
 		super(properties);
@@ -65,6 +67,8 @@ public class ShoesCan extends Item3D {
 		BlockRayTraceResult blockLookingAt = RaytraceHelper.getPlayerBlockResult(entity, entity.getAttributeValue(ForgeMod.REACH_DISTANCE.get()));
 		if (blockLookingAt != null && entity.getRotationVector().x < 80) {
 			BlockPos lookingBlockPos = blockLookingAt.getBlockPos();
+			
+			currentBlockFace = blockLookingAt.getDirection();
 
 			if(currentBlockPos == null) {
 				tickAfterChange = (int) world.getGameTime();
@@ -75,6 +79,7 @@ public class ShoesCan extends Item3D {
 					|| currentBlockPos.getZ() != lookingBlockPos.getZ()) {
 				resetUse();
 			}
+			
 		}
 		
 		if(!world.isClientSide()) {
@@ -98,7 +103,7 @@ public class ShoesCan extends Item3D {
 			if (tickAfterChange != 0 && world.getGameTime() >= tickAfterChange + requiredTicks) {
 				switch(currentUse) {
 					case NONE: default: break;
-					case BLOCK: sprayOnBlock(world, currentBlockPos); break;
+					case BLOCK: sprayOnBlock(world, currentBlockPos, currentBlockFace); break;
 					case ENTITY:  sprayOnEntity(entityLookingAt.getEntity()); break;
 					case SELF: sprayOnEntity(entity); break;
 				}
@@ -137,6 +142,7 @@ public class ShoesCan extends Item3D {
 		tickAfterChange = 0;
 		currentEntityUUID = null;
 		currentBlockPos = null;
+		currentBlockFace = null;
 	}
 
 	private void sprayOnEntity(Entity entity) {
@@ -147,9 +153,9 @@ public class ShoesCan extends Item3D {
 		System.out.println(entity.getName().getString());
 	}
 	
-	private void sprayOnBlock(World world, BlockPos pos) {
+	private void sprayOnBlock(World world, BlockPos pos, Direction face) {
 		BlockState state = world.getBlockState(pos);
-		System.out.println(state.getBlock().getName().getString());
+		System.out.println(state.getBlock().getName().getString() + ", " + face);
 	}
 	
 	private void sprayOnPlayer(PlayerEntity player) {
