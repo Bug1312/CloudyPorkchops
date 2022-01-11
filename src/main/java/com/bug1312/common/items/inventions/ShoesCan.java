@@ -6,18 +6,18 @@ import com.bug1312.common.init.Items;
 import com.bug1312.common.items.Item3D;
 import com.bug1312.util.RaytraceHelper;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeMod;
@@ -37,6 +37,7 @@ public class ShoesCan extends Item3D {
 	private int tickAfterChange;
 	private UUID currentEntityUUID;
 	private int entityBackupTime;
+	private BlockPos currentBlockPos;
 
 	public ShoesCan(Properties properties) {
 		super(properties);
@@ -59,11 +60,24 @@ public class ShoesCan extends Item3D {
 	}
 
 	@Override
-	public void onUseTick(World world, LivingEntity entity, ItemStack itemstack, int ticksUsed) {
-		if(world.isClientSide()) {
-			
-			// Block Check
+	public void onUseTick(World world, LivingEntity entity, ItemStack itemstack, int ticksUsed) {	
+		// Block Check
+		BlockRayTraceResult blockLookingAt = RaytraceHelper.getPlayerBlockResult(entity, entity.getAttributeValue(ForgeMod.REACH_DISTANCE.get()));
+		if (blockLookingAt != null && entity.getRotationVector().x < 80) {
+			BlockPos lookingBlockPos = blockLookingAt.getBlockPos();
 
+			if(currentBlockPos == null) {
+				tickAfterChange = (int) world.getGameTime();
+				currentBlockPos = lookingBlockPos;
+				currentUse = SprayCanUse.BLOCK;
+			} else if (currentBlockPos.getX() != lookingBlockPos.getX()
+					|| currentBlockPos.getY() != lookingBlockPos.getY()
+					|| currentBlockPos.getZ() != lookingBlockPos.getZ()) {
+				resetUse();
+			}
+		}
+		
+		if(!world.isClientSide()) {
 			// Entity Check
 			EntityRayTraceResult entityLookingAt = RaytraceHelper.getHitResult(entity, entity.getAttributeValue(ForgeMod.REACH_DISTANCE.get()));
 			if (currentEntityUUID == null && entityLookingAt != null) {
@@ -80,17 +94,18 @@ public class ShoesCan extends Item3D {
 				currentUse = SprayCanUse.SELF;
 			}
 			
+			// If completed
 			if (tickAfterChange != 0 && world.getGameTime() >= tickAfterChange + requiredTicks) {
 				switch(currentUse) {
 					case NONE: default: break;
-					case BLOCK: break;
+					case BLOCK: sprayOnBlock(world, currentBlockPos); break;
 					case ENTITY:  sprayOnEntity(entityLookingAt.getEntity()); break;
 					case SELF: sprayOnEntity(entity); break;
 				}
+				if(currentUse != SprayCanUse.NONE) resetUse();
 			} else {
 				switch(currentUse) {
-					case NONE: default: break;
-					case BLOCK: break;
+					default: break;
 					case ENTITY:
 						entityBackupTime--;
 						
@@ -101,7 +116,6 @@ public class ShoesCan extends Item3D {
 					case SELF:  if(entity.getRotationVector().x < 80) resetUse(); break;
 				}
 				
-				if(currentUse != SprayCanUse.NONE) resetUse();
 			}
 		}
 
@@ -122,6 +136,7 @@ public class ShoesCan extends Item3D {
 		currentUse = SprayCanUse.NONE;
 		tickAfterChange = 0;
 		currentEntityUUID = null;
+		currentBlockPos = null;
 	}
 
 	private void sprayOnEntity(Entity entity) {
@@ -129,6 +144,12 @@ public class ShoesCan extends Item3D {
 			sprayOnPlayer((PlayerEntity) entity);
 			return;
 		}	
+		System.out.println(entity.getName().getString());
+	}
+	
+	private void sprayOnBlock(World world, BlockPos pos) {
+		BlockState state = world.getBlockState(pos);
+		System.out.println(state.getBlock().getName().getString());
 	}
 	
 	private void sprayOnPlayer(PlayerEntity player) {
