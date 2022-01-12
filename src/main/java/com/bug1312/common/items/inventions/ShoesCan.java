@@ -28,8 +28,8 @@ import net.minecraftforge.common.ForgeMod;
  * Plans:
  * 	Make item lock other entities
  * 	Possibly create block face (like Create super glue)
- * 	When looking down, give player spray on shoes
- * 	Damage when sprayed; even if in air
+ * 	✅ When looking down, give player spray on shoes
+ * 	✅ Damage when sprayed; even if in air
  */
 public class ShoesCan extends Item3D {
 
@@ -50,7 +50,7 @@ public class ShoesCan extends Item3D {
 		return 72000;
 	}
 
-	public UseAction getUseAnimation(ItemStack p_77661_1_) {
+	public UseAction getUseAnimation(ItemStack itemstack) {
 		return UseAction.CROSSBOW;
 	}
 
