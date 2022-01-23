@@ -1,8 +1,8 @@
-package com.bug1312.common.init;
+package com.bug1312.util.statics;
 
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class Translations {
+public class CloudyTranslations {
 		
 	@SuppressWarnings("unused")
 	private static TranslationTextComponent register(String translation) {

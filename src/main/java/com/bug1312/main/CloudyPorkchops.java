@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.bug1312.client.init.Item3DRegister;
 import com.bug1312.common.RegistryHandler;
 import com.bug1312.common.event.EventHandlerGeneral;
-import com.bug1312.common.init.Containers;
+import com.bug1312.common.init.CloudyContainers;
 import com.bug1312.common.items.Item3D;
 import com.bug1312.network.NetworkHandler;
 import com.mojang.brigadier.CommandDispatcher;
@@ -46,7 +46,7 @@ public class CloudyPorkchops {
 		modEventBus.addListener(this::serverSetup);
 		modEventBus.addListener(this::clientSetup);
 
-		Containers.CONTAINER_TYPE.register(modEventBus);
+		CloudyContainers.CONTAINER_TYPE.register(modEventBus);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec, MODID + "-server.toml");
 

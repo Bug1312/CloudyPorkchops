@@ -1,0 +1,21 @@
+{
+	"credit": "Made by Bug1312",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "cloudyporkchops:spray",
+		"texture": "cloudyporkchops:spray"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 15],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#texture"},
+				"east": {"uv": [0, 0, 1, 16], "texture": "#texture"},
+				"west": {"uv": [15, 0, 16, 16], "texture": "#texture"},
+				"up": {"uv": [0, 0, 16, 1], "texture": "#texture"},
+				"down": {"uv": [0, 15, 16, 16], "texture": "#texture"}
+			}
+		}
+	]
+}

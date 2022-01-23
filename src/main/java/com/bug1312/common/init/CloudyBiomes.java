@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
-public class Biomes {
+public class CloudyBiomes {
 
 
 	@SuppressWarnings("unused")

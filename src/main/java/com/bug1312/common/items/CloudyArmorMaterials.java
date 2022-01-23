@@ -2,6 +2,8 @@ package com.bug1312.common.items;
 
 import java.util.function.Supplier;
 
+import com.bug1312.main.CloudyPorkchops;
+
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
@@ -11,7 +13,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class Materials {
+public class CloudyArmorMaterials {
 
 	public enum Armor implements IArmorMaterial {
 		SPRAY_ON("elastic_biopolymer_adhesive", 33, new int[] { 0, 0, 0, 3 }, 10, SoundEvents.ARMOR_EQUIP_GOLD, 2.0F,
@@ -61,7 +63,7 @@ public class Materials {
 
 		@OnlyIn(Dist.CLIENT)
 		public String getName() {
-			return this.name;
+			return CloudyPorkchops.MODID + ":" + name;
 		}
 
 		public float getToughness() {

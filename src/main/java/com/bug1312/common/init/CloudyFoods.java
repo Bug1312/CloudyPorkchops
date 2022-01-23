@@ -1,5 +1,5 @@
 package com.bug1312.common.init;
 
-public class Foods {
+public class CloudyFoods {
 	
 }

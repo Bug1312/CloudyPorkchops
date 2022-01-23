@@ -16,7 +16,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
 
 @SuppressWarnings("unused")
-public class Tags {
+public class CloudyTags {
 
 	public static class Blocks {
 

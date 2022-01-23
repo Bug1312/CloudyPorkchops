@@ -4,7 +4,7 @@ import com.bug1312.common.RegistryHandler;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.fml.RegistryObject;
 
-public class Particles {
+public class CloudyParticles {
 
 	@SuppressWarnings("unused")
 	private static RegistryObject<BasicParticleType> register(String string, boolean overrideLimiter) {

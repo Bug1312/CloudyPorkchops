@@ -1,12 +1,12 @@
 package com.bug1312.common;
 
-import com.bug1312.common.init.Biomes;
-import com.bug1312.common.init.Blocks;
-import com.bug1312.common.init.Entities;
-import com.bug1312.common.init.Items;
-import com.bug1312.common.init.Sounds;
-import com.bug1312.common.init.Tiles;
-import com.bug1312.common.init.Particles;
+import com.bug1312.common.init.CloudyBiomes;
+import com.bug1312.common.init.CloudyBlocks;
+import com.bug1312.common.init.CloudyEntities;
+import com.bug1312.common.init.CloudyItems;
+import com.bug1312.common.init.CloudySounds;
+import com.bug1312.common.init.CloudyTiles;
+import com.bug1312.common.init.CloudyParticles;
 import com.bug1312.main.CloudyPorkchops;
 
 import net.minecraft.block.Block;
@@ -30,22 +30,22 @@ public class RegistryHandler {
 	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, CloudyPorkchops.MODID);
 	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, CloudyPorkchops.MODID);
 
-	public static Items items;
-	public static Blocks blocks;
-	public static Particles particles;
-	public static Biomes biomes;
-	public static Entities entities;
-	public static Sounds sounds;
-	public static Tiles tiles;
+	public static CloudyItems items;
+	public static CloudyBlocks blocks;
+	public static CloudyParticles particles;
+	public static CloudyBiomes biomes;
+	public static CloudyEntities entities;
+	public static CloudySounds sounds;
+	public static CloudyTiles tiles;
 
 	public static void init() {
-		items = new Items();
-		blocks = new Blocks();
-		particles = new Particles();
-		biomes = new Biomes();
-		entities = new Entities();
-		sounds = new Sounds();
-		tiles = new Tiles();
+		items = new CloudyItems();
+		blocks = new CloudyBlocks();
+		particles = new CloudyParticles();
+		biomes = new CloudyBiomes();
+		entities = new CloudyEntities();
+		sounds = new CloudySounds();
+		tiles = new CloudyTiles();
 		
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());

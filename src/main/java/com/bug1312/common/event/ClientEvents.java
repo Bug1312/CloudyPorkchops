@@ -7,10 +7,13 @@ import java.util.Random;
 import com.bug1312.client.render.Item3DRendering;
 import com.bug1312.client.render.Item3DRendering.ItemRenderInfo;
 import com.bug1312.client.render.Item3DRendering.ItemRenderInfo.OtherModel;
+import com.bug1312.common.init.CloudyBlocks;
 import com.bug1312.main.CloudyPorkchops;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -23,10 +26,16 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(modid = CloudyPorkchops.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
 
+	@SubscribeEvent
+	public static void renderSetup(FMLClientSetupEvent event) {
+		RenderTypeLookup.setRenderLayer(CloudyBlocks.SPRAY_ON.get(), RenderType.translucent());
+	}
+	
 	@SubscribeEvent
 	@SuppressWarnings("deprecation")
 	public static void modelBakeEvent(ModelBakeEvent event) {
