@@ -1,8 +1,9 @@
 {
+	"credit": "Made by Bug1312",
 	"ambientocclusion": false,
 	"textures": {
-		"texture": "cloudyporkchops:block/elastic_biopolymer_adhesive",
-		"particle": "cloudyporkchops:block/elastic_biopolymer_adhesive"
+		"particle": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+		"texture": "cloudyporkchops:block/elastic_biopolymer_adhesive"
 	},
 	"elements": [
 		{
@@ -10,10 +11,11 @@
 			"to": [16, 16, 16],
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#texture"},
-				"east": {"uv": [0, 0, 1, 16], "texture": "#texture"},
-				"west": {"uv": [15, 0, 16, 16], "texture": "#texture"},
-				"up": {"uv": [0, 0, 16, 1], "texture": "#texture"},
-				"down": {"uv": [0, 15, 16, 16], "texture": "#texture"}
+				"east": {"uv": [0, 0, 1, 16], "texture": "#texture", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#texture"},
+				"west": {"uv": [15, 0, 16, 16], "texture": "#texture", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 1], "texture": "#texture", "cullface": "up"},
+				"down": {"uv": [0, 15, 16, 16], "texture": "#texture", "cullface": "down"}
 			}
 		}
 	]

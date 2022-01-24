@@ -10,6 +10,7 @@ import com.bug1312.cloudyporkchops.util.RaytraceHelper;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.HorizontalFaceBlock;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -26,8 +27,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeMod;
-
-// WIP
 
 public class ShoesCan extends Item3D {
 
@@ -103,9 +102,7 @@ public class ShoesCan extends Item3D {
 			// If completed
 			if (tickAfterChange != 0 && world.getGameTime() >= tickAfterChange + requiredTicks) {
 				switch (currentUse) {
-				case NONE:
-				default:
-					break;
+				case NONE: default: break;
 				case BLOCK:
 					sprayOnBlock(world, currentBlockPos, currentBlockFace);
 					break;
@@ -120,7 +117,9 @@ public class ShoesCan extends Item3D {
 					resetUse();
 			} else {
 				switch (currentUse) {
-				default:
+				default: break;
+				case BLOCK:
+					if(world.isEmptyBlock(currentBlockPos)) resetUse();
 					break;
 				case ENTITY:
 					entityBackupTime--;
@@ -173,13 +172,15 @@ public class ShoesCan extends Item3D {
 		Direction newBlockDir = face.getOpposite();
 		BooleanProperty newBlockDirProp = DirectionHelper.getProp(newBlockDir);
 
-		if (world.getBlockState(pos).getBlock() != CloudyBlocks.SPRAY_ON.get()) {
+		Boolean flag = HorizontalFaceBlock.canAttach(world, newBlockPos, newBlockDir);
+
+		if (flag) {
 			if (state.getBlock() == CloudyBlocks.SPRAY_ON.get())
 				world.setBlock(newBlockPos, state.setValue(newBlockDirProp, true), 2);
 			if (state.getBlock() == Blocks.AIR)
-				world.setBlock(newBlockPos,
-						CloudyBlocks.SPRAY_ON.get().defaultBlockState().setValue(newBlockDirProp, true), 2);
+				world.setBlock(newBlockPos, CloudyBlocks.SPRAY_ON.get().defaultBlockState().setValue(newBlockDirProp, true), 2);
 		}
+		
 	}
 
 	private void sprayOnPlayer(PlayerEntity player) {
