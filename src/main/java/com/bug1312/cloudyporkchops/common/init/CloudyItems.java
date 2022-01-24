@@ -15,7 +15,7 @@ import net.minecraftforge.fml.RegistryObject;
 public class CloudyItems {
 
 	public static RegistryObject<Item> SPRAY_ON_SHOES_CAN = register(
-			"spray_on",
+			"spray_on_can",
 			() -> new ShoesCan(new Properties().durability(20))
 		);
 	

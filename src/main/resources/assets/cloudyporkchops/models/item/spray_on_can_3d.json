@@ -3,8 +3,7 @@
 	"ambientocclusion": false,
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "cloudyporkchops:can_3d",
-		"particle": "cloudyporkchops:can_3d"
+		"0": "cloudyporkchops:item/spray_on_shoes_can_3d"
 	},
 	"elements": [
 		{

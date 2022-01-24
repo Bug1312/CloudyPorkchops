@@ -1,8 +1,8 @@
 {
 	"ambientocclusion": false,
 	"textures": {
-		"particle": "cloudyporkchops:spray",
-		"texture": "cloudyporkchops:spray"
+		"texture": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+		"particle": "cloudyporkchops:block/elastic_biopolymer_adhesive"
 	},
 	"elements": [
 		{

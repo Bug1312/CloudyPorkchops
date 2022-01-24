@@ -28,13 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeMod;
 
 // WIP
-/*
- * Plans:
- * 	Make item lock other entities
- * 	Possibly create block face (like Create super glue)
- * 	✅ When looking down, give player spray on shoes
- * 	✅ Damage when sprayed; even if in air
- */
+
 public class ShoesCan extends Item3D {
 
 	private int requiredTicks = 2 * 20;
