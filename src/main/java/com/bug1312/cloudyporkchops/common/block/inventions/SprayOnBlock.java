@@ -39,27 +39,16 @@ public class SprayOnBlock extends Block implements IWaterLoggable {
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader block, BlockPos pos,
 			ISelectionContext p_220053_4_) {
-		VoxelShape up;
-		VoxelShape down;
-		VoxelShape north;
-		VoxelShape east;
-		VoxelShape south;
-		VoxelShape west;
+		VoxelShape outputShape = VoxelShapes.empty();
 		
-		if(state.getValue(UP)) up = VoxelShapes.box(0, 15/16D, 0, 1, 1, 1);
-		else up = VoxelShapes.empty();
-		if(state.getValue(DOWN)) down = VoxelShapes.box(0, 0, 0, 1, 1/16D, 1);
-		else down = VoxelShapes.empty();
-		if(state.getValue(NORTH)) north = VoxelShapes.box(0, 0, 0, 1, 1, 1/16D);
-		else north = VoxelShapes.empty();
-		if(state.getValue(EAST)) east = VoxelShapes.box(15/16D, 0, 0, 1, 1, 1);
-		else east = VoxelShapes.empty();
-		if(state.getValue(SOUTH)) south = VoxelShapes.box(0, 0, 15/16D, 1, 1, 1);
-		else south = VoxelShapes.empty();
-		if(state.getValue(WEST)) west = VoxelShapes.box(0, 0, 0, 1/16D, 1, 1);
-		else west = VoxelShapes.empty();
+		if(state.getValue(UP)   ) outputShape = VoxelShapes.or(outputShape, VoxelShapes.box(0, 15/16D, 0, 1, 1, 1));
+		if(state.getValue(DOWN) ) outputShape = VoxelShapes.or(outputShape, VoxelShapes.box(0, 0, 0, 1, 1/16D, 1) );
+		if(state.getValue(NORTH)) outputShape = VoxelShapes.or(outputShape, VoxelShapes.box(0, 0, 0, 1, 1, 1/16D) );
+		if(state.getValue(EAST) ) outputShape = VoxelShapes.or(outputShape, VoxelShapes.box(15/16D, 0, 0, 1, 1, 1));
+		if(state.getValue(SOUTH)) outputShape = VoxelShapes.or(outputShape, VoxelShapes.box(0, 0, 15/16D, 1, 1, 1));
+		if(state.getValue(WEST) ) outputShape = VoxelShapes.or(outputShape, VoxelShapes.box(0, 0, 0, 1/16D, 1, 1) );
 
-		return VoxelShapes.or(up, down, north, east, south, west);
+		return outputShape;
 	}
 	
 	
