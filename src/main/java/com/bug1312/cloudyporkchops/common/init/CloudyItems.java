@@ -20,6 +20,9 @@ public class CloudyItems {
 
 	/* Craftables */
 	public static RegistryObject<Item> SPRAY_ON_SHARDS 			= register("biopolymer_adhesive_shards", () -> new Item(new Properties()));
+
+	/* Foods */
+	public static RegistryObject<Item> JELLO 					= register("jello", () -> new Item(new Properties().food(CloudyFoodBuilders.JELLO)));
 	
 	/* Armor */
 	public static RegistryObject<Item> SPRAY_ON_BOOTS 			= register("spray_on_boots", () -> new ArmorItem(CloudyArmorMaterials.Armor.SPRAY_ON, EquipmentSlotType.FEET, new Properties().setNoRepair()));
