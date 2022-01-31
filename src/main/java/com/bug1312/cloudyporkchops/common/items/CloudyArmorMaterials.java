@@ -16,9 +16,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class CloudyArmorMaterials {
 
 	public enum Armor implements IArmorMaterial {
-		SPRAY_ON("elastic_biopolymer_adhesive", 33, new int[] { 0, 0, 0, 3 }, 10, SoundEvents.ARMOR_EQUIP_GOLD, 2.0F,
-				0.0F, null);
+		/* Actual Materials */
+		SPRAY_ON("elastic_biopolymer_adhesive", 33, new int[] { 0, 0, 0, 3 }, 0, SoundEvents.ARMOR_EQUIP_GOLD, 2.0F, 0.0F, null);
 
+		
+		/* Funni code ctrl+c, ctrl+v'd */
 		private static final int[] HEALTH_PER_SLOT = new int[] { 13, 15, 16, 11 };
 		private final String name;
 		private final int durabilityMultiplier;
@@ -29,50 +31,33 @@ public class CloudyArmorMaterials {
 		private final float knockbackResistance;
 		private final LazyValue<Ingredient> repairIngredient;
 
-		private Armor(String p_i231593_3_, int p_i231593_4_, int[] p_i231593_5_, int p_i231593_6_,
-				SoundEvent p_i231593_7_, float p_i231593_8_, float p_i231593_9_, Supplier<Ingredient> p_i231593_10_) {
-			this.name = p_i231593_3_;
-			this.durabilityMultiplier = p_i231593_4_;
-			this.slotProtections = p_i231593_5_;
-			this.enchantmentValue = p_i231593_6_;
-			this.sound = p_i231593_7_;
-			this.toughness = p_i231593_8_;
-			this.knockbackResistance = p_i231593_9_;
-			this.repairIngredient = new LazyValue<>(p_i231593_10_);
+		private Armor(String _name, int _durabilityMultiplier, int[] _slotProtections, int _enchantmentValue,
+				SoundEvent _sound, float _toughness, float _knockbackResistance, Supplier<Ingredient> _repairIngredient) {
+			this.name = _name;
+			this.durabilityMultiplier = _durabilityMultiplier;
+			this.slotProtections = _slotProtections;
+			this.enchantmentValue = _enchantmentValue;
+			this.sound = _sound;
+			this.toughness = _toughness;
+			this.knockbackResistance = _knockbackResistance;
+			this.repairIngredient = new LazyValue<>(_repairIngredient);
 		}
 
-		public int getDurabilityForSlot(EquipmentSlotType p_200896_1_) {
-			return HEALTH_PER_SLOT[p_200896_1_.getIndex()] * this.durabilityMultiplier;
-		}
+		@OnlyIn(Dist.CLIENT) public String getName() { return CloudyPorkchops.MODID + ":" + name; }
 
-		public int getDefenseForSlot(EquipmentSlotType p_200902_1_) {
-			return this.slotProtections[p_200902_1_.getIndex()];
-		}
+		public int getDurabilityForSlot(EquipmentSlotType slot) { return HEALTH_PER_SLOT[slot.getIndex()] * this.durabilityMultiplier; }
 
-		public int getEnchantmentValue() {
-			return this.enchantmentValue;
-		}
+		public int getDefenseForSlot(EquipmentSlotType slot) { return this.slotProtections[slot.getIndex()]; }
 
-		public SoundEvent getEquipSound() {
-			return this.sound;
-		}
+		public int getEnchantmentValue() { return this.enchantmentValue; }
 
-		public Ingredient getRepairIngredient() {
-			return this.repairIngredient.get();
-		}
+		public SoundEvent getEquipSound() { return this.sound; }
 
-		@OnlyIn(Dist.CLIENT)
-		public String getName() {
-			return CloudyPorkchops.MODID + ":" + name;
-		}
+		public Ingredient getRepairIngredient() { return this.repairIngredient.get(); }
 
-		public float getToughness() {
-			return this.toughness;
-		}
+		public float getToughness() { return this.toughness; }
 
-		public float getKnockbackResistance() {
-			return this.knockbackResistance;
-		}
+		public float getKnockbackResistance() { return this.knockbackResistance; }
 
 	}
 

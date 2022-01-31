@@ -14,16 +14,18 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class CloudyItems {
 
-	public static RegistryObject<Item> SPRAY_ON_SHOES_CAN = register(
-			"spray_on_can",
-			() -> new ShoesCan(new Properties().durability(20))
-		);
-	
-	public static RegistryObject<Item> SPRAY_ON_BOOTS = register(
-			"spray_on_boots",
-			() -> new ArmorItem(CloudyArmorMaterials.Armor.SPRAY_ON, EquipmentSlotType.FEET, new Properties().setNoRepair())
-		);
+	/* Tools */
+	public static RegistryObject<Item> SPRAY_ON_SHOES_CAN 		= register("spray_on_shoes", () -> new ShoesCan(new Properties().durability(20)));
+	public static RegistryObject<Item> SUPER_SPRAY_ON_SHOES_CAN = register("super_spray_on_shoes", () -> new ShoesCan(new Properties().durability(50)));
 
+	/* Craftables */
+	public static RegistryObject<Item> SPRAY_ON_SHARDS 			= register("biopolymer_adhesive_shards", () -> new Item(new Properties()));
+	
+	/* Armor */
+	public static RegistryObject<Item> SPRAY_ON_BOOTS 			= register("spray_on_boots", () -> new ArmorItem(CloudyArmorMaterials.Armor.SPRAY_ON, EquipmentSlotType.FEET, new Properties().setNoRepair()));
+
+	
+	/* Register Method */
 	private static RegistryObject<Item> register(String id, final Supplier<? extends Item> supplier) {
 		return RegistryHandler.ITEMS.register(id, supplier);
 	}

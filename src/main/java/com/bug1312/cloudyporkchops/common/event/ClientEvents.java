@@ -33,7 +33,8 @@ public class ClientEvents {
 
 	@SubscribeEvent
 	public static void renderSetup(FMLClientSetupEvent event) {
-		RenderTypeLookup.setRenderLayer(CloudyBlocks.SPRAY_ON.get(), RenderType.translucent());
+		RenderTypeLookup.setRenderLayer(CloudyBlocks.SPRAY_ON_SIDE.get(), RenderType.translucent());
+		RenderTypeLookup.setRenderLayer(CloudyBlocks.SPRAY_ON_FULL.get(), RenderType.translucent());
 	}
 	
 	@SubscribeEvent

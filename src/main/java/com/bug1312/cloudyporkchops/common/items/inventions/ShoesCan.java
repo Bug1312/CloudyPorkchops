@@ -175,10 +175,10 @@ public class ShoesCan extends Item3D {
 		Boolean flag = HorizontalFaceBlock.canAttach(world, newBlockPos, newBlockDir);
 
 		if (flag) {
-			if (state.getBlock() == CloudyBlocks.SPRAY_ON.get())
+			if (state.getBlock() == CloudyBlocks.SPRAY_ON_SIDE.get())
 				world.setBlock(newBlockPos, state.setValue(newBlockDirProp, true), 2);
 			if (state.getBlock() == Blocks.AIR)
-				world.setBlock(newBlockPos, CloudyBlocks.SPRAY_ON.get().defaultBlockState().setValue(newBlockDirProp, true), 2);
+				world.setBlock(newBlockPos, CloudyBlocks.SPRAY_ON_SIDE.get().defaultBlockState().setValue(newBlockDirProp, true), 2);
 		}
 		
 	}

@@ -7,6 +7,7 @@ public class Item3DRegister {
 	
 	public static void registerItems() {
 		Item3DRendering.addItemRender(CloudyItems.SPRAY_ON_SHOES_CAN.get());
+		Item3DRendering.addItemRender(CloudyItems.SUPER_SPRAY_ON_SHOES_CAN.get());
 	}
 
 }
