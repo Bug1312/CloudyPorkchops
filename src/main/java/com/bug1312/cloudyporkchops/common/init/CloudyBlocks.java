@@ -1,12 +1,14 @@
 package com.bug1312.cloudyporkchops.common.init;
 
 import com.bug1312.cloudyporkchops.common.RegistryHandler;
+import com.bug1312.cloudyporkchops.common.block.foods.Jello;
 import com.bug1312.cloudyporkchops.common.block.inventions.InvisibleTable;
 import com.bug1312.cloudyporkchops.common.block.inventions.SprayOnBlock;
 
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BreakableBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
@@ -18,6 +20,9 @@ public class CloudyBlocks {
 	/* Decor */
 	public static RegistryObject<Block> INVISIBLE_TABLE = registerBlock(new InvisibleTable(Properties.of(Material.WOOD).noOcclusion()), "invisible_table", true);
 
+	/* Foods */
+	public static RegistryObject<Block> JELLO = registerBlock(new Jello(Properties.of(Material.CLAY, MaterialColor.COLOR_ORANGE).speedFactor(0.4F).noOcclusion().sound(SoundType.HONEY_BLOCK)), "jello_block", true);
+	
 	/* Useful */
 	
 	/* Crafting */
