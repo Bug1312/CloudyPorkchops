@@ -1,7 +1,5 @@
 package com.bug1312.cloudyporkchops.common.block.foods;
 
-import com.bug1312.cloudyporkchops.common.init.CloudyBlocks;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlimeBlock;
 import net.minecraft.entity.Entity;
@@ -12,7 +10,6 @@ import net.minecraft.util.math.shapes.EntitySelectionContext;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -25,9 +22,9 @@ public class Jello extends SlimeBlock {
 		super(properties);
 	}
 
-	@Override public void fallOn(World world, BlockPos pos, Entity entity, float speed) { }
 
-	@SuppressWarnings("deprecation") @Override
+	@SuppressWarnings("deprecation")
+	@Override
 	public VoxelShape getCollisionShape(BlockState state, IBlockReader block, BlockPos pos, ISelectionContext context) {
 		if (context instanceof EntitySelectionContext) {
 			EntitySelectionContext entitycollisioncontext = (EntitySelectionContext) context;
@@ -48,19 +45,23 @@ public class Jello extends SlimeBlock {
 	}
 
 	@Override
+	public void fallOn(World world, BlockPos pos, Entity entity, float speed) {}
+	
+	@Override
+	public void updateEntityAfterFallOn(IBlockReader world, Entity entity) {
+		if (world.getBlockState(entity.blockPosition()).getBlock() instanceof Jello) return;
+		super.updateEntityAfterFallOn(world, entity);
+	}
+
+	@Override
 	public VoxelShape getVisualShape(BlockState state, IBlockReader block, BlockPos pos, ISelectionContext context) {
 		return VoxelShapes.empty();
 	}
 	
-	@Override // Workin on this bit
-	public boolean isScaffolding(BlockState state, IWorldReader world, BlockPos pos, LivingEntity entity) {
+	@Override
+	public boolean isLadder(BlockState state, IWorldReader world, BlockPos pos, LivingEntity entity) {
+//		if(entity.getDeltaMovement().y < 0) return false; // Must check game feel
 		return true;
 	}
-
-	@Override
-	public void updateEntityAfterFallOn(IBlockReader world, Entity entity) {
-		if (world.getBlockState(entity.blockPosition().above()).getBlock() instanceof Jello) return;
-		super.updateEntityAfterFallOn(world, entity);
-	}
-
+	
 }
