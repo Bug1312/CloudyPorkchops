@@ -34,9 +34,7 @@ public class CloudyBlocks {
 	
 	/* Register Methods */
 	public static RegistryObject<Block> registerBlock(Block block, String name, Item.Properties properties, boolean hasItem) {
-		if (hasItem) {
-			RegistryHandler.ITEMS.register(name, () -> new BlockItem(block, properties));
-		}
+		if (hasItem) RegistryHandler.ITEMS.register(name, () -> new BlockItem(block, properties));
 		return RegistryHandler.BLOCKS.register(name, () -> block);
 	}	
 	

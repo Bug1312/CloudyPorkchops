@@ -18,17 +18,17 @@ public class InvisibleTable extends Block {
 	}
 		
 	@Override
-	public VoxelShape getShape(BlockState p_220053_1_, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext p_220053_4_) {
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 		return Shape;
 	}
 	
 	@Override
-	public BlockRenderType getRenderShape(BlockState p_149645_1_) {
+	public BlockRenderType getRenderShape(BlockState state) {
 		return BlockRenderType.INVISIBLE;
 	}
 	
 	@Override
-	public boolean propagatesSkylightDown(BlockState p_200123_1_, IBlockReader p_200123_2_, BlockPos p_200123_3_) {
+	public boolean propagatesSkylightDown(BlockState state, IBlockReader world, BlockPos pos) {
 		return true;
 	}
 }

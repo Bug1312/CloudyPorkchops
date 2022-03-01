@@ -37,8 +37,7 @@ public class SprayOnBlock extends Block implements IWaterLoggable {
 	}
 	
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader block, BlockPos pos,
-			ISelectionContext p_220053_4_) {
+	public VoxelShape getShape(BlockState state, IBlockReader block, BlockPos pos, ISelectionContext context) {
 		VoxelShape outputShape = VoxelShapes.empty();
 		
 		if(state.getValue(UP)   ) outputShape = VoxelShapes.or(outputShape, VoxelShapes.box(0, 15/16D, 0, 1, 1, 1));
