@@ -25,3 +25,5 @@ src/test
 
 # Files from Forge MDK
 forge*changelog.txt
+/.apt_generated/
+/.apt_generated_tests/
