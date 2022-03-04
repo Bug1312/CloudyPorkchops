@@ -19,8 +19,8 @@ import net.minecraft.util.ResourceLocation;
 public class LayerRendererMixin<T extends Entity, M extends EntityModel<T>> {
 	
 	@ModifyVariable(at = @At("STORE"), ordinal = 0, method = "Lnet/minecraft/client/renderer/entity/layers/LayerRenderer;renderColoredCutoutModel(Lnet/minecraft/client/renderer/entity/model/EntityModel;Lnet/minecraft/util/ResourceLocation;Lcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;ILnet/minecraft/entity/LivingEntity;FFF)V")
-	private static <T extends LivingEntity> IVertexBuilder swapTexture(IVertexBuilder def, EntityModel<T> u_0, ResourceLocation u_1, MatrixStack u_2, IRenderTypeBuffer buffer, int u_3, T entity) {
-		if(SprayEntityHelper.isEntitySprayedOn(entity)) return buffer.getBuffer(RenderType.entityCutoutNoCull(SprayEntityHelper.texture));
+	private static <T extends LivingEntity> IVertexBuilder swapTexture(IVertexBuilder def, EntityModel<T> u_0, ResourceLocation texture, MatrixStack u_2, IRenderTypeBuffer buffer, int u_3, T entity) {
+		if(SprayEntityHelper.isEntitySprayedOn(entity)) return buffer.getBuffer(RenderType.entityCutoutNoCull(SprayEntityHelper.getTexture(texture)));
 		return def;
 	}
 
