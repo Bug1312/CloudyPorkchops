@@ -17,7 +17,7 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class CloudyBlocks {
 
-	/* Decor */
+	/* Decoration */
 	public static RegistryObject<Block> INVISIBLE_TABLE = registerBlock(new InvisibleTable(Properties.of(Material.WOOD).noOcclusion()), "invisible_table", true);
 
 	/* Foods */

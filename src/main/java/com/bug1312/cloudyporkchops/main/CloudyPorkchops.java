@@ -1,28 +1,19 @@
 package com.bug1312.cloudyporkchops.main;
 
-import java.util.Random;
-import java.util.stream.Collectors;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import com.bug1312.cloudyporkchops.client.events.ClientBusEvents;
+import com.bug1312.cloudyporkchops.client.events.ClientModEvents;
 import com.bug1312.cloudyporkchops.client.init.Item3DRegister;
 import com.bug1312.cloudyporkchops.common.RegistryHandler;
-import com.bug1312.cloudyporkchops.common.event.EventHandlerGeneral;
+import com.bug1312.cloudyporkchops.common.event.CommonBusEvents;
 import com.bug1312.cloudyporkchops.common.init.CloudyContainers;
-import com.bug1312.cloudyporkchops.common.items.Item3D;
 import com.bug1312.cloudyporkchops.network.NetworkHandler;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.command.CommandSource;
-import net.minecraft.world.gen.feature.BlockStateFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -30,7 +21,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @SuppressWarnings("unused")
@@ -51,8 +41,13 @@ public class CloudyPorkchops {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec, MODID + "-server.toml");
 
 		bothSideSetup(modEventBus);
+		
 		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(EventHandlerGeneral.class);
+		
+		MinecraftForge.EVENT_BUS.register(ClientBusEvents.class);
+		MinecraftForge.EVENT_BUS.register(CommonBusEvents.class);
+	
+		FMLJavaModLoadingContext.get().getModEventBus().register(ClientModEvents.class);
 	}
 
 

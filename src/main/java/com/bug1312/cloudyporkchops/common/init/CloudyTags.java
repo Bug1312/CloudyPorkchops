@@ -1,6 +1,7 @@
 package com.bug1312.cloudyporkchops.common.init;
 
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
+import com.bug1312.cloudyporkchops.util.statics.CloudyTagKeys;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -13,6 +14,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
 
 @SuppressWarnings("unused")
@@ -40,8 +42,10 @@ public class CloudyTags {
 		}
 	}
 
-	public static class EntityTypes {
+	public static class EntityTypes {	
 
+		public static final Tags.IOptionalNamedTag<EntityType<?>> CANT_SPRAY = createTag(CloudyTagKeys.ENTITY_CANT_SPRAY);
+		
 		// Creation Method
 		private static IOptionalNamedTag<EntityType<?>> createTag(String name) {
 			return EntityTypeTags.createOptional(new ResourceLocation(CloudyPorkchops.MODID, name));

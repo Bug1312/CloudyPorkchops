@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
+import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class SprayEntityHelper {
@@ -16,7 +18,11 @@ public class SprayEntityHelper {
 	public static ResourceLocation texture = new ResourceLocation(CloudyPorkchops.MODID, "textures/block/elastic_biopolymer_adhesive.png");
 
 	public static boolean isEntitySprayedOn(Entity entity) {
-		return true;
+		if (entity instanceof LivingEntity) {
+			LivingEntity livingEntity = (LivingEntity) entity;
+			return (livingEntity.serializeNBT().getInt(CloudyNBTKeys.SPRAYED_ON) > 0);
+		}
+		return false;
 	}
 	
 	public static ResourceLocation getTexture(ResourceLocation texture) {
@@ -45,7 +51,7 @@ public class SprayEntityHelper {
 
 			return res;
 		} catch (IOException err) { err.printStackTrace(); }
+		
 		return texture;
-
 	}
 }
