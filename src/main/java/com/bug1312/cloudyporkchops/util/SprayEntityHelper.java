@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
+import com.bug1312.cloudyporkchops.mixins.LivingEntityMixin;
 import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
 
 import net.minecraft.client.Minecraft;
@@ -18,7 +19,9 @@ public class SprayEntityHelper {
 	public static ResourceLocation texture = new ResourceLocation(CloudyPorkchops.MODID, "textures/block/elastic_biopolymer_adhesive.png");
 
 	public static boolean isEntitySprayedOn(Entity entity) {
-		if (entity instanceof LivingEntity) {
+		if (entity != null && entity instanceof LivingEntity) {
+//			HelperInterface livingEntity = (HelperInterface) entity;
+//			return (livingEntity.isSprayedOn());
 			LivingEntity livingEntity = (LivingEntity) entity;
 			return (livingEntity.serializeNBT().getInt(CloudyNBTKeys.SPRAYED_ON) > 0);
 		}
