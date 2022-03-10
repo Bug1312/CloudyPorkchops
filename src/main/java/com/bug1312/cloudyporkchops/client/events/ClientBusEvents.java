@@ -20,9 +20,9 @@ public class ClientBusEvents {
 	public static void sprayedEntityParticles(LivingEvent event) {
 		if (event != null && event.getEntity() != null) {
 			Entity entity = event.getEntity();
-			if (entity.level.isClientSide && SprayEntityHelper.isEntitySprayedOn(entity) && entity.level.getGameTime() % 5 == 0) {
+			if (entity.level.isClientSide && SprayEntityHelper.isEntitySprayedOn(entity) && entity.level.getGameTime() % 2 == 0) {
 				Vector3d pos = entity.position();
-				BlockParticleData particle = new BlockParticleData(ParticleTypes.BLOCK, CloudyBlocks.SPRAY_ON_FULL.get().defaultBlockState()).setPos(new BlockPos(pos));
+				BlockParticleData particle = new BlockParticleData(ParticleTypes.BLOCK, CloudyBlocks.SPRAY_ON_SIDE.get().defaultBlockState()).setPos(new BlockPos(pos));
 
 				entity.level.addParticle(particle, pos.x, pos.y, pos.z, 0.0D, 0.1D, 0.0D);
 			}
