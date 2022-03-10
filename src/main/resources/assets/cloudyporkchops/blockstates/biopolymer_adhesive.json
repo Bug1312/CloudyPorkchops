@@ -1,0 +1,150 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "x": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "down": "false",
+        "south": "false",
+        "east": "false",
+        "north": "false",
+        "west": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "x": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive"
+      }
+    },
+    {
+      "when": {
+        "down": "false",
+        "south": "false",
+        "east": "false",
+        "north": "false",
+        "west": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive"
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "down": "false",
+        "south": "false",
+        "east": "false",
+        "north": "false",
+        "west": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "down": "false",
+        "south": "false",
+        "east": "false",
+        "north": "false",
+        "west": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "down": "false",
+        "south": "false",
+        "east": "false",
+        "north": "false",
+        "west": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "x": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "down": "false",
+        "south": "false",
+        "east": "false",
+        "north": "false",
+        "west": "false",
+        "up": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/elastic_biopolymer_adhesive",
+        "x": 90,
+        "uvlock": true
+      }
+    }
+  ]
+}
