@@ -7,6 +7,7 @@ import com.bug1312.cloudyporkchops.common.init.CloudyItems;
 import com.bug1312.cloudyporkchops.common.items.Item3D;
 import com.bug1312.cloudyporkchops.util.DirectionHelper;
 import com.bug1312.cloudyporkchops.util.RaytraceHelper;
+import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -14,10 +15,12 @@ import net.minecraft.block.HorizontalFaceBlock;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Direction;
@@ -163,7 +166,11 @@ public class ShoesCan extends Item3D {
 			sprayOnPlayer((PlayerEntity) entity);
 			return;
 		}
-		System.out.println(entity.getName().getString());
+		if(entity instanceof MobEntity) {
+			CompoundNBT nbt = entity.serializeNBT();
+			nbt.putShort(CloudyNBTKeys.SPRAYED_ON, (short) (10 * 20)); // 5 seconds
+			entity.deserializeNBT(nbt); 
+		}
 	}
 
 	private void sprayOnBlock(World world, BlockPos pos, Direction face) {

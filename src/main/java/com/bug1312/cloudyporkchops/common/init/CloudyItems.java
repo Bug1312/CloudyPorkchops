@@ -18,7 +18,7 @@ public class CloudyItems {
 	public static RegistryObject<Item> SPRAY_ON_SHOES_CAN 		= register("spray_on_shoes", () -> new ShoesCan(new Properties().durability(20)));
 	public static RegistryObject<Item> SUPER_SPRAY_ON_SHOES_CAN = register("super_spray_on_shoes", () -> new ShoesCan(new Properties().durability(50)));
 
-	/* Craftables */
+	/* Crafting */
 	public static RegistryObject<Item> SPRAY_ON_SHARDS 			= register("biopolymer_adhesive_shards", () -> new Item(new Properties()));
 
 	/* Foods */

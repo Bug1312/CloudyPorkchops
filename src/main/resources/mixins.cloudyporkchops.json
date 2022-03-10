@@ -1,0 +1,7 @@
+{
+  "compatibilityLevel": "JAVA_8",
+  "package": "com.bug1312.cloudyporkchops.mixins",
+  "mixins": ["MobEntityMixin"],
+  "client": ["LayerRendererMixin", "LivingRendererMixin"],
+  "server": []
+}

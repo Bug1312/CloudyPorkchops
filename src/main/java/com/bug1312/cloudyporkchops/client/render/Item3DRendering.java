@@ -78,7 +78,7 @@ public class Item3DRendering {
 			private IBakedModel model;
 
 			public OtherModel(ItemRenderInfo renderInfo, String location, TransformType type) {
-				this.location = new ModelResourceLocation(location, "inventory");
+				this.location = ModelLoader.getInventoryVariant(location);
 			}
 
 			public ResourceLocation getLocation() {
