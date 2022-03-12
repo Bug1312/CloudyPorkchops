@@ -75,74 +75,55 @@ public class ShoesCan extends Item3D {
 				tickAfterChange = (int) world.getGameTime();
 				currentBlockPos = lookingBlockPos;
 				currentUse = SprayCanUse.BLOCK;
-			} else if (currentBlockPos.getX() != lookingBlockPos.getX()
-					|| currentBlockPos.getY() != lookingBlockPos.getY()
-					|| currentBlockPos.getZ() != lookingBlockPos.getZ()) {
-				resetUse();
-			}
+			} else if (!currentBlockPos.equals(lookingBlockPos)) resetUse();
+			
 
 		}
 
 		if (!world.isClientSide()) {
 			// Entity Check
-			EntityRayTraceResult entityLookingAt = RaytraceHelper.getHitResult(entity,
-					entity.getAttributeValue(ForgeMod.REACH_DISTANCE.get()));
+			EntityRayTraceResult entityLookingAt = RaytraceHelper.getHitResult(entity, entity.getAttributeValue(ForgeMod.REACH_DISTANCE.get()));
 			if (currentEntityUUID == null && entityLookingAt != null) {
 				tickAfterChange = (int) world.getGameTime();
 				currentEntityUUID = entityLookingAt.getEntity().getUUID();
 				currentUse = SprayCanUse.ENTITY;
 			}
-			if (entityLookingAt != null)
-				entityBackupTime = 15;
+			if (entityLookingAt != null) entityBackupTime = 15;
 
 			// Self Check
 			if (entity.getRotationVector().x >= 80) {
-				if (tickAfterChange == 0)
-					tickAfterChange = (int) world.getGameTime();
+				if (tickAfterChange == 0) tickAfterChange = (int) world.getGameTime();
 				currentUse = SprayCanUse.SELF;
 			}
 
 			// If completed
 			if (tickAfterChange != 0 && world.getGameTime() >= tickAfterChange + requiredTicks) {
 				switch (currentUse) {
-				case NONE: default: break;
-				case BLOCK:
-					sprayOnBlock(world, currentBlockPos, currentBlockFace);
-					break;
-				case ENTITY:
-					sprayOnEntity(entityLookingAt.getEntity());
-					break;
-				case SELF:
-					sprayOnEntity(entity);
-					break;
+					case NONE: default: break;
+					case BLOCK: sprayOnBlock(world, currentBlockPos, currentBlockFace); break;
+					case ENTITY:
+						if (entityLookingAt.getEntity() instanceof PlayerEntity) sprayOnPlayer((PlayerEntity) entity);
+						else sprayOnEntity(entityLookingAt.getEntity()); break;
+					case SELF: sprayOnPlayer((PlayerEntity) entity); break;
 				}
-				if (currentUse != SprayCanUse.NONE)
-					resetUse();
+				if (currentUse != SprayCanUse.NONE) resetUse();
 			} else {
 				switch (currentUse) {
-				default: break;
-				case BLOCK:
-					if(world.isEmptyBlock(currentBlockPos)) resetUse();
-					break;
-				case ENTITY:
-					entityBackupTime--;
-
-					if (entityBackupTime <= 0
-							&& (entityLookingAt == null || entityLookingAt.getEntity().getUUID() != currentEntityUUID))
-						sprayOnEntity(entityLookingAt.getEntity());
-					break;
-				case SELF:
-					if (entity.getRotationVector().x < 80)
-						resetUse();
-					break;
+					default: break;
+					case BLOCK: if(world.isEmptyBlock(currentBlockPos)) resetUse(); break;
+					case ENTITY:
+						entityBackupTime--;
+						if ((entityLookingAt != null && entityLookingAt.getEntity().getUUID() != currentEntityUUID) 
+								|| (entityBackupTime <= 0 && entityLookingAt == null)
+						) resetUse(); break;
+					case SELF: if (entity.getRotationVector().x < 80) resetUse(); break;
 				}
 
 			}
 		}
 
-		// Destroy
-		if (world.getGameTime() % 20 == 0)
-			itemstack.hurtAndBreak(1, entity, e -> e.broadcastBreakEvent(e.getUsedItemHand()));
+		// Lose durability
+		if (world.getGameTime() % 20 == 0) itemstack.hurtAndBreak(1, entity, e -> e.broadcastBreakEvent(e.getUsedItemHand()));
 
 		super.onUseTick(world, entity, itemstack, ticksUsed);
 	}
@@ -162,10 +143,6 @@ public class ShoesCan extends Item3D {
 	}
 
 	private void sprayOnEntity(Entity entity) {
-		if (entity instanceof PlayerEntity) {
-			sprayOnPlayer((PlayerEntity) entity);
-			return;
-		}
 		if(entity instanceof MobEntity) {
 			CompoundNBT nbt = entity.serializeNBT();
 			nbt.putShort(CloudyNBTKeys.SPRAYED_ON, (short) (10 * 20)); // 5 seconds
@@ -182,10 +159,8 @@ public class ShoesCan extends Item3D {
 		Boolean flag = HorizontalFaceBlock.canAttach(world, newBlockPos, newBlockDir);
 
 		if (flag) {
-			if (state.getBlock() == CloudyBlocks.SPRAY_ON_SIDE.get())
-				world.setBlock(newBlockPos, state.setValue(newBlockDirProp, true), 2);
-			if (state.getBlock() == Blocks.AIR)
-				world.setBlock(newBlockPos, CloudyBlocks.SPRAY_ON_SIDE.get().defaultBlockState().setValue(newBlockDirProp, true), 2);
+			if (state.getBlock() == CloudyBlocks.SPRAY_ON_SIDE.get()) world.setBlock(newBlockPos, state.setValue(newBlockDirProp, true), 2);
+			if (state.getBlock() == Blocks.AIR) world.setBlock(newBlockPos, CloudyBlocks.SPRAY_ON_SIDE.get().defaultBlockState().setValue(newBlockDirProp, true), 2);
 		}
 		
 	}
@@ -197,7 +172,5 @@ public class ShoesCan extends Item3D {
 		player.setItemSlot(EquipmentSlotType.FEET, boots);
 	}
 
-	public enum SprayCanUse {
-		NONE, SELF, ENTITY, BLOCK;
-	}
+	public enum SprayCanUse { NONE, SELF, ENTITY, BLOCK; }
 }

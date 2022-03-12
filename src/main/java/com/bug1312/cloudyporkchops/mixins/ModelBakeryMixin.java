@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.data.ModelTextures;
 import net.minecraft.item.Item;
-import net.minecraft.profiler.IProfiler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.RegistryObject;
@@ -31,7 +30,7 @@ public abstract class ModelBakeryMixin {
 	@Shadow public abstract IUnbakedModel getModel(ResourceLocation rl);
 
 	@Inject(at = @At("HEAD"), remap = false, require = 1, allow = 1, method = "Lnet/minecraft/client/renderer/model/ModelBakery;processLoading(Lnet/minecraft/profiler/IProfiler;I)V")
-	private void initer(IProfiler p_i226056_3_, int p_i226056_4_, CallbackInfo info) {
+	private void initer(CallbackInfo info) {
 		for (RegistryObject<Item> key : Item3DRendering.ITEMS_3D)
 			Item3DRendering.addItemRender(key.get());
 
