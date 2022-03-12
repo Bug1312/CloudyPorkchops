@@ -47,13 +47,13 @@ public class ClientModEvents {
 				otherModel.setModel(modelRegistry.get(otherModel.getLocation()));
 				modelRegistry.put(otherModel.getLocation(), otherModel.getModel());
 			}
-
+						
 			IBakedModel bakedModel = new IBakedModel() {
 				@Override
-				public IBakedModel handlePerspective(ItemCameraTransforms.TransformType transformType, MatrixStack mat) {
+				public IBakedModel handlePerspective(ItemCameraTransforms.TransformType transformType, MatrixStack mat) {					
 					IBakedModel model = renderInfo.getTransforms().get(transformType).getModel();
-					if(model == null) model = baseModel;
-
+					if (model == null) model = baseModel;
+					
 					return ForgeHooksClient.handlePerspective(model, transformType, mat);
 				}
 				

@@ -2,7 +2,7 @@ package com.bug1312.cloudyporkchops.main;
 
 import com.bug1312.cloudyporkchops.client.events.ClientBusEvents;
 import com.bug1312.cloudyporkchops.client.events.ClientModEvents;
-import com.bug1312.cloudyporkchops.client.init.Item3DRegister;
+import com.bug1312.cloudyporkchops.client.render.Item3DRendering;
 import com.bug1312.cloudyporkchops.common.RegistryHandler;
 import com.bug1312.cloudyporkchops.common.event.CommonBusEvents;
 import com.bug1312.cloudyporkchops.common.init.CloudyContainers;
@@ -10,6 +10,7 @@ import com.bug1312.cloudyporkchops.network.NetworkHandler;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.command.CommandSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @SuppressWarnings("unused")
 @Mod(CloudyPorkchops.MODID)
@@ -59,7 +61,6 @@ public class CloudyPorkchops {
 	}
 	
 	private void clientSetup(final FMLClientSetupEvent event) {
-		Item3DRegister.registerItems();
 	}
 
 	@SubscribeEvent

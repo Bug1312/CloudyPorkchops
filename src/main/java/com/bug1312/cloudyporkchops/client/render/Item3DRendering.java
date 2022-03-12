@@ -9,17 +9,18 @@ import com.bug1312.cloudyporkchops.common.items.Item3D;
 
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.RegistryObject;
 
 public class Item3DRendering {
 	private static List<ItemRenderInfo> renders = new ArrayList<>();
-
+	public static ArrayList<RegistryObject<Item>> ITEMS_3D = new ArrayList<>();
+	
 	public static void addItemRender(Item item) {
 		if(item instanceof Item3D) {
-			ItemRenderInfo renderInfo = new ItemRenderInfo((Item3D) item);
+			ItemRenderInfo renderInfo = new ItemRenderInfo((Item3D) item);			
 			renders.add(renderInfo);
 		} else {
 			new StackOverflowError(item.getRegistryName() + " is not a child of Item3D");
@@ -39,7 +40,7 @@ public class Item3DRendering {
 
 		public ItemRenderInfo(Item3D item3d) {
 			this.item = (Item) item3d;
-			this.baseLocation = new ModelResourceLocation(item3d.getRegistryName(), "inventory");
+			this.baseLocation = ModelLoader.getInventoryVariant(item3d.getRegistryName().toString());
 			// Hands
 			addTransformModel(item3d.handRendering().toString(), TransformType.FIRST_PERSON_LEFT_HAND);
 			addTransformModel(item3d.handRendering().toString(), TransformType.FIRST_PERSON_RIGHT_HAND);
@@ -57,7 +58,7 @@ public class Item3DRendering {
 
 		private void addTransformModel(String extention, TransformType type) {
 			String location = item.getRegistryName() + extention;
-			ModelLoader.addSpecialModel(new ModelResourceLocation(location, "inventory"));
+			ModelLoader.addSpecialModel(ModelLoader.getInventoryVariant(location));
 			perspectives.put(type, new OtherModel(this, location, type));
 		}
 
