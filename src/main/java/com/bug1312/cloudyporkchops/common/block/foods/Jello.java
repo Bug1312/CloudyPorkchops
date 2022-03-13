@@ -22,9 +22,7 @@ public class Jello extends SlimeBlock {
 		super(properties);
 	}
 
-
-	@SuppressWarnings("deprecation")
-	@Override
+	@Override @SuppressWarnings("deprecation")
 	public VoxelShape getCollisionShape(BlockState state, IBlockReader block, BlockPos pos, ISelectionContext context) {
 		if (context instanceof EntitySelectionContext) {
 			EntitySelectionContext entitycollisioncontext = (EntitySelectionContext) context;

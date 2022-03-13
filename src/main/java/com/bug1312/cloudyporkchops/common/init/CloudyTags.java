@@ -36,6 +36,9 @@ public class CloudyTags {
 
 	public static class Items {
 
+		public static final Tags.IOptionalNamedTag<Item> EXTRA_FOODS = createTag(CloudyTagKeys.EXTRA_FOODS);
+
+		
 		// Creation Method
 		private static IOptionalNamedTag<Item> createTag(String name) {
 			return ItemTags.createOptional(new ResourceLocation(CloudyPorkchops.MODID, name));
@@ -45,6 +48,7 @@ public class CloudyTags {
 	public static class EntityTypes {	
 
 		public static final Tags.IOptionalNamedTag<EntityType<?>> CANT_SPRAY = createTag(CloudyTagKeys.ENTITY_CANT_SPRAY);
+		public static final Tags.IOptionalNamedTag<EntityType<?>> FOODIMAL   = createTag(CloudyTagKeys.ENTITY_FOODIMAL);
 		
 		// Creation Method
 		private static IOptionalNamedTag<EntityType<?>> createTag(String name) {

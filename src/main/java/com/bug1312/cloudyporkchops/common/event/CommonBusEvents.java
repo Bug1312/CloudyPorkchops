@@ -16,6 +16,6 @@ public class CommonBusEvents {
 		EntityRayTraceResult entityLookingAt = RaytraceHelper.getHitResult(event.getPlayer(), event.getPlayer().getAttributeValue(ForgeMod.REACH_DISTANCE.get()));
 		if(!(event.getPlayer().getItemInHand(event.getHand()).getItem() instanceof ShoesCan) && entityLookingAt != null && SprayEntityHelper.isEntitySprayedOn(entityLookingAt.getEntity())) { 
 			event.setCanceled(true);
-		} else event.setCanceled(false);
+		} else if(event.isCancelable()) event.setCanceled(false);
 	}
 }

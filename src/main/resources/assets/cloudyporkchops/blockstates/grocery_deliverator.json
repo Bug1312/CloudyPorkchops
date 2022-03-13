@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "axis=z,powered=false": {
+      "model": "cloudyporkchops:block/grocery_deliverator_closed"
+    },
+    "axis=z,powered=true": {
+      "model": "cloudyporkchops:block/grocery_deliverator_open"
+    },
+    "axis=x,powered=false": {
+      "model": "cloudyporkchops:block/grocery_deliverator_closed",
+      "y": 90
+    },
+    "axis=x,powered=true": {
+      "model": "cloudyporkchops:block/grocery_deliverator_open",
+      "y": 90
+    }
+  }
+}

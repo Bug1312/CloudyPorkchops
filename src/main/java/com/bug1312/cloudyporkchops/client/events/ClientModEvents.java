@@ -34,6 +34,7 @@ public class ClientModEvents {
 	public static void renderSetup(FMLClientSetupEvent event) {
 		RenderTypeLookup.setRenderLayer(CloudyBlocks.SPRAY_ON_SIDE.get(), RenderType.translucent());
 		RenderTypeLookup.setRenderLayer(CloudyBlocks.SPRAY_ON_FULL.get(), RenderType.translucent());
+		RenderTypeLookup.setRenderLayer(CloudyBlocks.GROCERY_DELIVERATOR.get(), RenderType.cutout());
 	}
 	
 	@SubscribeEvent @SuppressWarnings("deprecation")
