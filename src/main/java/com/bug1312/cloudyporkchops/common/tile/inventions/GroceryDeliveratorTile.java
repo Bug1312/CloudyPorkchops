@@ -1,5 +1,8 @@
 package com.bug1312.cloudyporkchops.common.tile.inventions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.bug1312.cloudyporkchops.common.block.inventions.GroceryDeliverator;
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
 import com.bug1312.cloudyporkchops.util.IsFoodHelper;
@@ -28,6 +31,8 @@ import net.minecraft.world.server.ServerWorld;
 
 public class GroceryDeliveratorTile extends TileEntity implements ITickableTileEntity {
 
+	public static Map<Entity, Map<BlockPos, ServerWorld>> TELEPORT_REQUESTS = new HashMap<>();
+	
 	// WIP:
 	// Add sounds
 	// Rejected clients get screen overlay of lightning
@@ -73,6 +78,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	public void entityInside(Entity entity) {
 		if (entity.isSpectator()) return;
 		BlockPos pos = this.getBlockPos();
@@ -80,9 +86,10 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 		if (VoxelShapes.joinIsNotEmpty(VoxelShapes.create(entity.getBoundingBox().move(-pos.getX(), -pos.getY(), -pos.getZ())), collisionArea, IBooleanFunction.AND)) {
 			if (IsFoodHelper.isFood(entity)) {
 				if(!entity.level.isClientSide) {
-					entity.setDeltaMovement(0,0,0);
-					entity.teleportTo(exitPos.getX(), exitPos.getY(), exitPos.getZ());
-					if(exitDim != level.getServer().getLevel(entity.level.dimension())) entity.changeDimension(exitDim);		
+					Map<BlockPos, ServerWorld> location = new HashMap<BlockPos, ServerWorld>() {{ put(exitPos, exitDim); }};					
+					TELEPORT_REQUESTS.put(entity, location);
+					
+						
 				}
 			} else {
 				if(!(entity instanceof ItemEntity)) entity.hurt(CloudyDamageSources.GROCERY_DELIVERATOR, 2);

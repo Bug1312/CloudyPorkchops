@@ -1,21 +1,28 @@
 package com.bug1312.cloudyporkchops.common.block.inventions;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 
 import com.bug1312.cloudyporkchops.common.block.TileEntityBaseBlock;
 import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
+import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
 import com.bug1312.cloudyporkchops.util.statics.CloudyProperties;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.Half;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -81,9 +88,26 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 	}
 	
 	@Override @SuppressWarnings("deprecation")
-	public void onPlace(BlockState state, World world, BlockPos pos, BlockState newState, boolean u_0) {
-		if(state.getValue(BlockStateProperties.HALF) == Half.BOTTOM && isPowered(pos, world)) addTop(state, world, pos);
-		super.onRemove(state, world, pos, newState, u_0);
+	public void onPlace(BlockState state, World world, BlockPos pos, BlockState replacedState, boolean u_0) {
+		if(state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
+			UUID uuid = Minecraft.getInstance().player.getUUID();
+			System.out.println(uuid);
+			ServerPlayerEntity player = world.getServer().getPlayerList().getPlayer(uuid);
+			
+			RegistryKey<World> exitDim = player.getRespawnDimension();
+			BlockPos exitPos = player.getRespawnPosition();
+			if(exitPos == null) exitPos = world.getServer().getLevel(player.getRespawnDimension()).getSharedSpawnPos();
+			
+			CompoundNBT nbt = world.getBlockEntity(pos).serializeNBT();
+			nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(exitPos));
+			nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, exitDim.location().toString());
+			world.getBlockEntity(pos).deserializeNBT(nbt);
+		
+			if(isPowered(pos, world)) addTop(state, world, pos);
+
+		}
+		
+		super.onPlace(state, world, pos, replacedState, u_0);
 	}
 	
 	@Override @SuppressWarnings("deprecation")
