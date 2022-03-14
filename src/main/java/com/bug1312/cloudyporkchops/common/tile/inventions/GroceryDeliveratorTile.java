@@ -15,36 +15,58 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.server.ServerWorld;
 
-public class TileGroceryDeliverator extends TileEntity implements ITickableTileEntity {
+public class GroceryDeliveratorTile extends TileEntity implements ITickableTileEntity {
 
 	// WIP:
 	// Add sounds
 	// Rejected clients get screen overlay of lightning
+	// Redstone particles
 	// Must figure out how to setup location of exitPos (NO GUI ALLOWED)
-		// new place method (see Create Weighted Ejector)	-- Non Stackable
+		// new place method (2nd item for placing exit)		-- Non Stackable
 		// two teleporters									-- Not representative
 		// spawn point (delivers groceries 'home')			-- Who would use normally
-		// to player who placed								-- Useless without machines
+	// For some reason NBT wont save
 	
 	private BlockPos exitPos;
+	private ServerWorld exitDim;
 	
-	public TileGroceryDeliverator() {
+	public GroceryDeliveratorTile() {
 		super(CloudyTiles.GROCERY_DELIVERATOR.get());
 	}
 
 	public BlockPos getExitPos() { return exitPos; }
 	public void setExitPos(BlockPos pos) { this.exitPos = pos; }
 	
+	public ServerWorld getExitDim() { return exitDim; }
+	public void setExitDim(ServerWorld pos) { this.exitDim = pos; }
+	
+	public boolean isActivated() {
+		return getBlockState().getValue(BlockStateProperties.POWERED);
+	}
+	
+	public boolean isLargerPortal() {
+		BlockPos otherPos = this.getBlockPos().above().above();
+		VoxelShape portalCollision = VoxelShapes.create(GroceryDeliverator.getPortalCollider(getBlockState()).bounds());
+		VoxelShape blockCollisions = level.getBlockState(otherPos).getCollisionShape(level, otherPos).move(0, 2, 0);				
+		boolean output = !VoxelShapes.joinIsNotEmpty(blockCollisions, portalCollision, IBooleanFunction.AND);
+		
+		return output;
+	}	
+	
 	@Override
 	public void tick() {
-		if (getBlockState().getValue(BlockStateProperties.POWERED)) {
+		if (isActivated()) {
 			AxisAlignedBB aabb = GroceryDeliverator.getPortalCollider(getBlockState()).bounds();
 			aabb = aabb.inflate(0.8D/16D).move(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ());
 			this.level.getEntities(null, aabb).forEach(entity -> entityInside(entity));
@@ -57,7 +79,11 @@ public class TileGroceryDeliverator extends TileEntity implements ITickableTileE
 		VoxelShape collisionArea = VoxelShapes.create(GroceryDeliverator.getPortalCollider(getBlockState()).bounds().inflate(0.8D/16D));
 		if (VoxelShapes.joinIsNotEmpty(VoxelShapes.create(entity.getBoundingBox().move(-pos.getX(), -pos.getY(), -pos.getZ())), collisionArea, IBooleanFunction.AND)) {
 			if (IsFoodHelper.isFood(entity)) {
-				entity.teleportTo(exitPos.getX(), exitPos.getY(), exitPos.getZ());
+				if(!entity.level.isClientSide) {
+					entity.setDeltaMovement(0,0,0);
+					entity.teleportTo(exitPos.getX(), exitPos.getY(), exitPos.getZ());
+					if(exitDim != level.getServer().getLevel(entity.level.dimension())) entity.changeDimension(exitDim);		
+				}
 			} else {
 				if(!(entity instanceof ItemEntity)) entity.hurt(CloudyDamageSources.GROCERY_DELIVERATOR, 2);
 				entity.setDeltaMovement(entity.getDeltaMovement().add(getAwayDir(entity)));
@@ -85,13 +111,15 @@ public class TileGroceryDeliverator extends TileEntity implements ITickableTileE
 	
 	public CompoundNBT save(CompoundNBT nbt) {
 		super.save(nbt);
-		if (this.exitPos != null) nbt.put(CloudyNBTKeys.EXIT_PORTAL, NBTUtil.writeBlockPos(this.exitPos));
+		if (exitPos != null) nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(exitPos));
+		if (exitDim != null) nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, exitDim.dimension().location().toString());
 		return nbt;
 	}
 
 	public void load(BlockState state, CompoundNBT nbt) {
 		super.load(state, nbt);
-		if (nbt.contains(CloudyNBTKeys.EXIT_PORTAL)) this.exitPos = NBTUtil.readBlockPos(nbt.getCompound(CloudyNBTKeys.EXIT_PORTAL));
+		if (nbt.contains(CloudyNBTKeys.EXIT_PORTAL_POS)) exitPos = NBTUtil.readBlockPos(nbt.getCompound(CloudyNBTKeys.EXIT_PORTAL_POS));
+		if (nbt.contains(CloudyNBTKeys.EXIT_PORTAL_DIM)) exitDim = level.getServer().getLevel(RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(nbt.getString(CloudyNBTKeys.EXIT_PORTAL_DIM))));
 	}
 
 

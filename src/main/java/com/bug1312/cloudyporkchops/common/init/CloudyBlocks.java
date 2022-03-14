@@ -5,7 +5,7 @@ import com.bug1312.cloudyporkchops.common.block.foods.Jello;
 import com.bug1312.cloudyporkchops.common.block.inventions.GroceryDeliverator;
 import com.bug1312.cloudyporkchops.common.block.inventions.InvisibleTable;
 import com.bug1312.cloudyporkchops.common.block.inventions.SprayOnBlock;
-import com.bug1312.cloudyporkchops.common.tile.inventions.TileGroceryDeliverator;
+import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
 
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.Block;
@@ -26,7 +26,7 @@ public class CloudyBlocks {
 	public static RegistryObject<Block> JELLO = registerBlock(new Jello(Properties.of(Material.CLAY, MaterialColor.COLOR_ORANGE).speedFactor(0.4F).noOcclusion().sound(SoundType.HONEY_BLOCK)), "jello_block", true);
 	
 	/* Useful */
-	public static RegistryObject<Block> GROCERY_DELIVERATOR = registerBlock(new GroceryDeliverator(TileGroceryDeliverator::new, Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion()), "grocery_deliverator", true);
+	public static RegistryObject<Block> GROCERY_DELIVERATOR = registerBlock(new GroceryDeliverator(GroceryDeliveratorTile::new, Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion()), "grocery_deliverator", true);
 	
 	/* Crafting */
 	public static RegistryObject<Block> SPRAY_ON_FULL = registerBlock(new BreakableBlock(Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion().strength(50.0F, 1200.0F)), "biopolymer_adhesive_block", false);

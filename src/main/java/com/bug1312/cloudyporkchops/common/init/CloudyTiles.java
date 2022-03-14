@@ -3,7 +3,7 @@ package com.bug1312.cloudyporkchops.common.init;
 import java.util.function.Supplier;
 
 import com.bug1312.cloudyporkchops.common.RegistryHandler;
-import com.bug1312.cloudyporkchops.common.tile.inventions.TileGroceryDeliverator;
+import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class CloudyTiles {
 	
-	public static RegistryObject<TileEntityType<TileGroceryDeliverator>> GROCERY_DELIVERATOR = register("grocery_deliverator", () -> TileEntityType.Builder.of(TileGroceryDeliverator::new, CloudyBlocks.GROCERY_DELIVERATOR.get()).build(null));
+	public static RegistryObject<TileEntityType<GroceryDeliveratorTile>> GROCERY_DELIVERATOR = register("grocery_deliverator", () -> TileEntityType.Builder.of(GroceryDeliveratorTile::new, CloudyBlocks.GROCERY_DELIVERATOR.get()).build(null));
 
 	/* Register Method */
 	private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String id, Supplier<TileEntityType<T>> supplier) {

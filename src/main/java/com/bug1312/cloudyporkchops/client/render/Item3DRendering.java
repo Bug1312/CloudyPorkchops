@@ -22,14 +22,10 @@ public class Item3DRendering {
 		if(item instanceof Item3D) {
 			ItemRenderInfo renderInfo = new ItemRenderInfo((Item3D) item);			
 			renders.add(renderInfo);
-		} else {
-			new StackOverflowError(item.getRegistryName() + " is not a child of Item3D");
-		}
+		} else new StackOverflowError(item.getRegistryName() + " is not a child of Item3D");
 	}
 
-	public static List<ItemRenderInfo> getRenders() {
-		return renders;
-	}
+	public static List<ItemRenderInfo> getRenders() { return renders; }
 
 	public static class ItemRenderInfo {
 
@@ -62,17 +58,9 @@ public class Item3DRendering {
 			perspectives.put(type, new OtherModel(this, location, type));
 		}
 
-		public Map<TransformType, OtherModel> getTransforms() {
-			return perspectives;
-		}
-
-		public Item getItem() {
-			return item;
-		}
-
-		public ResourceLocation getBaseLocation() {
-			return baseLocation;
-		}
+		public Map<TransformType, OtherModel> getTransforms() { return perspectives; }
+		public Item getItem() { return item; }
+		public ResourceLocation getBaseLocation() { return baseLocation; }
 
 		public static class OtherModel {
 			private ResourceLocation location;
@@ -82,17 +70,9 @@ public class Item3DRendering {
 				this.location = ModelLoader.getInventoryVariant(location);
 			}
 
-			public ResourceLocation getLocation() {
-				return location;
-			}
-
-			public void setModel(IBakedModel model) {
-				this.model = model;
-			}
-
-			public IBakedModel getModel() {
-				return model;
-			}
+			public ResourceLocation getLocation() { return location; }
+			public void setModel(IBakedModel model) { this.model = model; }
+			public IBakedModel getModel() { return model; }
 		}
 	}
 }

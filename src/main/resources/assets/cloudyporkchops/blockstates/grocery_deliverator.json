@@ -1,18 +1,102 @@
 {
-  "variants": {
-    "axis=z,powered=false": {
-      "model": "cloudyporkchops:block/grocery_deliverator_closed"
+  "multipart": [
+    {
+      "when": {
+        "half": "bottom"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/grocery_deliverator"
+      }
     },
-    "axis=z,powered=true": {
-      "model": "cloudyporkchops:block/grocery_deliverator_open"
+
+    {
+      "when": {
+        "half": "bottom",
+        "axis": "x",
+        "powered": "true",
+        "tall_portal": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/grocery_deliverator_portal",
+        "y": 90
+      }
     },
-    "axis=x,powered=false": {
-      "model": "cloudyporkchops:block/grocery_deliverator_closed",
-      "y": 90
+    {
+      "when": {
+        "half": "bottom",
+        "axis": "z",
+        "powered": "true",
+        "tall_portal": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/grocery_deliverator_portal"
+      }
     },
-    "axis=x,powered=true": {
-      "model": "cloudyporkchops:block/grocery_deliverator_open",
-      "y": 90
+    {
+      "when": {
+        "half": "bottom",
+        "axis": "x",
+        "powered": "true",
+        "tall_portal": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/grocery_deliverator_portal_short",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "half": "bottom",
+        "axis": "z",
+        "powered": "true",
+        "tall_portal": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/grocery_deliverator_portal_short"
+      }
+    },
+
+    {
+      "when": {
+        "half": "top",
+        "axis": "x",
+        "tall_portal": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/grocery_deliverator_portal_top",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "half": "top",
+        "axis": "z",
+        "tall_portal": "true"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/grocery_deliverator_portal_top"
+      }
+    },
+    {
+      "when": {
+        "half": "top",
+        "axis": "x",
+        "tall_portal": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/grocery_deliverator_portal_top_short",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "half": "top",
+        "axis": "z",
+        "tall_portal": "false"
+      },
+      "apply": {
+        "model": "cloudyporkchops:block/grocery_deliverator_portal_top_short"
+      }
     }
-  }
+  ]
 }

@@ -42,6 +42,7 @@ public class TileEntityBaseBlock extends Block {
 
 		public WaterLoggable(Supplier<TileEntity> tileEntitySupplier, Properties properties) {
 			super(tileEntitySupplier, properties);
+			this.registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
 		}
 		
 		@Override
@@ -68,6 +69,7 @@ public class TileEntityBaseBlock extends Block {
 		protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> state) {
 			super.createBlockStateDefinition(state);
 			state.add(BlockStateProperties.WATERLOGGED);
-		}		
+		}
+		
 	}
 }
