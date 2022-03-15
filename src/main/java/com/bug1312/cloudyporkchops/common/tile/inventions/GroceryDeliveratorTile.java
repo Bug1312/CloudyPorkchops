@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.bug1312.cloudyporkchops.common.block.inventions.GroceryDeliverator;
+import com.bug1312.cloudyporkchops.common.event.TickRequests;
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
 import com.bug1312.cloudyporkchops.util.IsFoodHelper;
 import com.bug1312.cloudyporkchops.util.statics.CloudyDamageSources;
@@ -31,7 +32,6 @@ import net.minecraft.world.server.ServerWorld;
 
 public class GroceryDeliveratorTile extends TileEntity implements ITickableTileEntity {
 
-	public static Map<Entity, Map<BlockPos, ServerWorld>> TELEPORT_REQUESTS = new HashMap<>();
 	
 	// WIP:
 	// Add sounds
@@ -87,7 +87,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 			if (IsFoodHelper.isFood(entity)) {
 				if(!entity.level.isClientSide) {
 					Map<BlockPos, ServerWorld> location = new HashMap<BlockPos, ServerWorld>() {{ put(exitPos, exitDim); }};					
-					TELEPORT_REQUESTS.put(entity, location);						
+					TickRequests.TELEPORT_REQUESTS.put(entity, location);						
 				}
 			} else {
 				if(!(entity instanceof ItemEntity)) entity.hurt(CloudyDamageSources.GROCERY_DELIVERATOR, 2);

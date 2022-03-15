@@ -86,10 +86,12 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 
 		}
 	}
-	
+		
 	@Override @SuppressWarnings("deprecation")
 	public void onPlace(BlockState state, World world, BlockPos pos, BlockState replacedState, boolean u_0) {
 		if(state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
+
+			// WIP: Remove this obviously, setblock (server) doesn't have a player.
 			UUID uuid = Minecraft.getInstance().player.getUUID();
 			System.out.println(uuid);
 			ServerPlayerEntity player = world.getServer().getPlayerList().getPlayer(uuid);

@@ -4,9 +4,9 @@ import com.bug1312.cloudyporkchops.client.events.ClientBusEvents;
 import com.bug1312.cloudyporkchops.client.events.ClientModEvents;
 import com.bug1312.cloudyporkchops.client.init.CloudyTileRenders;
 import com.bug1312.cloudyporkchops.client.render.Item3DRendering;
-import com.bug1312.cloudyporkchops.common.RegistryHandler;
 import com.bug1312.cloudyporkchops.common.event.CommonBusEvents;
 import com.bug1312.cloudyporkchops.common.init.CloudyContainers;
+import com.bug1312.cloudyporkchops.common.init.RegistryHandler;
 import com.bug1312.cloudyporkchops.network.NetworkHandler;
 import com.mojang.brigadier.CommandDispatcher;
 

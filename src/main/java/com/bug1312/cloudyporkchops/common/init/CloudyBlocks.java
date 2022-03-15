@@ -1,6 +1,5 @@
 package com.bug1312.cloudyporkchops.common.init;
 
-import com.bug1312.cloudyporkchops.common.RegistryHandler;
 import com.bug1312.cloudyporkchops.common.block.foods.Jello;
 import com.bug1312.cloudyporkchops.common.block.inventions.GroceryDeliverator;
 import com.bug1312.cloudyporkchops.common.block.inventions.InvisibleTable;

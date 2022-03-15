@@ -1,6 +1,5 @@
 package com.bug1312.cloudyporkchops.common.init;
 
-import com.bug1312.cloudyporkchops.common.RegistryHandler;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.fml.RegistryObject;
 

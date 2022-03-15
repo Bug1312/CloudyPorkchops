@@ -1,12 +1,5 @@
-package com.bug1312.cloudyporkchops.common;
+package com.bug1312.cloudyporkchops.common.init;
 
-import com.bug1312.cloudyporkchops.common.init.CloudyBiomes;
-import com.bug1312.cloudyporkchops.common.init.CloudyBlocks;
-import com.bug1312.cloudyporkchops.common.init.CloudyEntities;
-import com.bug1312.cloudyporkchops.common.init.CloudyItems;
-import com.bug1312.cloudyporkchops.common.init.CloudySounds;
-import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
-import com.bug1312.cloudyporkchops.common.init.CloudyParticles;
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
 
 import net.minecraft.block.Block;

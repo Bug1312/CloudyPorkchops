@@ -2,7 +2,6 @@ package com.bug1312.cloudyporkchops.common.init;
 
 import java.util.function.Supplier;
 
-import com.bug1312.cloudyporkchops.common.RegistryHandler;
 import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
 
 import net.minecraft.tileentity.TileEntity;

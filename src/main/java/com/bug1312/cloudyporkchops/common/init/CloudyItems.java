@@ -1,7 +1,6 @@
 package com.bug1312.cloudyporkchops.common.init;
 
 import com.bug1312.cloudyporkchops.client.render.Item3DRendering;
-import com.bug1312.cloudyporkchops.common.RegistryHandler;
 import com.bug1312.cloudyporkchops.common.items.CloudyArmorMaterials;
 import com.bug1312.cloudyporkchops.common.items.Item3D;
 import com.bug1312.cloudyporkchops.common.items.inventions.ShoesCan;
