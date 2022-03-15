@@ -87,9 +87,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 			if (IsFoodHelper.isFood(entity)) {
 				if(!entity.level.isClientSide) {
 					Map<BlockPos, ServerWorld> location = new HashMap<BlockPos, ServerWorld>() {{ put(exitPos, exitDim); }};					
-					TELEPORT_REQUESTS.put(entity, location);
-					
-						
+					TELEPORT_REQUESTS.put(entity, location);						
 				}
 			} else {
 				if(!(entity instanceof ItemEntity)) entity.hurt(CloudyDamageSources.GROCERY_DELIVERATOR, 2);
