@@ -36,13 +36,12 @@ public class CommonBusEvents {
 			BlockPos exitPos = location.entrySet().iterator().next().getKey();
 			ServerWorld exitDim = location.get(exitPos);
 
-			entity.getServer().getLevel(exitDim.dimension()).getChunk(exitPos);
-
 			entity.setDeltaMovement(0,0,0);
 			
-			if (exitDim == entity.level) {
-				entity.setPos(exitPos.getX(), exitPos.getY(), exitPos.getZ());
-			} else {
+			entity.getServer().getLevel(exitDim.dimension()).getChunk(exitPos);
+			
+			if (exitDim == entity.level) entity.setPos(exitPos.getX(), exitPos.getY(), exitPos.getZ());
+			else {
 				CompoundNBT compoundtag = new CompoundNBT();
 				entity.save(compoundtag);
 				compoundtag.putString("id", entity.getType().getRegistryName().toString());

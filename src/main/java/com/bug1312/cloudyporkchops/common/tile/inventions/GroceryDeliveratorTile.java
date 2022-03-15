@@ -9,11 +9,13 @@ import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
 import com.bug1312.cloudyporkchops.util.IsFoodHelper;
 import com.bug1312.cloudyporkchops.util.statics.CloudyDamageSources;
 import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
+import com.mojang.authlib.GameProfile;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -28,6 +30,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class GroceryDeliveratorTile extends TileEntity implements ITickableTileEntity {
@@ -45,6 +48,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 	
 	private BlockPos exitPos;
 	private ServerWorld exitDim;
+	private GameProfile owner;
 	
 	public GroceryDeliveratorTile() {
 		super(CloudyTiles.GROCERY_DELIVERATOR.get());
@@ -55,6 +59,9 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 	
 	public ServerWorld getExitDim() { return exitDim; }
 	public void setExitDim(ServerWorld pos) { this.exitDim = pos; }
+	
+	public GameProfile getOwner() { return owner; }
+	public void setOwner(GameProfile player) { this.owner = player; }
 	
 	public boolean isActivated() {
 		return getBlockState().getValue(BlockStateProperties.POWERED);
@@ -78,17 +85,32 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 		}
 	}
 	
-	@SuppressWarnings("serial")
 	public void entityInside(Entity entity) {
-		if (entity.isSpectator()) return;
-		BlockPos pos = this.getBlockPos();
+		if (entity.isSpectator() || entity.level.isClientSide()) return;
+		BlockPos deliveratorPos = this.getBlockPos();
 		VoxelShape collisionArea = VoxelShapes.create(GroceryDeliverator.getPortalCollider(getBlockState()).bounds().inflate(0.8D/16D));
-		if (VoxelShapes.joinIsNotEmpty(VoxelShapes.create(entity.getBoundingBox().move(-pos.getX(), -pos.getY(), -pos.getZ())), collisionArea, IBooleanFunction.AND)) {
+		if (VoxelShapes.joinIsNotEmpty(VoxelShapes.create(entity.getBoundingBox().move(-deliveratorPos.getX(), -deliveratorPos.getY(), -deliveratorPos.getZ())), collisionArea, IBooleanFunction.AND)) {
 			if (IsFoodHelper.isFood(entity)) {
-				if(!entity.level.isClientSide) {
-					Map<BlockPos, ServerWorld> location = new HashMap<BlockPos, ServerWorld>() {{ put(exitPos, exitDim); }};					
-					TickRequests.TELEPORT_REQUESTS.put(entity, location);						
+				Map<BlockPos, ServerWorld> location = new HashMap<>();	
+				
+				ServerPlayerEntity player = level.getServer().getPlayerList().getPlayer(owner.getId());
+				if(owner != null && player != null) {
+					// WIP: figure out how to get player spawn point when removed
+					RegistryKey<World> dim = player.getRespawnDimension();
+					ServerWorld serverDim = level.getServer().getLevel(dim);
+					BlockPos pos = player.getRespawnPosition();
+					if(pos == null) pos = serverDim.getSharedSpawnPos();
+					
+					CompoundNBT nbt = level.getBlockEntity(pos).serializeNBT();
+					nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(pos));
+					nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, dim.location().toString());
+					level.getBlockEntity(pos).deserializeNBT(nbt);
+					
+					location.put(pos, serverDim);	
 				}
+				else if(exitPos != null && exitDim != null) location.put(exitPos, exitDim);
+				else if(exitPos != null) location.put(exitPos, level.getServer().getLevel(level.dimension()));					
+				if(location.size() > 0) TickRequests.TELEPORT_REQUESTS.put(entity, location);						
 			} else {
 				if(!(entity instanceof ItemEntity)) entity.hurt(CloudyDamageSources.GROCERY_DELIVERATOR, 2);
 				entity.setDeltaMovement(entity.getDeltaMovement().add(getAwayDir(entity)));
@@ -118,6 +140,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 		super.save(nbt);
 		if (exitPos != null) nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(exitPos));
 		if (exitDim != null) nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, exitDim.dimension().location().toString());
+		if (owner != null) nbt.put(CloudyNBTKeys.OWNER, NBTUtil.writeGameProfile(nbt, owner));
 		return nbt;
 	}
 
@@ -125,6 +148,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 		super.load(state, nbt);
 		if (nbt.contains(CloudyNBTKeys.EXIT_PORTAL_POS)) exitPos = NBTUtil.readBlockPos(nbt.getCompound(CloudyNBTKeys.EXIT_PORTAL_POS));
 		if (nbt.contains(CloudyNBTKeys.EXIT_PORTAL_DIM)) exitDim = level.getServer().getLevel(RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(nbt.getString(CloudyNBTKeys.EXIT_PORTAL_DIM))));
+		if (nbt.contains(CloudyNBTKeys.OWNER)) owner =  NBTUtil.readGameProfile(nbt.getCompound(CloudyNBTKeys.OWNER));
 	}
 
 

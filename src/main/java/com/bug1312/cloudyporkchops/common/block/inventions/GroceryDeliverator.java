@@ -1,6 +1,5 @@
 package com.bug1312.cloudyporkchops.common.block.inventions;
 
-import java.util.UUID;
 import java.util.function.Supplier;
 
 import com.bug1312.cloudyporkchops.common.block.TileEntityBaseBlock;
@@ -11,9 +10,11 @@ import com.bug1312.cloudyporkchops.util.statics.CloudyProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.state.StateContainer.Builder;
@@ -87,28 +88,29 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 		}
 	}
 		
+	@Override
+	public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+		if(!world.isClientSide && entity instanceof PlayerEntity && state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
+				ServerPlayerEntity player = entity.getServer().getPlayerList().getPlayer(entity.getUUID());
+				
+				RegistryKey<World> exitDim = player.getRespawnDimension();
+				BlockPos exitPos = player.getRespawnPosition();
+				if(exitPos == null) exitPos = world.getServer().getLevel(player.getRespawnDimension()).getSharedSpawnPos();
+				
+				CompoundNBT nbt = world.getBlockEntity(pos).serializeNBT();
+				nbt.put(CloudyNBTKeys.OWNER, NBTUtil.writeGameProfile(nbt, player.getGameProfile()));
+				nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(exitPos));
+				nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, exitDim.location().toString());
+				world.getBlockEntity(pos).deserializeNBT(nbt);
+			
+				if(isPowered(pos, world)) addTop(state, world, pos);			
+		}
+		super.setPlacedBy(world, pos, state, entity, stack);
+	}
+	
 	@Override @SuppressWarnings("deprecation")
 	public void onPlace(BlockState state, World world, BlockPos pos, BlockState replacedState, boolean u_0) {
-		if(state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
-
-			// WIP: Remove this obviously, setblock (server) doesn't have a player.
-			UUID uuid = Minecraft.getInstance().player.getUUID();
-			System.out.println(uuid);
-			ServerPlayerEntity player = world.getServer().getPlayerList().getPlayer(uuid);
-			
-			RegistryKey<World> exitDim = player.getRespawnDimension();
-			BlockPos exitPos = player.getRespawnPosition();
-			if(exitPos == null) exitPos = world.getServer().getLevel(player.getRespawnDimension()).getSharedSpawnPos();
-			
-			CompoundNBT nbt = world.getBlockEntity(pos).serializeNBT();
-			nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(exitPos));
-			nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, exitDim.location().toString());
-			world.getBlockEntity(pos).deserializeNBT(nbt);
-		
-			if(isPowered(pos, world)) addTop(state, world, pos);
-
-		}
-		
+		if(state.getValue(BlockStateProperties.HALF) == Half.BOTTOM && isPowered(pos, world)) addTop(state, world, pos);
 		super.onPlace(state, world, pos, replacedState, u_0);
 	}
 	
