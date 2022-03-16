@@ -1,9 +1,10 @@
 package com.bug1312.cloudyporkchops.common.init;
 
 import com.bug1312.cloudyporkchops.client.render.Item3DRendering;
-import com.bug1312.cloudyporkchops.common.items.CloudyArmorMaterials;
-import com.bug1312.cloudyporkchops.common.items.Item3D;
+import com.bug1312.cloudyporkchops.common.items.IItem3D;
+import com.bug1312.cloudyporkchops.common.items.inventions.GroceryDeliveratorItem;
 import com.bug1312.cloudyporkchops.common.items.inventions.ShoesCan;
+import com.bug1312.cloudyporkchops.common.materials.copy.CloudyArmorMaterials;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
@@ -25,12 +26,14 @@ public class CloudyItems {
 	
 	/* Armor */
 	public static RegistryObject<Item> SPRAY_ON_BOOTS 			= register("spray_on_boots", new ArmorItem(CloudyArmorMaterials.Armor.SPRAY_ON, EquipmentSlotType.FEET, new Properties().setNoRepair()));
-
+	
+	/* Block Items */
+//	public static RegistryObject<Item> GROCERY_DELIVERATOR		= register("grocery_deliverator", new GroceryDeliveratorItem(CloudyBlocks.GROCERY_DELIVERATOR.get(), new Item.Properties()));
 	
 	/* Register Method */
 	private static RegistryObject<Item> register(String id, final Item item) {
 		RegistryObject<Item> registryItem = RegistryHandler.ITEMS.register(id, () -> item);
-		if(item instanceof Item3D) Item3DRendering.ITEMS_3D.add(registryItem);
+		if(item instanceof IItem3D) Item3DRendering.ITEMS_3D.add(registryItem);
 		return registryItem;
 	}
 }

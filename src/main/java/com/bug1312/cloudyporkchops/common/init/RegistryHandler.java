@@ -15,16 +15,16 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class RegistryHandler {
 	
-	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, CloudyPorkchops.MODID);
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, CloudyPorkchops.MODID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, CloudyPorkchops.MODID);
 	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, CloudyPorkchops.MODID);
 	public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES,CloudyPorkchops.MODID);
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, CloudyPorkchops.MODID);
 	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, CloudyPorkchops.MODID);
 	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, CloudyPorkchops.MODID);
 
-	public static CloudyItems items;
 	public static CloudyBlocks blocks;
+	public static CloudyItems items;
 	public static CloudyParticles particles;
 	public static CloudyBiomes biomes;
 	public static CloudyEntities entities;
@@ -32,16 +32,16 @@ public class RegistryHandler {
 	public static CloudyTiles tiles;
 
 	public static void init() {
-		items = new CloudyItems();
 		blocks = new CloudyBlocks();
+		items = new CloudyItems();
 		particles = new CloudyParticles();
 		biomes = new CloudyBiomes();
 		entities = new CloudyEntities();
 		sounds = new CloudySounds();
 		tiles = new CloudyTiles();
 		
-		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
 		BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());

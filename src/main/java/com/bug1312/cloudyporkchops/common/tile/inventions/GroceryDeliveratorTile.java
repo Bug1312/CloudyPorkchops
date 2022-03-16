@@ -93,7 +93,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 					Location location = null;	
 					ServerPlayerEntity player = level.getServer().getPlayerList().getPlayer(ownerUUID);
 					
-					if(ownerUUID != null && player != null) location = new Location(entity.getUUID());
+					if(ownerUUID != null && player != null) location = new Location(ownerUUID);
 					else if(exitPos != null && exitDim != null) location = new Location(exitPos, exitDim.getLevel());
 					else if(exitPos != null) location = new Location(exitPos, level.getServer().getLevel(level.dimension()).getLevel());					
 					

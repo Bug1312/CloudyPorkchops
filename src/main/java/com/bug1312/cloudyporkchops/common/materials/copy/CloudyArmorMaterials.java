@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.common.items;
+package com.bug1312.cloudyporkchops.common.materials.copy;
 
 import java.util.function.Supplier;
 

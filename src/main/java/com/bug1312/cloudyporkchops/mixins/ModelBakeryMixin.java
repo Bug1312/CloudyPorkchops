@@ -31,8 +31,7 @@ public abstract class ModelBakeryMixin {
 
 	@Inject(at = @At("HEAD"), remap = false, require = 1, allow = 1, method = "Lnet/minecraft/client/renderer/model/ModelBakery;processLoading(Lnet/minecraft/profiler/IProfiler;I)V")
 	private void initer(CallbackInfo info) {
-		for (RegistryObject<Item> key : Item3DRendering.ITEMS_3D)
-			Item3DRendering.addItemRender(key.get());
+		for (RegistryObject<Item> key : Item3DRendering.ITEMS_3D) if(key.isPresent()) Item3DRendering.addItemRender(key.get());
 
 		for (ItemRenderInfo renderInfo : Item3DRendering.getRenders()) {
 			ModelResourceLocation model = ModelLoader.getInventoryVariant(ModelTextures.getItemTexture(renderInfo.getItem(), RenderDimension.THREE.toString()).toString().replaceFirst("item/", ""));

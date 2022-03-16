@@ -19,28 +19,28 @@ import net.minecraftforge.fml.RegistryObject;
 public class CloudyBlocks {
 
 	/* Decoration */
-	public static RegistryObject<Block> INVISIBLE_TABLE = registerBlock(new InvisibleTable(Properties.of(Material.WOOD).noOcclusion()), "invisible_table", true);
+	public static RegistryObject<Block> INVISIBLE_TABLE 	= registerBlock("invisible_table", new InvisibleTable(Properties.of(Material.WOOD).noOcclusion()), true);
 
 	/* Foods */
-	public static RegistryObject<Block> JELLO = registerBlock(new Jello(Properties.of(Material.CLAY, MaterialColor.COLOR_ORANGE).speedFactor(0.4F).noOcclusion().sound(SoundType.HONEY_BLOCK)), "jello_block", true);
+	public static RegistryObject<Block> JELLO 				= registerBlock("jello_block", new Jello(Properties.of(Material.CLAY, MaterialColor.COLOR_ORANGE).speedFactor(0.4F).noOcclusion().sound(SoundType.HONEY_BLOCK)), true);
 	
 	/* Useful */
-	public static RegistryObject<Block> GROCERY_DELIVERATOR = registerBlock(new GroceryDeliverator(GroceryDeliveratorTile::new, Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion()), "grocery_deliverator", true);
+	public static RegistryObject<Block> GROCERY_DELIVERATOR = registerBlock("grocery_deliverator", new GroceryDeliverator(GroceryDeliveratorTile::new, Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion()), true);
 	
 	/* Crafting */
-	public static RegistryObject<Block> SPRAY_ON_FULL = registerBlock(new BreakableBlock(Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion().strength(50.0F, 1200.0F)), "biopolymer_adhesive_block", false);
+	public static RegistryObject<Block> SPRAY_ON_FULL 		= registerBlock("biopolymer_adhesive_block", new BreakableBlock(Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion().strength(50.0F, 1200.0F)),  false);
 
 	/* Other */
-	public static RegistryObject<Block> SPRAY_ON_SIDE = registerBlock(new SprayOnBlock(Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion().strength(50.0F, 1200.0F)), "biopolymer_adhesive", false);
+	public static RegistryObject<Block> SPRAY_ON_SIDE		= registerBlock("biopolymer_adhesive", new SprayOnBlock(Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion().strength(50.0F, 1200.0F)),  false);
 
 	
 	/* Register Methods */
-	public static RegistryObject<Block> registerBlock(Block block, String name, Item.Properties properties, boolean hasItem) {
+	public static RegistryObject<Block> registerBlock(String name, Block block, Item.Properties properties, boolean hasItem) {
 		if (hasItem) RegistryHandler.ITEMS.register(name, () -> new BlockItem(block, properties));
 		return RegistryHandler.BLOCKS.register(name, () -> block);
 	}	
 	
-	public static RegistryObject<Block> registerBlock(Block block, String name, boolean hasItem) {
-		return registerBlock(block, name, new Item.Properties(), hasItem);
+	public static RegistryObject<Block> registerBlock(String name, Block block, boolean hasItem) {
+		return registerBlock(name, block, new Item.Properties(), hasItem);
 	}	
 }

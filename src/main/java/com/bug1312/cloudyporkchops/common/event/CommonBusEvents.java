@@ -34,14 +34,13 @@ public class CommonBusEvents {
 			Entity entity = TickRequests.TELEPORT_REQUESTS.entrySet().iterator().next().getKey();
 			Location location = TickRequests.TELEPORT_REQUESTS.get(entity);
 			
-			System.out.println(entity.level.isClientSide);
 			ServerPlayerEntity player = entity.level.getServer().getPlayerList().getPlayer(location.backupUUID);
-			// Commented out as will crash; fix in morning
-//			if(location.backupUUID != null && player != null) location = PlayerSpawnHelper.getSpawnLocation(location.backupUUID, entity.level);
+
+			if(location.backupUUID != null && player != null) location = PlayerSpawnHelper.getSpawnLocation(location.backupUUID, entity.level);
 			
 			BlockPos exitPos = location.pos;
 			ServerWorld exitDim = location.dim;
-			
+						
 			entity.setDeltaMovement(0,0,0);
 			
 			entity.getServer().getLevel(exitDim.dimension()).getChunk(exitPos);
