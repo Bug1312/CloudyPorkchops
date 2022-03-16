@@ -4,6 +4,8 @@ import java.util.function.Supplier;
 
 import com.bug1312.cloudyporkchops.common.block.TileEntityBaseBlock;
 import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
+import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
+import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
 import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
 import com.bug1312.cloudyporkchops.util.statics.CloudyProperties;
 
@@ -23,7 +25,6 @@ import net.minecraft.state.properties.Half;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -92,15 +93,12 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 	public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if(!world.isClientSide && entity instanceof PlayerEntity && state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
 				ServerPlayerEntity player = entity.getServer().getPlayerList().getPlayer(entity.getUUID());
-				
-				RegistryKey<World> exitDim = player.getRespawnDimension();
-				BlockPos exitPos = player.getRespawnPosition();
-				if(exitPos == null) exitPos = world.getServer().getLevel(player.getRespawnDimension()).getSharedSpawnPos();
-				
+				Location location = PlayerSpawnHelper.getSpawnLocation(entity.getUUID(), entity.level);
+								
 				CompoundNBT nbt = world.getBlockEntity(pos).serializeNBT();
-				nbt.put(CloudyNBTKeys.OWNER, NBTUtil.writeGameProfile(nbt, player.getGameProfile()));
-				nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(exitPos));
-				nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, exitDim.location().toString());
+				nbt.putString(CloudyNBTKeys.OWNER, player.getStringUUID());
+				nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(location.pos));
+				nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, location.dim.dimension().location().toString());
 				world.getBlockEntity(pos).deserializeNBT(nbt);
 			
 				if(isPowered(pos, world)) addTop(state, world, pos);			

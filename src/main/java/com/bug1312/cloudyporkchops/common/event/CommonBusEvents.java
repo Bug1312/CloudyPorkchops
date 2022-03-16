@@ -1,13 +1,14 @@
 package com.bug1312.cloudyporkchops.common.event;
 
-import java.util.Map;
-
 import com.bug1312.cloudyporkchops.common.items.inventions.ShoesCan;
+import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
+import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
 import com.bug1312.cloudyporkchops.util.RaytraceHelper;
 import com.bug1312.cloudyporkchops.util.SprayEntityHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -30,12 +31,17 @@ public class CommonBusEvents {
 	@SubscribeEvent
 	public static <T extends BlockPos> void serverTickEvent(ServerTickEvent event) {
 		while(TickRequests.TELEPORT_REQUESTS.size() > 0) {
-			Entity entity = TickRequests.TELEPORT_REQUESTS.entrySet().iterator().next().getKey();;
-			Map<BlockPos, ServerWorld> location = TickRequests.TELEPORT_REQUESTS.get(entity);
+			Entity entity = TickRequests.TELEPORT_REQUESTS.entrySet().iterator().next().getKey();
+			Location location = TickRequests.TELEPORT_REQUESTS.get(entity);
 			
-			BlockPos exitPos = location.entrySet().iterator().next().getKey();
-			ServerWorld exitDim = location.get(exitPos);
-
+			System.out.println(entity.level.isClientSide);
+			ServerPlayerEntity player = entity.level.getServer().getPlayerList().getPlayer(location.backupUUID);
+			// Commented out as will crash; fix in morning
+//			if(location.backupUUID != null && player != null) location = PlayerSpawnHelper.getSpawnLocation(location.backupUUID, entity.level);
+			
+			BlockPos exitPos = location.pos;
+			ServerWorld exitDim = location.dim;
+			
 			entity.setDeltaMovement(0,0,0);
 			
 			entity.getServer().getLevel(exitDim.dimension()).getChunk(exitPos);
