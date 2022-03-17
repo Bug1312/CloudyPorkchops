@@ -17,4 +17,7 @@ public class CloudyTiles {
 		RegistryObject<TileEntityType<T>> registryItem = RegistryHandler.TILE_ENTITY_TYPES.register(id, supplier);
 		return registryItem;
 	}
+	
+	public static void init() {};	
+
 }

@@ -23,23 +23,15 @@ public class RegistryHandler {
 	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, CloudyPorkchops.MODID);
 	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, CloudyPorkchops.MODID);
 
-	public static CloudyBlocks blocks;
-	public static CloudyItems items;
-	public static CloudyParticles particles;
-	public static CloudyBiomes biomes;
-	public static CloudyEntities entities;
-	public static CloudySounds sounds;
-	public static CloudyTiles tiles;
-
 	public static void init() {
-		blocks = new CloudyBlocks();
-		items = new CloudyItems();
-		particles = new CloudyParticles();
-		biomes = new CloudyBiomes();
-		entities = new CloudyEntities();
-		sounds = new CloudySounds();
-		tiles = new CloudyTiles();
-		
+		CloudyBlocks.init();
+		CloudyItems.init();
+		CloudyParticles.init();
+		CloudyBiomes.init();
+		CloudyEntities.init();
+		CloudySounds.init();
+		CloudyTiles.init();
+				
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());

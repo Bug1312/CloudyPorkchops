@@ -9,4 +9,7 @@ public class CloudyParticles {
 	private static RegistryObject<BasicParticleType> register(String string, boolean overrideLimiter) {
 		return RegistryHandler.PARTICLE_TYPES.register(string, () -> new BasicParticleType(overrideLimiter));
 	}
+
+	public static void init() {};	
+
 }

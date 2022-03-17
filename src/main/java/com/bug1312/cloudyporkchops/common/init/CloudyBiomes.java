@@ -10,7 +10,10 @@ import net.minecraft.world.biome.Biome;
 public class CloudyBiomes {
 
 	@SuppressWarnings("unused")
-	private static RegistryKey<Biome> makeKey(String name) {
+	private static RegistryKey<Biome> register(String name) {
 		return RegistryKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(CloudyPorkchops.MODID, name));
 	}
+	
+	public static void init() {};	
+
 }
