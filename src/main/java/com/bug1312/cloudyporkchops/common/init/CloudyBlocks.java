@@ -26,7 +26,7 @@ public class CloudyBlocks {
 	public static RegistryObject<Block> JELLO 				= register("jello_block", new Jello(Properties.of(Material.CLAY, MaterialColor.COLOR_ORANGE).speedFactor(0.4F).noOcclusion().sound(SoundType.HONEY_BLOCK)), true);
 	
 	/* Useful */
-	public static RegistryObject<Block> GROCERY_DELIVERATOR = register("grocery_deliverator", new GroceryDeliverator(GroceryDeliveratorTile::new, Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion()), false);
+	public static RegistryObject<Block> GROCERY_DELIVERATOR = register("grocery_deliverator", new GroceryDeliverator(GroceryDeliveratorTile::new, Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion(), CloudyItems.GROCERY_DELIVERATOR), false);
 	
 	/* Crafting */
 	public static RegistryObject<Block> SPRAY_ON_FULL 		= register("biopolymer_adhesive_block", new BreakableBlock(Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion().strength(50.0F, 1200.0F)),  false);

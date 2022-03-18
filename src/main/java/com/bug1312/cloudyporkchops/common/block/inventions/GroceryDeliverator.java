@@ -3,7 +3,6 @@ package com.bug1312.cloudyporkchops.common.block.inventions;
 import java.util.function.Supplier;
 
 import com.bug1312.cloudyporkchops.common.block.TileEntityBaseBlock;
-import com.bug1312.cloudyporkchops.common.init.CloudyItems;
 import com.bug1312.cloudyporkchops.common.items.inventions.GroceryDeliveratorItem;
 import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
@@ -18,6 +17,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
@@ -36,6 +36,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.BlockFlags;
+import net.minecraftforge.fml.RegistryObject;
 
 public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 
@@ -44,11 +45,18 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 	private static VoxelShape PORTAL_SHAPE_ROTATED = VoxelShapes.or(VoxelShapes.box(7.5/16D, 0, 1/16D, 8.5/16D, 37/16D, 15/16D));
 	public static int PORTAL_TOP_UPDATE_FLAG = (BlockFlags.BLOCK_UPDATE | BlockFlags.UPDATE_NEIGHBORS);
 	
-	public GroceryDeliverator(Supplier<TileEntity> tileEntitySupplier, Properties properties) {
+	private RegistryObject<Item> item;
+	
+	public GroceryDeliverator(Supplier<TileEntity> tileEntitySupplier, Properties properties, RegistryObject<Item> item) {
 		super(tileEntitySupplier, properties);
+		this.item = item;
 		registerDefaultState(defaultBlockState()
 				.setValue(BlockStateProperties.POWERED, false)
 				.setValue(BlockStateProperties.HALF, Half.BOTTOM));
+	}
+	
+	public GroceryDeliverator(Supplier<TileEntity> tileEntitySupplier, Properties properties) {
+		this(tileEntitySupplier, properties, null);
 	}
 	
 	@Override
@@ -178,7 +186,7 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 
 	@Override
 	public ItemStack getCloneItemStack(IBlockReader world, BlockPos pos, BlockState state) {
-		return new ItemStack(CloudyItems.GROCERY_DELIVERATOR.get());
+		return new ItemStack(item.get());
 	}
 	
 	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
