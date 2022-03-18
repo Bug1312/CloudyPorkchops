@@ -94,7 +94,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 					else if(exitPos != null && exitDim != null) location = new Location(exitPos, exitDim.getLevel());
 					else if(exitPos != null) location = new Location(exitPos, level.getServer().getLevel(level.dimension()).getLevel());					
 					
-					if(location != null) TickRequests.TELEPORT_REQUESTS.put(entity, location);						
+					if(location != null) TickRequests.DELAYED_TELEPORT_REQUESTS.put(entity, location);						
 				}
 			} else {
 				if(!(entity instanceof ItemEntity)) entity.hurt(CloudyDamageSources.GROCERY_DELIVERATOR, 2);

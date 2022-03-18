@@ -13,11 +13,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.text.ChatType;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
@@ -36,9 +33,9 @@ public class CommonBusEvents {
 	
 	@SubscribeEvent
 	public static <T extends BlockPos> void serverTickEvent(ServerTickEvent event) {
-		while(TickRequests.TELEPORT_REQUESTS.size() > 0) {
-			Entity entity = TickRequests.TELEPORT_REQUESTS.entrySet().iterator().next().getKey();
-			Location location = TickRequests.TELEPORT_REQUESTS.get(entity);
+		while(TickRequests.DELAYED_TELEPORT_REQUESTS.size() > 0) {
+			Entity entity = TickRequests.DELAYED_TELEPORT_REQUESTS.entrySet().iterator().next().getKey();
+			Location location = TickRequests.DELAYED_TELEPORT_REQUESTS.get(entity);
 			
 			ServerPlayerEntity player = entity.level.getServer().getPlayerList().getPlayer(location.backupUUID);
 
@@ -51,49 +48,35 @@ public class CommonBusEvents {
 			
 			entity.getServer().getLevel(exitDim.dimension()).getChunk(exitPos);
 			
-			if (exitDim == entity.level) entity.setPos(exitPos.getX(), exitPos.getY(), exitPos.getZ());
-			else {
-				CompoundNBT compoundtag = new CompoundNBT();
-				entity.save(compoundtag);
-				compoundtag.putString("id", entity.getType().getRegistryName().toString());
+			CompoundNBT compoundtag = new CompoundNBT();
+			entity.save(compoundtag);
+			compoundtag.putString("id", entity.getType().getRegistryName().toString());
 
-				Entity newEntity = EntityType.loadEntityRecursive(compoundtag, exitDim, (e) -> {
-					e.moveTo(exitPos.getX(), exitPos.getY() - 0.5D, exitPos.getZ(), 0, 0);
-					return e;
-				});
-				
-				System.out.println("removing");
-				entity.getServer().getPlayerList().broadcastMessage(new StringTextComponent("Removing"), ChatType.SYSTEM, Util.NIL_UUID);
-				entity.remove();
-				if (newEntity != null) {
-					// Summon portal first
-//					exitDim.addFreshEntity(entity);
-					// Figure out why wont work, remove above
-					
-					System.out.println("posting");
-
-					entity.getServer().getPlayerList().broadcastMessage(new StringTextComponent("Posting"), ChatType.SYSTEM, Util.NIL_UUID);
-					Map<ServerWorld, Integer> map = new HashMap<>();
-					map.put(exitDim, (int) (exitDim.getGameTime() + (20 * 3))); // 3 seconds
-//					TickRequests.TELEPORT_REQUESTS_CONFIRMED.put(newEntity, map);
-				}
+			Entity newEntity = EntityType.loadEntityRecursive(compoundtag, exitDim, (e) -> {
+				e.moveTo(exitPos.getX(), exitPos.getY() - 0.5D, exitPos.getZ(), 0, 0);
+				return e;
+			});
+			
+			entity.remove();
+			if (newEntity != null) {
+				// Summon portal first
+				Map<ServerWorld, Integer> map = new HashMap<>();
+				map.put(exitDim, (int) (exitDim.getGameTime() + (20 * 3))); // 3 seconds
+				TickRequests.DELAYED_TELEPORT_REQUESTS_CONFIRMED.put(newEntity, map);
 			}
 			
-			TickRequests.TELEPORT_REQUESTS.remove(entity);	
+			TickRequests.DELAYED_TELEPORT_REQUESTS.remove(entity);	
 		}			
 		
-		while(TickRequests.TELEPORT_REQUESTS_CONFIRMED.size() > 0) {
-			Entity entity = TickRequests.TELEPORT_REQUESTS_CONFIRMED.entrySet().iterator().next().getKey();
-			Map<ServerWorld, Integer> map = TickRequests.TELEPORT_REQUESTS_CONFIRMED.get(entity);		
+		for(Map.Entry<Entity, Map<ServerWorld, Integer>> entry : TickRequests.DELAYED_TELEPORT_REQUESTS_CONFIRMED.entrySet()) {
+		    Entity entity = entry.getKey();
+			Map<ServerWorld, Integer> map = entry.getValue();		
 			ServerWorld world = map.entrySet().iterator().next().getKey();
 			int gameTick = map.get(world).intValue();
-			
-			System.out.println("adding");
-			entity.getServer().getPlayerList().broadcastMessage(new StringTextComponent("Adding"), ChatType.SYSTEM, Util.NIL_UUID);
-
-			if(world.getGameTime() > gameTick) world.addFreshEntity(entity);
-			
-			TickRequests.TELEPORT_REQUESTS_CONFIRMED.remove(entity);	
-		}			
+			if(world.getGameTime() > gameTick) {
+				world.addFreshEntity(entity);
+				TickRequests.DELAYED_TELEPORT_REQUESTS_CONFIRMED.remove(entity);	
+			}
+		}		
 	}
 }
