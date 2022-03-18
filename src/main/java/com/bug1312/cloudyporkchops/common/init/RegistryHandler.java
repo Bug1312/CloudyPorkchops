@@ -9,7 +9,7 @@ import net.minecraft.particles.ParticleType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -23,7 +23,7 @@ public class RegistryHandler {
 	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, CloudyPorkchops.MODID);
 	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, CloudyPorkchops.MODID);
 
-	public static void init() {
+	public static void init(IEventBus eventBus) {
 		CloudyBlocks.init();
 		CloudyItems.init();
 		CloudyParticles.init();
@@ -31,13 +31,13 @@ public class RegistryHandler {
 		CloudyEntities.init();
 		CloudySounds.init();
 		CloudyTiles.init();
-				
-		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-		PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-		BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
-		ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-		SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
-		TILE_ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
+						
+		BLOCKS.register(eventBus);
+		ITEMS.register(eventBus);
+		PARTICLE_TYPES.register(eventBus);
+		BIOMES.register(eventBus);
+		ENTITY_TYPES.register(eventBus);
+		SOUNDS.register(eventBus);
+		TILE_ENTITY_TYPES.register(eventBus);
 	}
 }

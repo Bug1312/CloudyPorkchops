@@ -42,7 +42,6 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 		// new place method (2nd item for placing exit)		-- Non Stackable
 		// two teleporters									-- Not representative
 		// spawn point (delivers groceries 'home')			-- Who would use normally
-	// For some reason NBT wont save
 	
 	private BlockPos exitPos;
 	private ServerWorld exitDim;

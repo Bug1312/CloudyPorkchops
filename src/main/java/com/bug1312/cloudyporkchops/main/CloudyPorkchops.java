@@ -35,7 +35,7 @@ public class CloudyPorkchops {
 	public CloudyPorkchops() {
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-		RegistryHandler.init();
+		RegistryHandler.init(modEventBus);
 
 		modEventBus.addListener(this::serverSetup);
 		modEventBus.addListener(this::clientSetup);

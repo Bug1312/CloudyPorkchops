@@ -26,7 +26,7 @@ public class CloudyBlocks {
 	public static RegistryObject<Block> JELLO 				= register("jello_block", new Jello(Properties.of(Material.CLAY, MaterialColor.COLOR_ORANGE).speedFactor(0.4F).noOcclusion().sound(SoundType.HONEY_BLOCK)), true);
 	
 	/* Useful */
-	public static RegistryObject<Block> GROCERY_DELIVERATOR = register("grocery_deliverator", new GroceryDeliverator(GroceryDeliveratorTile::new, Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion()), true);
+	public static RegistryObject<Block> GROCERY_DELIVERATOR = register("grocery_deliverator", new GroceryDeliverator(GroceryDeliveratorTile::new, Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion()), false);
 	
 	/* Crafting */
 	public static RegistryObject<Block> SPRAY_ON_FULL 		= register("biopolymer_adhesive_block", new BreakableBlock(Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion().strength(50.0F, 1200.0F)),  false);
@@ -46,6 +46,10 @@ public class CloudyBlocks {
 	public static RegistryObject<Block> register(String name, Block block, Item.Properties properties, boolean hasItem) {
 		return register(name, block, properties, hasItem, false);
 	}	
+	
+	public static RegistryObject<Block> register(String name, Block block, boolean hasItem, boolean is3D) {
+		return register(name, block, new Item.Properties(), hasItem, is3D);
+	}
 	
 	public static RegistryObject<Block> register(String name, Block block, boolean hasItem) {
 		return register(name, block, new Item.Properties(), hasItem, false);

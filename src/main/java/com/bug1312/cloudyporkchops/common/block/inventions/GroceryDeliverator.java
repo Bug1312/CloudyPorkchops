@@ -3,6 +3,7 @@ package com.bug1312.cloudyporkchops.common.block.inventions;
 import java.util.function.Supplier;
 
 import com.bug1312.cloudyporkchops.common.block.TileEntityBaseBlock;
+import com.bug1312.cloudyporkchops.common.init.CloudyItems;
 import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
@@ -91,6 +92,9 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 		
 	@Override
 	public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+		
+		if(entity.isShiftKeyDown()) return;
+		
 		if(!world.isClientSide && entity instanceof PlayerEntity && state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
 				ServerPlayerEntity player = entity.getServer().getPlayerList().getPlayer(entity.getUUID());
 				Location location = PlayerSpawnHelper.getSpawnLocation(entity.getUUID(), entity.level);
@@ -161,6 +165,11 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 	public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean u_0) {
 		removeTop(state, world, pos);
 		super.onRemove(state, world, pos, newState, u_0);
+	}
+
+	@Override
+	public ItemStack getCloneItemStack(IBlockReader world, BlockPos pos, BlockState state) {
+		return new ItemStack(CloudyItems.GROCERY_DELIVERATOR.get());
 	}
 	
 	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
