@@ -37,7 +37,6 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 	// WIP:
 	// Add sounds
 	// Rejected clients get screen overlay of lightning
-	// Redstone particles
 	// Must figure out how to setup location of exitPos (NO GUI ALLOWED)
 		// new place method (2nd item for placing exit)		-- Non Stackable
 		// two teleporters									-- Not representative

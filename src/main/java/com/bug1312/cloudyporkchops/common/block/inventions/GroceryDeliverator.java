@@ -1,5 +1,6 @@
 package com.bug1312.cloudyporkchops.common.block.inventions;
 
+import java.util.Random;
 import java.util.function.Supplier;
 
 import com.bug1312.cloudyporkchops.common.block.TileEntityBaseBlock;
@@ -21,6 +22,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
+import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.Half;
@@ -34,7 +36,10 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants.BlockFlags;
 
 public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
@@ -135,6 +140,17 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 		
 		if(flag) addTop(state, world, pos); 
 		else removeTop(state, world, pos);		
+	}
+	
+	private static void makeParticle(BlockState state, IWorld world, BlockPos pos, float size) {
+		world.addParticle(new RedstoneParticleData(1, 0, 0, size), pos.getX(), pos.getY() - 0.5D, pos.getZ(), 0, 0, 0);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
+		if (state.getValue(BlockStateProperties.POWERED) && random.nextFloat() < 0.25F) {
+			makeParticle(state, world, pos, 0.5F);
+		}
 	}
 	
 	public BlockState getStateForPlacement(BlockItemUseContext context) {

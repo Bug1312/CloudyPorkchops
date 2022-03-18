@@ -1,5 +1,6 @@
 package com.bug1312.cloudyporkchops.client.events;
 
+import com.bug1312.cloudyporkchops.client.overlay.Overlay;
 import com.bug1312.cloudyporkchops.common.init.CloudyBlocks;
 import com.bug1312.cloudyporkchops.util.SprayEntityHelper;
 
@@ -10,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -26,6 +28,14 @@ public class ClientBusEvents {
 
 				entity.level.addParticle(particle, pos.x, pos.y, pos.z, 0.0D, 0.1D, 0.0D);
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void renderOverlays(RenderGameOverlayEvent.Text event) {
+		for(Overlay overlay : Overlay.overlays) {
+			overlay.tick();
+			overlay.render(event.getMatrixStack());
 		}
 	}
 
