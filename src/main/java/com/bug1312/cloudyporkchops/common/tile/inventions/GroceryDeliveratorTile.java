@@ -46,19 +46,15 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 	private BlockPos exitPos;
 	private ServerWorld exitDim;
 	private UUID ownerUUID;
+	private String exitDimAsString;
 	
 	public GroceryDeliveratorTile() {
 		super(CloudyTiles.GROCERY_DELIVERATOR.get());
 	}
 
 	public BlockPos getExitPos() { return exitPos; }
-	public void setExitPos(BlockPos pos) { this.exitPos = pos; }
-	
-	public ServerWorld getExitDim() { return exitDim; }
-	public void setExitDim(ServerWorld pos) { this.exitDim = pos; }
-	
+	public ServerWorld getExitDim() { syncStringAndWorld(); return exitDim; }
 	public UUID getOwner() { return ownerUUID; }
-	public void setOwner(UUID uuid) { this.ownerUUID = uuid; }
 	
 	public boolean isActivated() {
 		return getBlockState().getValue(BlockStateProperties.POWERED);
@@ -92,6 +88,8 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 					Location location = null;	
 					ServerPlayerEntity player = level.getServer().getPlayerList().getPlayer(ownerUUID);
 					
+					syncStringAndWorld();
+					
 					if(ownerUUID != null && player != null) location = new Location(ownerUUID);
 					else if(exitPos != null && exitDim != null) location = new Location(exitPos, exitDim.getLevel());
 					else if(exitPos != null) location = new Location(exitPos, level.getServer().getLevel(level.dimension()).getLevel());					
@@ -123,10 +121,14 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 		}
 	}
 	
+	public void syncStringAndWorld() {
+		 exitDim = level.getServer().getLevel(RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(exitDimAsString)));
+	}
+	
 	public CompoundNBT save(CompoundNBT nbt) {
 		super.save(nbt);
 		if (exitPos != null) nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(exitPos));
-		if (exitDim != null) nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, exitDim.dimension().location().toString());
+		if (exitDim != null) nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, exitDimAsString);
 		if (ownerUUID != null) nbt.putString(CloudyNBTKeys.OWNER, ownerUUID.toString());
 		return nbt;
 	}
@@ -134,7 +136,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 	public void load(BlockState state, CompoundNBT nbt) {
 		super.load(state, nbt);
 		if (nbt.contains(CloudyNBTKeys.EXIT_PORTAL_POS)) exitPos = NBTUtil.readBlockPos(nbt.getCompound(CloudyNBTKeys.EXIT_PORTAL_POS));
-		if (nbt.contains(CloudyNBTKeys.EXIT_PORTAL_DIM)) exitDim = level.getServer().getLevel(RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(nbt.getString(CloudyNBTKeys.EXIT_PORTAL_DIM))));
+		if (nbt.contains(CloudyNBTKeys.EXIT_PORTAL_DIM)) exitDimAsString = nbt.getString(CloudyNBTKeys.EXIT_PORTAL_DIM);
 		if (nbt.contains(CloudyNBTKeys.OWNER)) ownerUUID = UUID.fromString(nbt.getString(CloudyNBTKeys.OWNER));
 	}
 

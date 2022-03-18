@@ -13,8 +13,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.text.ChatType;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
@@ -60,13 +63,16 @@ public class CommonBusEvents {
 				});
 				
 				System.out.println("removing");
+				entity.getServer().getPlayerList().broadcastMessage(new StringTextComponent("Removing"), ChatType.SYSTEM, Util.NIL_UUID);
 				entity.remove();
 				if (newEntity != null) {
 					// Summon portal first
-					exitDim.addFreshEntity(entity);
+//					exitDim.addFreshEntity(entity);
 					// Figure out why wont work, remove above
 					
 					System.out.println("posting");
+
+					entity.getServer().getPlayerList().broadcastMessage(new StringTextComponent("Posting"), ChatType.SYSTEM, Util.NIL_UUID);
 					Map<ServerWorld, Integer> map = new HashMap<>();
 					map.put(exitDim, (int) (exitDim.getGameTime() + (20 * 3))); // 3 seconds
 //					TickRequests.TELEPORT_REQUESTS_CONFIRMED.put(newEntity, map);
@@ -83,7 +89,8 @@ public class CommonBusEvents {
 			int gameTick = map.get(world).intValue();
 			
 			System.out.println("adding");
-			
+			entity.getServer().getPlayerList().broadcastMessage(new StringTextComponent("Adding"), ChatType.SYSTEM, Util.NIL_UUID);
+
 			if(world.getGameTime() > gameTick) world.addFreshEntity(entity);
 			
 			TickRequests.TELEPORT_REQUESTS_CONFIRMED.remove(entity);	

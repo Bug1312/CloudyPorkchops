@@ -16,10 +16,10 @@ public class PlayerSpawnHelper {
 
 		RegistryKey<World> dim = player.getRespawnDimension();
 		ServerWorld serverDim = world.getServer().getLevel(dim);
-		BlockPos pos = player.getRespawnPosition().above();
+		BlockPos pos = player.getRespawnPosition();
 		if (pos == null) pos = serverDim.getSharedSpawnPos();
 		
-		return new Location(pos, serverDim);
+		return new Location(pos.above(), serverDim);
 	}
 	
 	public static class Location {
