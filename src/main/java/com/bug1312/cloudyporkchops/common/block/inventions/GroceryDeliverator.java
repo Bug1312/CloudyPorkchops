@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import com.bug1312.cloudyporkchops.common.block.TileEntityBaseBlock;
 import com.bug1312.cloudyporkchops.common.init.CloudyItems;
+import com.bug1312.cloudyporkchops.common.items.inventions.GroceryDeliveratorItem;
 import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
@@ -93,8 +94,6 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 	@Override
 	public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		
-		if(entity.isShiftKeyDown()) return;
-		
 		if(!world.isClientSide && entity instanceof PlayerEntity && state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
 				ServerPlayerEntity player = entity.getServer().getPlayerList().getPlayer(entity.getUUID());
 				Location location = PlayerSpawnHelper.getSpawnLocation(entity.getUUID(), entity.level);
@@ -103,8 +102,18 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 				nbt.putString(CloudyNBTKeys.OWNER, player.getStringUUID());
 				nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(location.pos));
 				nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, location.dim.dimension().location().toString());
+				
+				if(stack.getItem() instanceof GroceryDeliveratorItem) {
+					GroceryDeliveratorItem item = (GroceryDeliveratorItem) stack.getItem();
+					if(item.location != null) {
+						nbt.remove(CloudyNBTKeys.OWNER);
+						nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(item.location.pos));
+						nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, item.location.dim.dimension().location().toString());
+					}
+				}
+				
 				world.getBlockEntity(pos).deserializeNBT(nbt);
-			
+				
 				if(isPowered(pos, world)) addTop(state, world, pos);			
 		}
 		super.setPlacedBy(world, pos, state, entity, stack);

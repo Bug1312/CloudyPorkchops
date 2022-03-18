@@ -1,5 +1,8 @@
 package com.bug1312.cloudyporkchops.common.event;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.bug1312.cloudyporkchops.common.items.inventions.ShoesCan;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
@@ -52,17 +55,38 @@ public class CommonBusEvents {
 				compoundtag.putString("id", entity.getType().getRegistryName().toString());
 
 				Entity newEntity = EntityType.loadEntityRecursive(compoundtag, exitDim, (e) -> {
-					e.moveTo(exitPos.getX(), exitPos.getY(), exitPos.getZ(), 0, 0);
+					e.moveTo(exitPos.getX(), exitPos.getY() - 0.5D, exitPos.getZ(), 0, 0);
 					return e;
 				});
-
+				
+				System.out.println("removing");
 				entity.remove();
 				if (newEntity != null) {
-					exitDim.addFreshEntity(newEntity);
+					// Summon portal first
+					exitDim.addFreshEntity(entity);
+					// Figure out why wont work, remove above
+					
+					System.out.println("posting");
+					Map<ServerWorld, Integer> map = new HashMap<>();
+					map.put(exitDim, (int) (exitDim.getGameTime() + (20 * 3))); // 3 seconds
+//					TickRequests.TELEPORT_REQUESTS_CONFIRMED.put(newEntity, map);
 				}
 			}
 			
 			TickRequests.TELEPORT_REQUESTS.remove(entity);	
+		}			
+		
+		while(TickRequests.TELEPORT_REQUESTS_CONFIRMED.size() > 0) {
+			Entity entity = TickRequests.TELEPORT_REQUESTS_CONFIRMED.entrySet().iterator().next().getKey();
+			Map<ServerWorld, Integer> map = TickRequests.TELEPORT_REQUESTS_CONFIRMED.get(entity);		
+			ServerWorld world = map.entrySet().iterator().next().getKey();
+			int gameTick = map.get(world).intValue();
+			
+			System.out.println("adding");
+			
+			if(world.getGameTime() > gameTick) world.addFreshEntity(entity);
+			
+			TickRequests.TELEPORT_REQUESTS_CONFIRMED.remove(entity);	
 		}			
 	}
 }
