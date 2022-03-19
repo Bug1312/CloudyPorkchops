@@ -15,7 +15,7 @@ public class Config {
 		Client(ForgeConfigSpec.Builder builder) {
 			builder.comment("Cloudy Porkchops's Client configuration settings").push("client");
 			
-			builder.comment("Will the Grocery Deliverator's shock overlay flash? | default: true");
+			builder.comment("Will the Grocery Deliverator's shock overlay change textures? | default: true");
 			deliverator_flashing = builder.define(CloudyConfigKeys.DELIVERATOR_FLASHING, true);
 		}
 	}

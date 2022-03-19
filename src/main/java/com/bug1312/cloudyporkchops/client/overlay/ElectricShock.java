@@ -3,7 +3,6 @@ package com.bug1312.cloudyporkchops.client.overlay;
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
 import com.bug1312.cloudyporkchops.main.Config;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -12,37 +11,33 @@ import net.minecraft.util.ResourceLocation;
 
 public class ElectricShock extends Overlay {
 
-	protected static final ResourceLocation SHOCK_LOCATION = new ResourceLocation(CloudyPorkchops.MODID, "textures/gui/electric_shock.png");
+	private static ResourceLocation SHOCK_LOCATION_0 = new ResourceLocation(CloudyPorkchops.MODID, "textures/gui/electric_shock_0.png");
+	private static ResourceLocation SHOCK_LOCATION_1 = new ResourceLocation(CloudyPorkchops.MODID, "textures/gui/electric_shock_1.png");
+	private static ResourceLocation SHOCK_LOCATION_2 = new ResourceLocation(CloudyPorkchops.MODID, "textures/gui/electric_shock_2.png");
+	private static ResourceLocation SHOCK_LOCATION_3 = new ResourceLocation(CloudyPorkchops.MODID, "textures/gui/electric_shock_3.png");
+
+	private ResourceLocation tex0 = getRandomTexture();
+	private ResourceLocation tex1 = getRandomTexture();
+	private ResourceLocation tex2 = getRandomTexture();
+	private ResourceLocation tex3 = getRandomTexture();
+	
 	private int tick = 0;
 	public double gameTime = 0;
-	
 	
 	@Override
 	public boolean conditional() {
 		return mc.player.level.getGameTime() < gameTime;
 	}
 	
-	@Override @SuppressWarnings("deprecation")
+	@Override 
 	public void render(MatrixStack stack, float partialTicks) {
-		float newTick = tick / 100F;
-		float calc;
-		
-		if (Config.CLIENT.deliverator_flashing.get())
-			// make a cooler wave
-			calc = (float) -(-Math.pow(Math.sin(10 * newTick), 10) + ((Math.cos(3 * newTick)) / 5) + 1.6) + 2.5F;
-		else calc = 1;
-		
-		RenderSystem.color3f(calc, calc, calc);
-
 		int imageHeight = 32*2;
 		int imageWidth  = 64*2;
 		
-		addRect(SHOCK_LOCATION, 0, 0, imageWidth, imageHeight, false, false);
-		addRect(SHOCK_LOCATION, width - imageWidth, 0, imageWidth, imageHeight, true, false);
-		addRect(SHOCK_LOCATION, 0, height - imageHeight, imageWidth, imageHeight, false, true);
-		addRect(SHOCK_LOCATION, width - imageWidth, height - imageHeight, imageWidth, imageHeight, true, true);
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-
+		addRect(tex0, 0, 0, imageWidth, imageHeight, false, false);
+		addRect(tex1, width - imageWidth, 0, imageWidth, imageHeight, true, false);
+		addRect(tex2, 0, height - imageHeight, imageWidth, imageHeight, false, true);
+		addRect(tex3, width - imageWidth, height - imageHeight, imageWidth, imageHeight, true, true);
 	}
 
 	private void addRect(ResourceLocation texture, int x, int y, int width, int height, boolean flipX, boolean flipY) {
@@ -57,10 +52,25 @@ public class ElectricShock extends Overlay {
 		tessellator.end();
 	}
 	
+	private ResourceLocation getRandomTexture() {
+		int texture = (int) (Math.random() * 4);
+		switch(texture) {
+			case 0: default: return SHOCK_LOCATION_0;
+			case 1: 		 return SHOCK_LOCATION_1;
+			case 2: 		 return SHOCK_LOCATION_2;
+			case 3:			 return SHOCK_LOCATION_3;
+		}
+	}
+	
 	@Override
 	public void tick() {
-		if(mc != null && mc.player != null && mc.player.level != null)
-		tick = (int) (mc.player.level.getGameTime() - gameTime);
+		tick++;
+		if(Config.CLIENT.deliverator_flashing.get() && tick % 8 == 0) {
+			tex0 = getRandomTexture();
+			tex1 = getRandomTexture();
+			tex2 = getRandomTexture();
+			tex3 = getRandomTexture();
+		}
 		super.tick();
 	}
 
