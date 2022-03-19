@@ -61,7 +61,7 @@ public class CloudyPorkchops {
 	
 	private void clientSetup(final FMLClientSetupEvent event) {
 		CloudyTileRenders.init();
-//		CloudyOverlays.init(); 
+		CloudyOverlays.init(); 
 	}
 
 	@SubscribeEvent

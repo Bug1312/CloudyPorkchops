@@ -20,7 +20,7 @@ public abstract class Overlay {
 
 	public Overlay() { overlays.add(this); }
 	
-	public abstract void render(MatrixStack stack);
+	public abstract void render(MatrixStack stack, float partialTicks);
 
 	public void tick() {
 		Minecraft minecraft = Minecraft.getInstance();

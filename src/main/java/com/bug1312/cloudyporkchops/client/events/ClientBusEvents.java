@@ -32,10 +32,10 @@ public class ClientBusEvents {
 	}
 	
 	@SubscribeEvent
-	public static void renderOverlays(RenderGameOverlayEvent.Text event) {
+	public static void renderOverlays(RenderGameOverlayEvent.Chat event) {
 		for(Overlay overlay : Overlay.overlays) {
 			overlay.tick();
-			overlay.render(event.getMatrixStack());
+			overlay.render(event.getMatrixStack(), event.getPartialTicks());
 		}
 	}
 
