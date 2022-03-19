@@ -2,6 +2,7 @@ package com.bug1312.cloudyporkchops.common.tile.inventions;
 
 import java.util.UUID;
 
+import com.bug1312.cloudyporkchops.client.init.CloudyOverlays;
 import com.bug1312.cloudyporkchops.common.block.inventions.GroceryDeliverator;
 import com.bug1312.cloudyporkchops.common.event.TickRequests;
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
@@ -11,6 +12,7 @@ import com.bug1312.cloudyporkchops.util.statics.CloudyDamageSources;
 import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -36,7 +38,6 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 	
 	// WIP:
 	// Add sounds
-	// Rejected clients get screen overlay of lightning
 	// Must figure out how to setup location of exitPos (NO GUI ALLOWED)
 		// new place method (2nd item for placing exit)		-- Non Stackable
 		// two teleporters									-- Not representative
@@ -98,6 +99,12 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 			} else {
 				if(!(entity instanceof ItemEntity)) entity.hurt(CloudyDamageSources.GROCERY_DELIVERATOR, 2);
 				entity.setDeltaMovement(entity.getDeltaMovement().add(getAwayDir(entity)));
+				
+				if(entity.level.isClientSide) {
+					Minecraft mc = Minecraft.getInstance();
+					if(entity.equals(mc.player)) CloudyOverlays.ELECTRIC_SHOCK.gameTime = (entity.level.getGameTime() + (2 * 20)); // 2 seconds
+				}
+				
 			}
 		}
 	}

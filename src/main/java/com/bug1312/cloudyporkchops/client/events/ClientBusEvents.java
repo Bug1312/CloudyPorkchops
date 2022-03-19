@@ -35,7 +35,7 @@ public class ClientBusEvents {
 	public static void renderOverlays(RenderGameOverlayEvent.Chat event) {
 		for(Overlay overlay : Overlay.overlays) {
 			overlay.tick();
-			overlay.render(event.getMatrixStack(), event.getPartialTicks());
+			if(overlay.conditional()) overlay.render(event.getMatrixStack(), event.getPartialTicks());
 		}
 	}
 

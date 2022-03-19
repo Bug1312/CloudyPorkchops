@@ -22,6 +22,8 @@ public abstract class Overlay {
 	
 	public abstract void render(MatrixStack stack, float partialTicks);
 
+	public abstract boolean conditional();
+	
 	public void tick() {
 		Minecraft minecraft = Minecraft.getInstance();
 		MainWindow window = minecraft.getWindow();

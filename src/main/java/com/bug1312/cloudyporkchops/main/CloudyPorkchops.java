@@ -39,7 +39,7 @@ public class CloudyPorkchops {
 
 		CloudyContainers.CONTAINER_TYPE.register(modEventBus);
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec, MODID + "-server.toml");
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec, MODID + "-client.toml");
 
 		bothSideSetup(modEventBus);
 		

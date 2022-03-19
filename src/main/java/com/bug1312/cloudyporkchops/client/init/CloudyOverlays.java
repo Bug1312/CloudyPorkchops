@@ -4,8 +4,8 @@ import com.bug1312.cloudyporkchops.client.overlay.ElectricShock;
 
 public class CloudyOverlays {
 	
-	public static void init() {
-//		new ElectricShock();
-	}
+	public static ElectricShock ELECTRIC_SHOCK = new ElectricShock();
+	
+	public static void init() {}
 	
 }
