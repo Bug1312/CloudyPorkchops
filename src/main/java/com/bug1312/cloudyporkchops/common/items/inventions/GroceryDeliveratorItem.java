@@ -25,7 +25,7 @@ public class GroceryDeliveratorItem extends BlockItem implements IItem3D {
 		if(player != null && player.isShiftKeyDown()) {
 			if(!context.getLevel().isClientSide()) {
 				int amt = (context.getClickedFace() == Direction.DOWN)? 0 : 1;
-				Location newLocation = new Location(context.getClickedPos().relative(context.getClickedFace()).above(amt), context.getLevel().getServer().getLevel(context.getLevel().dimension()));
+				Location newLocation = new Location(context.getClickedPos().relative(context.getClickedFace()).above(amt), context.getLevel().dimension().location().toString());
 				if(location != null && newLocation.equals(location)) {
 					location = null;
 				} else {

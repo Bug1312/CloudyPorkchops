@@ -44,7 +44,7 @@ import net.minecraftforge.common.util.Constants.BlockFlags;
 
 public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 
-	private static VoxelShape SHAPE = VoxelShapes.or(VoxelShapes.box(1/16D, 0, 1/16D, 15/16D, 4/16D, 15/16D));
+	private static VoxelShape SHAPE = VoxelShapes.or(VoxelShapes.box(0, 0, 0, 1, 4 / 16D, 1));
 	private static VoxelShape PORTAL_SHAPE = VoxelShapes.or(VoxelShapes.box(1/16D, 0, 7.5/16D, 15/16D, 37/16D, 8.5/16D));
 	private static VoxelShape PORTAL_SHAPE_ROTATED = VoxelShapes.or(VoxelShapes.box(7.5/16D, 0, 1/16D, 8.5/16D, 37/16D, 15/16D));
 	public static int PORTAL_TOP_UPDATE_FLAG = (BlockFlags.BLOCK_UPDATE | BlockFlags.UPDATE_NEIGHBORS);
@@ -106,14 +106,14 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 				CompoundNBT nbt = world.getBlockEntity(pos).serializeNBT();
 				nbt.putString(CloudyNBTKeys.OWNER, player.getStringUUID());
 				nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(location.pos));
-				nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, location.dim.dimension().location().toString());
+				nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, location.dim);
 				
 				if(stack.getItem() instanceof GroceryDeliveratorItem) {
 					GroceryDeliveratorItem item = (GroceryDeliveratorItem) stack.getItem();
 					if(item.location != null) {
 						nbt.remove(CloudyNBTKeys.OWNER);
 						nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(item.location.pos));
-						nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, item.location.dim.dimension().location().toString());
+						nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, item.location.dim);
 					}
 				}
 				
@@ -143,7 +143,7 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 	}
 	
 	private static void makeParticle(BlockState state, IWorld world, BlockPos pos, float size) {
-		world.addParticle(new RedstoneParticleData(1, 0, 0, size), pos.getX(), pos.getY() - 0.5D, pos.getZ(), 0, 0, 0);
+		world.addParticle(new RedstoneParticleData(1, 0, 0, size), pos.getX() + 0.5, pos.getY() - 11/16D, pos.getZ() + 0.5, 0, 0, 0);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -166,7 +166,8 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 				&& ((GroceryDeliveratorTile) world.getBlockEntity(pos)).getExitDim() != null
 				&& (world.getBlockState(pos.above()).getBlock() == Blocks.AIR 
 					|| world.getBlockState(pos.above()).getBlock() == Blocks.WATER
-					|| world.getBlockState(pos.above()).getBlock() == this));
+					|| (world.getBlockState(pos.above()).getBlock() == this
+						&& world.getBlockState(pos.above()).getValue(BlockStateProperties.HALF) == Half.TOP)));
 	}
 	
 	public void addTop(BlockState state, World world, BlockPos pos) {

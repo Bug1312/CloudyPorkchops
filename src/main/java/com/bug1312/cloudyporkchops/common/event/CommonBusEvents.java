@@ -1,6 +1,8 @@
 package com.bug1312.cloudyporkchops.common.event;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.bug1312.cloudyporkchops.common.items.inventions.ShoesCan;
@@ -42,7 +44,7 @@ public class CommonBusEvents {
 			if(location.backupUUID != null && player != null) location = PlayerSpawnHelper.getSpawnLocation(location.backupUUID, entity.level);
 			
 			BlockPos exitPos = location.pos;
-			ServerWorld exitDim = location.dim;
+			ServerWorld exitDim = location.getDimension(entity.level);
 						
 			entity.setDeltaMovement(0,0,0);
 			
@@ -57,26 +59,32 @@ public class CommonBusEvents {
 				return e;
 			});
 			
+			
 			entity.remove();
 			if (newEntity != null) {
-				// Summon portal first
 				Map<ServerWorld, Integer> map = new HashMap<>();
 				map.put(exitDim, (int) (exitDim.getGameTime() + (20 * 3))); // 3 seconds
 				TickRequests.DELAYED_TELEPORT_REQUESTS_CONFIRMED.put(newEntity, map);
 			}
 			
 			TickRequests.DELAYED_TELEPORT_REQUESTS.remove(entity);	
-		}			
+		}		
+				
+		List<Entity> deleteThese = new ArrayList<>();
 		
 		for(Map.Entry<Entity, Map<ServerWorld, Integer>> entry : TickRequests.DELAYED_TELEPORT_REQUESTS_CONFIRMED.entrySet()) {
-		    Entity entity = entry.getKey();
-			Map<ServerWorld, Integer> map = entry.getValue();		
-			ServerWorld world = map.entrySet().iterator().next().getKey();
-			int gameTick = map.get(world).intValue();
-			if(world.getGameTime() > gameTick) {
-				world.addFreshEntity(entity);
-				TickRequests.DELAYED_TELEPORT_REQUESTS_CONFIRMED.remove(entity);	
-			}
-		}		
+		    if(entry.getKey() != null) {
+		    	Entity entity = entry.getKey();
+				Map<ServerWorld, Integer> map = entry.getValue();		
+				ServerWorld world = map.entrySet().iterator().next().getKey();
+				int gameTick = map.get(world).intValue();
+				if(world.getGameTime() > gameTick) {
+					world.addFreshEntity(entity);
+					deleteThese.add(entity);
+				}
+		    }
+	    }		
+		
+		for(Entity key : deleteThese) TickRequests.DELAYED_TELEPORT_REQUESTS_CONFIRMED.remove(key);	
 	}
 }

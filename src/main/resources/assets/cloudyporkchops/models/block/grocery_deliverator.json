@@ -1,23 +1,45 @@
 {
 	"credit": "Made by Bug1312",
 	"ambientocclusion": false,
-	"texture_size": [64, 64],
 	"textures": {
-		"2": "cloudyporkchops:fixpathlater/model",
-		"particle": "cloudyporkchops:fixpathlater/model"
+		"2": "cloudyporkchops:block/grocery_deliverator",
+		"3": "cloudyporkchops:block/grocery_deliverator_side",
+		"particle": "cloudyporkchops:block/grocery_deliverator"
 	},
 	"elements": [
 		{
-			"from": [1, 0, 1],
-			"to": [15, 4, 15],
+			"from": [0, 0, 0],
+			"to": [16, 4, 16],
 			"faces": {
-				"north": {"uv": [7, 3.5, 10.5, 4.5], "texture": "#2"},
-				"east": {"uv": [7, 3.5, 10.5, 4.5], "texture": "#2"},
-				"south": {"uv": [7, 3.5, 10.5, 4.5], "texture": "#2"},
-				"west": {"uv": [7, 3.5, 10.5, 4.5], "texture": "#2"},
-				"up": {"uv": [7, 3.5, 3.5, 0], "texture": "#2"},
-				"down": {"uv": [7, 3.5, 3.5, 0], "texture": "#2"}
+				"north": {"uv": [0, 12, 16, 16], "texture": "#3"},
+				"east": {"uv": [0, 12, 16, 16], "texture": "#3"},
+				"south": {"uv": [0, 12, 16, 16], "texture": "#3"},
+				"west": {"uv": [0, 12, 16, 16], "texture": "#3"},
+				"up": {"uv": [16, 16, 0, 0], "texture": "#2"},
+				"down": {"uv": [16, 16, 0, 0], "texture": "#2"}
 			}
 		}
-	]
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 2],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 2],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"translation": [0, 2, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"translation": [0, 2, 0],
+			"scale": [0.4, 0.4, 0.4]
+		}
+	}
 }
