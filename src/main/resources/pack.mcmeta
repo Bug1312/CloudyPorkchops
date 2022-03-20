@@ -1,7 +1,6 @@
 {
     "pack": {
-        "description": "Cloudy Porkchop Resources",
-        "pack_format": 6,
-        "_comment": "These are Cloudy Porkchop's Mod Resources"
+        "description": "Cloudy Porkchops Resources",
+        "pack_format": 6
     }
 }
