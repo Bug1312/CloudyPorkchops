@@ -48,7 +48,7 @@ public class CloudyPorkchops {
 		MinecraftForge.EVENT_BUS.register(ClientBusEvents.class);
 		MinecraftForge.EVENT_BUS.register(CommonBusEvents.class);
 	
-		FMLJavaModLoadingContext.get().getModEventBus().register(ClientModEvents.class);
+		modEventBus.register(ClientModEvents.class);
 	}
 
 
@@ -71,14 +71,6 @@ public class CloudyPorkchops {
 
 	@SubscribeEvent
 	public void addReloadListeners(AddReloadListenerEvent event) {
-	}
-	
-	@Mod.EventBusSubscriber(modid = CloudyPorkchops.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-	public static class ParticleUtil {
-		
-		@SubscribeEvent
-		public static void registerParticles(ParticleFactoryRegisterEvent event) {
-		}
 	}
 
 }

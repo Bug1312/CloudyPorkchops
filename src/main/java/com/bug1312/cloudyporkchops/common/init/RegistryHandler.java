@@ -10,6 +10,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -32,6 +33,8 @@ public class RegistryHandler {
 		CloudySounds.init();
 		CloudyTiles.init();
 						
+		FMLJavaModLoadingContext.get().getModEventBus().register(CloudyParticles.class);
+		
 		BLOCKS.register(eventBus);
 		ITEMS.register(eventBus);
 		PARTICLE_TYPES.register(eventBus);

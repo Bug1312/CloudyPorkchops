@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.bug1312.cloudyporkchops.client.init.CloudyOverlays;
 import com.bug1312.cloudyporkchops.common.block.inventions.GroceryDeliverator;
 import com.bug1312.cloudyporkchops.common.event.TickRequests;
+import com.bug1312.cloudyporkchops.common.init.CloudyParticles;
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
 import com.bug1312.cloudyporkchops.util.IsFoodHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
@@ -19,7 +20,10 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.Half;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -39,6 +43,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 	private BlockPos exitPos;
 	private UUID ownerUUID;
 	private String exitDim;
+	private boolean boolForParticles = false;
 	
 	public GroceryDeliveratorTile() {
 		super(CloudyTiles.GROCERY_DELIVERATOR.get());
@@ -49,7 +54,17 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 	public UUID getOwner() { return ownerUUID; }
 	
 	public boolean isActivated() {
-		return getBlockState().getValue(BlockStateProperties.POWERED);
+		boolean output = getBlockState().getValue(BlockStateProperties.POWERED);
+		if(output != boolForParticles) {
+			if(output && getBlockState().getValue(BlockStateProperties.HALF) == Half.BOTTOM && !level.isClientSide) {
+				IParticleData particle = ParticleTypes.ENCHANT;
+				if (serializeNBT().contains(CloudyNBTKeys.OWNER)) particle = CloudyParticles.BED.get();
+				// fix parameters
+				level.getServer().getLevel(level.dimension()).sendParticles(particle, 100, getBlockPos().getX() - 1, getBlockPos().getY() - 1, getBlockPos().getZ() - 1, 1, 1, 2, 1);
+			}
+			boolForParticles = output;
+		}
+		return output;
 	}
 	
 	public boolean isLargerPortal() {
