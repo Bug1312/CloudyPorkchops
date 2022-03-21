@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.util.statics;
+package com.bug1312.cloudyporkchops.util.consts;
 
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
 

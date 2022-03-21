@@ -7,7 +7,7 @@ import com.bug1312.cloudyporkchops.common.init.CloudyItems;
 import com.bug1312.cloudyporkchops.common.items.Item3D;
 import com.bug1312.cloudyporkchops.util.DirectionHelper;
 import com.bug1312.cloudyporkchops.util.RaytraceHelper;
-import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
+import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

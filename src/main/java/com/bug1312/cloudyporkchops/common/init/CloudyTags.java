@@ -1,7 +1,7 @@
 package com.bug1312.cloudyporkchops.common.init;
 
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
-import com.bug1312.cloudyporkchops.util.statics.CloudyTagKeys;
+import com.bug1312.cloudyporkchops.util.consts.CloudyTagKeys;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

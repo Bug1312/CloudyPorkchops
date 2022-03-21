@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.util.statics;
+package com.bug1312.cloudyporkchops.util.consts;
 
 import net.minecraft.state.BooleanProperty;
 

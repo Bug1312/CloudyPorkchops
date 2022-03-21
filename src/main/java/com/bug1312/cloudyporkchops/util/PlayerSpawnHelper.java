@@ -32,7 +32,13 @@ public class PlayerSpawnHelper {
 		public Location(UUID uuid) { backupUUID = uuid; }
 		
 		public boolean equals(Location otherLocation) {
-			return (pos == otherLocation.pos && dim == otherLocation.dim || backupUUID.equals(otherLocation.backupUUID));
+			boolean exactExists = (pos != null && dim != null && otherLocation.pos != null && otherLocation.dim != null);
+			boolean uuidExists  = (backupUUID != null && otherLocation.backupUUID != null);
+			
+			boolean exactMatch  = exactExists && (pos.equals(otherLocation.pos) && dim.equals(otherLocation.dim));
+			boolean uuidMatch   = uuidExists && backupUUID.equals(otherLocation.backupUUID);
+			
+			return exactMatch || uuidMatch;
 		}
 		
 		public ServerWorld getDimension(World level) {

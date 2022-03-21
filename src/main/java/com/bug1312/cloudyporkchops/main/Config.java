@@ -2,7 +2,7 @@ package com.bug1312.cloudyporkchops.main;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.bug1312.cloudyporkchops.util.statics.CloudyConfigKeys;
+import com.bug1312.cloudyporkchops.util.consts.CloudyConfigKeys;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;

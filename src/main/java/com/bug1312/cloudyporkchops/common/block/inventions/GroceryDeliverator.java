@@ -9,8 +9,8 @@ import com.bug1312.cloudyporkchops.common.items.inventions.GroceryDeliveratorIte
 import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
-import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
-import com.bug1312.cloudyporkchops.util.statics.CloudyProperties;
+import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
+import com.bug1312.cloudyporkchops.util.consts.CloudyProperties;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -98,7 +98,6 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 		
 	@Override
 	public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		
 		if(!world.isClientSide && entity instanceof PlayerEntity && state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
 				ServerPlayerEntity player = entity.getServer().getPlayerList().getPlayer(entity.getUUID());
 				Location location = PlayerSpawnHelper.getSpawnLocation(entity.getUUID(), entity.level);
@@ -109,11 +108,11 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 				nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, location.dim);
 				
 				if(stack.getItem() instanceof GroceryDeliveratorItem) {
-					GroceryDeliveratorItem item = (GroceryDeliveratorItem) stack.getItem();
-					if(item.location != null) {
+					CompoundNBT itemNBT = stack.getOrCreateTag();
+					if(GroceryDeliveratorItem.hasLocation(itemNBT)) {
 						nbt.remove(CloudyNBTKeys.OWNER);
-						nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, NBTUtil.writeBlockPos(item.location.pos));
-						nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, item.location.dim);
+						nbt.put(CloudyNBTKeys.EXIT_PORTAL_POS, itemNBT.get(CloudyNBTKeys.EXIT_PORTAL_POS));
+						nbt.putString(CloudyNBTKeys.EXIT_PORTAL_DIM, itemNBT.getString(CloudyNBTKeys.EXIT_PORTAL_DIM));
 					}
 				}
 				

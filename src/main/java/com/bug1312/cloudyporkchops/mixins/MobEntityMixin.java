@@ -6,8 +6,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.bug1312.cloudyporkchops.common.init.CloudyTags;
+import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 import com.bug1312.cloudyporkchops.util.mixininterfaces.IMobEntityMixin;
-import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

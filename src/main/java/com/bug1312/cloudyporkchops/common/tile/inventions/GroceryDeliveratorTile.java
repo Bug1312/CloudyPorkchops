@@ -8,8 +8,8 @@ import com.bug1312.cloudyporkchops.common.event.TickRequests;
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
 import com.bug1312.cloudyporkchops.util.IsFoodHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
-import com.bug1312.cloudyporkchops.util.statics.CloudyDamageSources;
-import com.bug1312.cloudyporkchops.util.statics.CloudyNBTKeys;
+import com.bug1312.cloudyporkchops.util.consts.CloudyDamageSources;
+import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -30,6 +30,11 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class GroceryDeliveratorTile extends TileEntity implements ITickableTileEntity {
+	
+	// WIP:
+	// 	When powered on, display particles based on location
+	//		Bed for owner spawn
+	//		enchant particles for set location
 	
 	private BlockPos exitPos;
 	private UUID ownerUUID;
