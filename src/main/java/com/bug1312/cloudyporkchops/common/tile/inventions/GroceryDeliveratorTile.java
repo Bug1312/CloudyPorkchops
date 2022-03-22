@@ -59,8 +59,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 			if(output && getBlockState().getValue(BlockStateProperties.HALF) == Half.BOTTOM && !level.isClientSide) {
 				IParticleData particle = ParticleTypes.ENCHANT;
 				if (serializeNBT().contains(CloudyNBTKeys.OWNER)) particle = CloudyParticles.BED.get();
-				// fix parameters
-				level.getServer().getLevel(level.dimension()).sendParticles(particle, 100, getBlockPos().getX() - 1, getBlockPos().getY() - 1, getBlockPos().getZ() - 1, 1, 1, 2, 1);
+				level.getServer().getLevel(level.dimension()).sendParticles(particle, getBlockPos().getX() + 0.5, getBlockPos().getY() - 1, getBlockPos().getZ() + 0.5, 100, 0, 2, 0, 1);
 			}
 			boolForParticles = output;
 		}
