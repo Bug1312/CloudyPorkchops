@@ -12,6 +12,7 @@ public class IsFoodHelper {
 		if (entity instanceof ItemEntity) {
 			Item item = ((ItemEntity) entity).getItem().getItem();
 			if (item.getFoodProperties() != null 
+				|| item.isEdible()
 				|| item instanceof PotionItem
 				|| CloudyTags.Items.EXTRA_FOODS.contains(item)
 			) return true;

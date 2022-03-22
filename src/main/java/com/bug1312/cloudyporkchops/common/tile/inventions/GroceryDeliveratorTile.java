@@ -35,11 +35,6 @@ import net.minecraft.util.math.vector.Vector3d;
 
 public class GroceryDeliveratorTile extends TileEntity implements ITickableTileEntity {
 	
-	// WIP:
-	// 	When powered on, display particles based on location
-	//		Bed for owner spawn
-	//		enchant particles for set location
-	
 	private BlockPos exitPos;
 	private UUID ownerUUID;
 	private String exitDim;

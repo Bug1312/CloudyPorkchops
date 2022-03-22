@@ -62,6 +62,8 @@ public class CommonBusEvents {
 			
 			entity.remove();
 			if (newEntity != null) {
+				// summon portal
+				
 				Map<ServerWorld, Integer> map = new HashMap<>();
 				map.put(exitDim, (int) (exitDim.getGameTime() + (20 * 3))); // 3 seconds
 				TickRequests.DELAYED_TELEPORT_REQUESTS_CONFIRMED.put(newEntity, map);

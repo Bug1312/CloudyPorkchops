@@ -1,5 +1,15 @@
 {
   "replace": false,
   "values": [
+    "minecraft:cake",
+    "minecraft:dried_kelp_block",
+    "minecraft:melon",
+    "minecraft:pumpkin",
+    "minecraft:turtle_egg",
+    "minecraft:egg",
+    "minecraft:sugar",
+    "minecraft:brown_mushroom",
+    "minecraft:red_mushroom",
+    "minecraft:honey_block"
   ]
 }
