@@ -12,11 +12,12 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class CloudyTileRenders {
+	
 	public static void init() {
 		register(CloudyTiles.GROCERY_DELIVERATOR.get(), GroceryDeliveratorRenderer::new);
 	}
 
-	/* Register Methods */
+	/* Register Method */
 	public static <T extends TileEntity> void register(TileEntityType<T> tile, Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<? super T>> renderer) {
 		ClientRegistry.bindTileEntityRenderer(tile, renderer);
 	}

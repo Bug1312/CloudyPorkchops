@@ -2,10 +2,12 @@ package com.bug1312.cloudyporkchops.main;
 
 import com.bug1312.cloudyporkchops.client.event.ClientBusEvents;
 import com.bug1312.cloudyporkchops.client.event.ClientModEvents;
+import com.bug1312.cloudyporkchops.client.init.CloudyEntityRenders;
 import com.bug1312.cloudyporkchops.client.init.CloudyOverlays;
 import com.bug1312.cloudyporkchops.client.init.CloudyTileRenders;
 import com.bug1312.cloudyporkchops.common.event.CommonBusEvents;
 import com.bug1312.cloudyporkchops.common.init.CloudyContainers;
+import com.bug1312.cloudyporkchops.common.init.CloudyEntities;
 import com.bug1312.cloudyporkchops.common.init.RegistryHandler;
 import com.bug1312.cloudyporkchops.network.NetworkHandler;
 import com.mojang.brigadier.CommandDispatcher;
@@ -61,6 +63,7 @@ public class CloudyPorkchops {
 	
 	private void clientSetup(final FMLClientSetupEvent event) {
 		CloudyTileRenders.init();
+		CloudyEntityRenders.init();
 		CloudyOverlays.init(); 
 	}
 
