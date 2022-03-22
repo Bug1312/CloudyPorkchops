@@ -1,8 +1,8 @@
-package com.bug1312.cloudyporkchops.common.items.inventions;
+package com.bug1312.cloudyporkchops.common.item.invention;
 
 import com.bug1312.cloudyporkchops.common.init.CloudyItems;
-import com.bug1312.cloudyporkchops.common.items.BlockItem;
-import com.bug1312.cloudyporkchops.common.items.IItem3D;
+import com.bug1312.cloudyporkchops.common.item.BlockItem;
+import com.bug1312.cloudyporkchops.common.item.IItem3D;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 import com.bug1312.cloudyporkchops.util.consts.CloudyTranslations;
 

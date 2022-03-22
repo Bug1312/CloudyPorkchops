@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.client.events;
+package com.bug1312.cloudyporkchops.client.event;
 
 import java.util.List;
 import java.util.Map;

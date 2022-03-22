@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.client.events;
+package com.bug1312.cloudyporkchops.client.event;
 
 import com.bug1312.cloudyporkchops.client.overlay.Overlay;
 import com.bug1312.cloudyporkchops.common.init.CloudyBlocks;

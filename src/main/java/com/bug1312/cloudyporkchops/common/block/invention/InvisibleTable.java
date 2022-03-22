@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.common.block.inventions;
+package com.bug1312.cloudyporkchops.common.block.invention;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;

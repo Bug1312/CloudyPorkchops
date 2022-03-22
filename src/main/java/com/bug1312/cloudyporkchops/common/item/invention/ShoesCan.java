@@ -1,10 +1,10 @@
-package com.bug1312.cloudyporkchops.common.items.inventions;
+package com.bug1312.cloudyporkchops.common.item.invention;
 
 import java.util.UUID;
 
 import com.bug1312.cloudyporkchops.common.init.CloudyBlocks;
 import com.bug1312.cloudyporkchops.common.init.CloudyItems;
-import com.bug1312.cloudyporkchops.common.items.Item3D;
+import com.bug1312.cloudyporkchops.common.item.Item3D;
 import com.bug1312.cloudyporkchops.util.DirectionHelper;
 import com.bug1312.cloudyporkchops.util.RaytraceHelper;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;

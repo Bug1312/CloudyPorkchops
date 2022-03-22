@@ -1,10 +1,10 @@
 package com.bug1312.cloudyporkchops.common.init;
 
 import com.bug1312.cloudyporkchops.client.render.Item3DRendering;
-import com.bug1312.cloudyporkchops.common.items.IItem3D;
-import com.bug1312.cloudyporkchops.common.items.inventions.GroceryDeliveratorItem;
-import com.bug1312.cloudyporkchops.common.items.inventions.ShoesCan;
-import com.bug1312.cloudyporkchops.common.materials.CloudyArmorMaterials;
+import com.bug1312.cloudyporkchops.common.item.IItem3D;
+import com.bug1312.cloudyporkchops.common.item.invention.GroceryDeliveratorItem;
+import com.bug1312.cloudyporkchops.common.item.invention.ShoesCan;
+import com.bug1312.cloudyporkchops.common.material.CloudyArmorMaterials;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;

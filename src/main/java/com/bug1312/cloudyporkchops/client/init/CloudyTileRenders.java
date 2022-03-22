@@ -2,7 +2,7 @@ package com.bug1312.cloudyporkchops.client.init;
 
 import java.util.function.Function;
 
-import com.bug1312.cloudyporkchops.client.render.tiles.GroceryDeliveratorRenderer;
+import com.bug1312.cloudyporkchops.client.render.tile.GroceryDeliveratorRenderer;
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;

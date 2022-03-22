@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.common.items;
+package com.bug1312.cloudyporkchops.common.item;
 
 import com.bug1312.cloudyporkchops.util.enums.RenderDimension;
 

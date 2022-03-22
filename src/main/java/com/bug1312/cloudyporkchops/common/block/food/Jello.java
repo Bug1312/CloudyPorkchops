@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.common.block.foods;
+package com.bug1312.cloudyporkchops.common.block.food;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlimeBlock;

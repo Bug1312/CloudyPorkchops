@@ -1,11 +1,11 @@
 package com.bug1312.cloudyporkchops.common.init;
 
-import com.bug1312.cloudyporkchops.common.block.foods.Jello;
-import com.bug1312.cloudyporkchops.common.block.inventions.GroceryDeliverator;
-import com.bug1312.cloudyporkchops.common.block.inventions.InvisibleTable;
-import com.bug1312.cloudyporkchops.common.block.inventions.SprayOnBlock;
-import com.bug1312.cloudyporkchops.common.items.BlockItem3D;
-import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
+import com.bug1312.cloudyporkchops.common.block.food.Jello;
+import com.bug1312.cloudyporkchops.common.block.invention.GroceryDeliverator;
+import com.bug1312.cloudyporkchops.common.block.invention.InvisibleTable;
+import com.bug1312.cloudyporkchops.common.block.invention.SprayOnBlock;
+import com.bug1312.cloudyporkchops.common.item.BlockItem3D;
+import com.bug1312.cloudyporkchops.common.tile.invention.GroceryDeliveratorTile;
 
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.Block;

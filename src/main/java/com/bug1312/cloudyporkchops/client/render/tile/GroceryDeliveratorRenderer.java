@@ -1,10 +1,10 @@
-package com.bug1312.cloudyporkchops.client.render.tiles;
+package com.bug1312.cloudyporkchops.client.render.tile;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
+import com.bug1312.cloudyporkchops.common.tile.invention.GroceryDeliveratorTile;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;

@@ -1,12 +1,12 @@
-package com.bug1312.cloudyporkchops.common.block.inventions;
+package com.bug1312.cloudyporkchops.common.block.invention;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
 import com.bug1312.cloudyporkchops.common.block.TileEntityBaseBlock;
 import com.bug1312.cloudyporkchops.common.init.CloudyItems;
-import com.bug1312.cloudyporkchops.common.items.inventions.GroceryDeliveratorItem;
-import com.bug1312.cloudyporkchops.common.tile.inventions.GroceryDeliveratorTile;
+import com.bug1312.cloudyporkchops.common.item.invention.GroceryDeliveratorItem;
+import com.bug1312.cloudyporkchops.common.tile.invention.GroceryDeliveratorTile;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;

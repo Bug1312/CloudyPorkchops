@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.bug1312.cloudyporkchops.common.items.inventions.ShoesCan;
+import com.bug1312.cloudyporkchops.common.item.invention.ShoesCan;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
 import com.bug1312.cloudyporkchops.util.RaytraceHelper;

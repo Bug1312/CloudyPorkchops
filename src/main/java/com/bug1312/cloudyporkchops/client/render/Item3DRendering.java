@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.bug1312.cloudyporkchops.common.items.IItem3D;
+import com.bug1312.cloudyporkchops.common.item.IItem3D;
 
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;

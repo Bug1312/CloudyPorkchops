@@ -1,9 +1,9 @@
-package com.bug1312.cloudyporkchops.common.tile.inventions;
+package com.bug1312.cloudyporkchops.common.tile.invention;
 
 import java.util.UUID;
 
 import com.bug1312.cloudyporkchops.client.init.CloudyOverlays;
-import com.bug1312.cloudyporkchops.common.block.inventions.GroceryDeliverator;
+import com.bug1312.cloudyporkchops.common.block.invention.GroceryDeliverator;
 import com.bug1312.cloudyporkchops.common.event.TickRequests;
 import com.bug1312.cloudyporkchops.common.init.CloudyParticles;
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;

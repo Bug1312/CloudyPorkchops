@@ -1,7 +1,7 @@
 package com.bug1312.cloudyporkchops.main;
 
-import com.bug1312.cloudyporkchops.client.events.ClientBusEvents;
-import com.bug1312.cloudyporkchops.client.events.ClientModEvents;
+import com.bug1312.cloudyporkchops.client.event.ClientBusEvents;
+import com.bug1312.cloudyporkchops.client.event.ClientModEvents;
 import com.bug1312.cloudyporkchops.client.init.CloudyOverlays;
 import com.bug1312.cloudyporkchops.client.init.CloudyTileRenders;
 import com.bug1312.cloudyporkchops.common.event.CommonBusEvents;
