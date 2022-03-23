@@ -7,13 +7,11 @@ import com.bug1312.cloudyporkchops.client.init.CloudyOverlays;
 import com.bug1312.cloudyporkchops.client.init.CloudyTileRenders;
 import com.bug1312.cloudyporkchops.common.event.CommonBusEvents;
 import com.bug1312.cloudyporkchops.common.init.CloudyContainers;
-import com.bug1312.cloudyporkchops.common.init.CloudyEntities;
 import com.bug1312.cloudyporkchops.common.init.RegistryHandler;
 import com.bug1312.cloudyporkchops.network.NetworkHandler;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.command.CommandSource;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;

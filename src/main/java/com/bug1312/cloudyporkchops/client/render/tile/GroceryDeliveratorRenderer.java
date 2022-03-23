@@ -17,7 +17,6 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.Half;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -25,6 +24,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class GroceryDeliveratorRenderer<T extends GroceryDeliveratorTile> extends TileEntityRenderer<T> {
 
+	private static final Random RANDOM = new Random(31100L);
+	private static final List<RenderType> RENDER_TYPES = IntStream.range(0, 16).mapToObj((p_228882_0_) -> { return RenderType.endPortal(p_228882_0_ + 1); }).collect(ImmutableList.toImmutableList());
+	
 	public GroceryDeliveratorRenderer(TileEntityRendererDispatcher dispatcher) {
 		super(dispatcher);
 	}
@@ -39,12 +41,7 @@ public class GroceryDeliveratorRenderer<T extends GroceryDeliveratorTile> extend
 				this.renderPortal(tile, 2.0F / (18 - j), matrix4f, buffer.getBuffer(RENDER_TYPES.get(j)), tile.getBlockState().getValue(BlockStateProperties.HORIZONTAL_AXIS));
 		}
 	}
-
-	public static final ResourceLocation END_SKY_LOCATION = new ResourceLocation("textures/environment/end_sky.png");
-	public static final ResourceLocation END_PORTAL_LOCATION = new ResourceLocation("textures/entity/end_portal.png");
-	private static final Random RANDOM = new Random(31100L);
-	private static final List<RenderType> RENDER_TYPES = IntStream.range(0, 16).mapToObj((p_228882_0_) -> { return RenderType.endPortal(p_228882_0_ + 1); }).collect(ImmutableList.toImmutableList());
-
+	
 	private void renderPortal(T tile, float u_0, Matrix4f stack, IVertexBuilder builder, Axis axis) {
 		float f0 = (RANDOM.nextFloat() * 0.5F + 0.1F) * u_0;
 		float f1 = (RANDOM.nextFloat() * 0.5F + 0.4F) * u_0;
