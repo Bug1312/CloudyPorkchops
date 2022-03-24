@@ -7,20 +7,16 @@ import com.bug1312.cloudyporkchops.client.init.CloudyOverlays;
 import com.bug1312.cloudyporkchops.client.init.CloudyTileRenders;
 import com.bug1312.cloudyporkchops.common.event.CommonBusEvents;
 import com.bug1312.cloudyporkchops.common.init.CloudyContainers;
-import com.bug1312.cloudyporkchops.common.init.CloudyEntities;
 import com.bug1312.cloudyporkchops.common.init.RegistryHandler;
 import com.bug1312.cloudyporkchops.network.NetworkHandler;
-import com.bug1312.cloudyporkchops.test.ExampleEntity;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.command.CommandSource;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -59,13 +55,8 @@ public class CloudyPorkchops {
 	private void bothSideSetup(IEventBus modEventBus) {
 	}
 
-	@SuppressWarnings("deprecation")
 	private void serverSetup(final FMLCommonSetupEvent event) {
 		NetworkHandler.register();
-		
-		DeferredWorkQueue.runLater(() -> {
-			GlobalEntityTypeAttributes.put(CloudyEntities.TEST.get(), ExampleEntity.setAttributes().build());
-		});
 	}
 	
 	private void clientSetup(final FMLClientSetupEvent event) {
