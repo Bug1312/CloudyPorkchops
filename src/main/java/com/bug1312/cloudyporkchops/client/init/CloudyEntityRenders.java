@@ -2,6 +2,7 @@ package com.bug1312.cloudyporkchops.client.init;
 
 import com.bug1312.cloudyporkchops.client.render.entity.ExitDeliveratorPortalRenderer;
 import com.bug1312.cloudyporkchops.common.init.CloudyEntities;
+import com.bug1312.cloudyporkchops.test.ExampleEntityRenderer;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,6 +13,7 @@ public class CloudyEntityRenders {
 	
 	public static void init() {
 		register(CloudyEntities.EXIT_PORTAL.get(), ExitDeliveratorPortalRenderer::new);
+		register(CloudyEntities.TEST.get(), ExampleEntityRenderer::new);
 	}
 
 	/* Register Method */
