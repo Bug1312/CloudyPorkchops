@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.bug1312.cloudyporkchops.common.item.invention.ShoesCan;
+import com.bug1312.cloudyporkchops.util.ExitPortalHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
+import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 import com.bug1312.cloudyporkchops.util.RaytraceHelper;
 import com.bug1312.cloudyporkchops.util.SprayEntityHelper;
 
@@ -52,7 +54,7 @@ public class CommonBusEvents {
 			
 			CompoundNBT compoundtag = new CompoundNBT();
 			entity.save(compoundtag);
-			compoundtag.putString("id", entity.getType().getRegistryName().toString());
+			compoundtag.putString(CloudyNBTKeys.ID, entity.getType().getRegistryName().toString());
 
 			Entity newEntity = EntityType.loadEntityRecursive(compoundtag, exitDim, (e) -> {
 				e.moveTo(exitPos.getX(), exitPos.getY() - 0.5D, exitPos.getZ(), 0, 0);
@@ -62,7 +64,7 @@ public class CommonBusEvents {
 			
 			entity.remove();
 			if (newEntity != null) {
-				// summon portal
+				ExitPortalHelper.summonOrExtendPortal(exitDim, exitPos);
 				
 				Map<ServerWorld, Integer> map = new HashMap<>();
 				map.put(exitDim, (int) (exitDim.getGameTime() + (20 * 3))); // 3 seconds
