@@ -1,5 +1,7 @@
 package com.bug1312.cloudyporkchops.common.entity;
 
+import com.bug1312.cloudyporkchops.util.SecondsToTickHelper;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
@@ -33,7 +35,7 @@ public class ExitDeliveratorPortal extends Entity {
 	@Override
 	public void onAddedToWorld() {
 		super.onAddedToWorld();
-		timeToDie = level.getGameTime() + (4 * 20); // 4 Seconds
+		timeToDie = level.getGameTime() + SecondsToTickHelper.toTicks(4);
 	}
 
 }

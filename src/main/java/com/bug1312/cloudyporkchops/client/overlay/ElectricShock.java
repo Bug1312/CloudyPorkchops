@@ -31,8 +31,8 @@ public class ElectricShock extends Overlay {
 	
 	@Override 
 	public void render(MatrixStack stack, float partialTicks) {
-		int imageHeight = 32*2;
-		int imageWidth  = 64*2;
+		int imageHeight = 32 * 2;
+		int imageWidth = 64 * 2;
 		
 		addRect(tex0, 0, 0, imageWidth, imageHeight, false, false);
 		addRect(tex1, width - imageWidth, 0, imageWidth, imageHeight, true, false);

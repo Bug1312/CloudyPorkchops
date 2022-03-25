@@ -29,8 +29,7 @@ public class ExitDeliveratorPortalRenderer <T extends ExitDeliveratorPortal> ext
 		super(manager);
 	}
 	
-	@Override
-	public ResourceLocation getTextureLocation(T entity) { return null; }
+	@Override public ResourceLocation getTextureLocation(T entity) { return null; }
 
 	@Override
 	public void render(T entity, float entityYaw, float partialTicks, MatrixStack stack, IRenderTypeBuffer buffer, int packedLightIn) {

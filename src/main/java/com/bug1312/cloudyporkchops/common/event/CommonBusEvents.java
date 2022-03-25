@@ -9,9 +9,10 @@ import com.bug1312.cloudyporkchops.common.item.invention.ShoesCan;
 import com.bug1312.cloudyporkchops.util.ExitPortalHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
-import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 import com.bug1312.cloudyporkchops.util.RaytraceHelper;
+import com.bug1312.cloudyporkchops.util.SecondsToTickHelper;
 import com.bug1312.cloudyporkchops.util.SprayEntityHelper;
+import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -67,7 +68,7 @@ public class CommonBusEvents {
 				ExitPortalHelper.summonOrExtendPortal(exitDim, exitPos);
 				
 				Map<ServerWorld, Integer> map = new HashMap<>();
-				map.put(exitDim, (int) (exitDim.getGameTime() + (20 * 3))); // 3 seconds
+				map.put(exitDim, (int) (exitDim.getGameTime() + SecondsToTickHelper.toTicks(3)));
 				TickRequests.DELAYED_TELEPORT_REQUESTS_CONFIRMED.put(newEntity, map);
 			}
 			

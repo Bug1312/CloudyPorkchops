@@ -9,6 +9,7 @@ import com.bug1312.cloudyporkchops.common.init.CloudyParticles;
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
 import com.bug1312.cloudyporkchops.util.IsFoodHelper;
 import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
+import com.bug1312.cloudyporkchops.util.SecondsToTickHelper;
 import com.bug1312.cloudyporkchops.util.consts.CloudyDamageSources;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 
@@ -101,7 +102,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 				
 				if(entity.level.isClientSide) {
 					Minecraft mc = Minecraft.getInstance();
-					if(entity.equals(mc.player)) CloudyOverlays.ELECTRIC_SHOCK.gameTime = (entity.level.getGameTime() + (2 * 20)); // 2 seconds
+					if(entity.equals(mc.player)) CloudyOverlays.ELECTRIC_SHOCK.gameTime = (entity.level.getGameTime() + SecondsToTickHelper.toTicks(2));
 				}
 				
 			}

@@ -7,6 +7,7 @@ import com.bug1312.cloudyporkchops.common.init.CloudyItems;
 import com.bug1312.cloudyporkchops.common.item.Item3D;
 import com.bug1312.cloudyporkchops.util.DirectionHelper;
 import com.bug1312.cloudyporkchops.util.RaytraceHelper;
+import com.bug1312.cloudyporkchops.util.SecondsToTickHelper;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 
 import net.minecraft.block.BlockState;
@@ -33,7 +34,7 @@ import net.minecraftforge.common.ForgeMod;
 
 public class ShoesCan extends Item3D {
 
-	private int requiredTicks = 2 * 20;
+	private int requiredTicks = SecondsToTickHelper.toTicks(2);
 	private SprayCanUse currentUse = SprayCanUse.NONE;
 	private int tickAfterChange;
 	private UUID currentEntityUUID;
@@ -145,7 +146,7 @@ public class ShoesCan extends Item3D {
 	private void sprayOnEntity(Entity entity) {
 		if(entity instanceof MobEntity) {
 			CompoundNBT nbt = entity.serializeNBT();
-			nbt.putShort(CloudyNBTKeys.SPRAYED_ON, (short) (10 * 20)); // 5 seconds
+			nbt.putShort(CloudyNBTKeys.SPRAYED_ON, (short) (SecondsToTickHelper.toTicks(10)));
 			entity.deserializeNBT(nbt); 
 		}
 	}

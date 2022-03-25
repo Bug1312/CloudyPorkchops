@@ -31,7 +31,7 @@ public class ExitPortalHelper {
 		if (entities.size() > 0) {
 			ExitDeliveratorPortal entity = (ExitDeliveratorPortal) entities.get(0);
 			
-			entity.timeToDie = world.getGameTime() + (4 * 20); // 4 seconds
+			entity.timeToDie = world.getGameTime() + SecondsToTickHelper.toTicks(4);
 		} else summonPortal(world, pos);
 	}
 	
