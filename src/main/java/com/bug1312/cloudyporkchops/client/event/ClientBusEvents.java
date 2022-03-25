@@ -2,7 +2,7 @@ package com.bug1312.cloudyporkchops.client.event;
 
 import com.bug1312.cloudyporkchops.client.overlay.Overlay;
 import com.bug1312.cloudyporkchops.common.init.CloudyBlocks;
-import com.bug1312.cloudyporkchops.util.SprayEntityHelper;
+import com.bug1312.cloudyporkchops.util.helpers.SprayEntityHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.particles.BlockParticleData;

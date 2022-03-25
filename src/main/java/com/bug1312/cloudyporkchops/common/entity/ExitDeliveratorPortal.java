@@ -1,6 +1,6 @@
 package com.bug1312.cloudyporkchops.common.entity;
 
-import com.bug1312.cloudyporkchops.util.SecondsToTickHelper;
+import com.bug1312.cloudyporkchops.util.helpers.SecondsToTickHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

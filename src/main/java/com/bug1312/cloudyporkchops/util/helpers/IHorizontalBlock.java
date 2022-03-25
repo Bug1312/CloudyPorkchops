@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.util;
+package com.bug1312.cloudyporkchops.util.helpers;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.state.properties.BlockStateProperties;

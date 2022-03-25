@@ -7,11 +7,11 @@ import com.bug1312.cloudyporkchops.common.block.invention.GroceryDeliverator;
 import com.bug1312.cloudyporkchops.common.event.TickRequests;
 import com.bug1312.cloudyporkchops.common.init.CloudyParticles;
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
-import com.bug1312.cloudyporkchops.util.IsFoodHelper;
-import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
-import com.bug1312.cloudyporkchops.util.SecondsToTickHelper;
 import com.bug1312.cloudyporkchops.util.consts.CloudyDamageSources;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
+import com.bug1312.cloudyporkchops.util.helpers.IsFoodHelper;
+import com.bug1312.cloudyporkchops.util.helpers.SecondsToTickHelper;
+import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper.Location;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;

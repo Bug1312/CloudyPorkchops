@@ -1,4 +1,4 @@
-package com.bug1312.cloudyporkchops.util;
+package com.bug1312.cloudyporkchops.util.helpers;
 
 import java.io.IOException;
 import java.io.InputStream;

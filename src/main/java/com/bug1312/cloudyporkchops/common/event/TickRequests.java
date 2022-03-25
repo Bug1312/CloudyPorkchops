@@ -3,7 +3,7 @@ package com.bug1312.cloudyporkchops.common.event;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
+import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper.Location;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.world.server.ServerWorld;

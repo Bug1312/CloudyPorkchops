@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.bug1312.cloudyporkchops.common.item.invention.ShoesCan;
-import com.bug1312.cloudyporkchops.util.ExitPortalHelper;
-import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper;
-import com.bug1312.cloudyporkchops.util.PlayerSpawnHelper.Location;
-import com.bug1312.cloudyporkchops.util.RaytraceHelper;
-import com.bug1312.cloudyporkchops.util.SecondsToTickHelper;
-import com.bug1312.cloudyporkchops.util.SprayEntityHelper;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
+import com.bug1312.cloudyporkchops.util.helpers.ExitPortalHelper;
+import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper;
+import com.bug1312.cloudyporkchops.util.helpers.RaytraceHelper;
+import com.bug1312.cloudyporkchops.util.helpers.SecondsToTickHelper;
+import com.bug1312.cloudyporkchops.util.helpers.SprayEntityHelper;
+import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper.Location;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

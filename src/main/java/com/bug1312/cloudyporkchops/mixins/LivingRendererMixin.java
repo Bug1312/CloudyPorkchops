@@ -3,7 +3,8 @@ package com.bug1312.cloudyporkchops.mixins;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import com.bug1312.cloudyporkchops.util.SprayEntityHelper;
+
+import com.bug1312.cloudyporkchops.util.helpers.SprayEntityHelper;
 
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
