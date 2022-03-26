@@ -7,9 +7,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
+@SuppressWarnings("unused")
 public class CloudyBiomes {
 
-	@SuppressWarnings("unused")
 	private static RegistryKey<Biome> register(String name) {
 		return RegistryKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(CloudyPorkchops.MODID, name));
 	}

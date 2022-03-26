@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.bug1312.cloudyporkchops.client.init.CloudyEntityRenders;
+import com.bug1312.cloudyporkchops.client.init.CloudyOverlays;
+import com.bug1312.cloudyporkchops.client.init.CloudyTileRenders;
 import com.bug1312.cloudyporkchops.client.render.Item3DRendering;
 import com.bug1312.cloudyporkchops.client.render.Item3DRendering.ItemRenderInfo;
 import com.bug1312.cloudyporkchops.client.render.Item3DRendering.ItemRenderInfo.OtherModel;
@@ -35,7 +38,12 @@ public class ClientModEvents {
 	
 	@SubscribeEvent
 	public static void renderSetup(FMLClientSetupEvent event) {
+		CloudyTileRenders.init();
+		CloudyEntityRenders.init();
+		CloudyOverlays.init(); 
+		
 		RenderingRegistry.registerEntityRenderingHandler(CloudyEntities.EXIT_PORTAL.get(), ExitDeliveratorPortalRenderer::new);
+		
 		RenderTypeLookup.setRenderLayer(CloudyBlocks.SPRAY_ON_SIDE.get(), RenderType.translucent());
 		RenderTypeLookup.setRenderLayer(CloudyBlocks.SPRAY_ON_FULL.get(), RenderType.translucent());
 		RenderTypeLookup.setRenderLayer(CloudyBlocks.GROCERY_DELIVERATOR.get(), RenderType.cutout());

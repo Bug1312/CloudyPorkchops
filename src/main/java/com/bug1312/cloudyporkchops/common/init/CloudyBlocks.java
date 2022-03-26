@@ -17,6 +17,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 
+@SuppressWarnings("unused")
 public class CloudyBlocks {
 
 	/* Decoration */
@@ -35,7 +36,7 @@ public class CloudyBlocks {
 	public static RegistryObject<Block> SPRAY_ON_SIDE		= register("biopolymer_adhesive", new SprayOnBlock(Properties.of(Material.CLAY, MaterialColor.COLOR_PURPLE).noOcclusion().strength(50.0F, 1200.0F)),  false);
 	
 	/* Register Methods */
-	public static RegistryObject<Block> register(String name, Block block, Item.Properties properties, boolean hasItem, boolean is3D) {
+	private static RegistryObject<Block> register(String name, Block block, Item.Properties properties, boolean hasItem, boolean is3D) {
 		if (hasItem) {
 			Item item = (is3D)? new BlockItem3D(block, properties) : new BlockItem(block, properties);
 			RegistryHandler.ITEMS.register(name, () -> item);
@@ -43,15 +44,15 @@ public class CloudyBlocks {
 		return RegistryHandler.BLOCKS.register(name, () -> block);
 	}	
 	
-	public static RegistryObject<Block> register(String name, Block block, Item.Properties properties, boolean hasItem) {
+	private static RegistryObject<Block> register(String name, Block block, Item.Properties properties, boolean hasItem) {
 		return register(name, block, properties, hasItem, false);
 	}	
 	
-	public static RegistryObject<Block> register(String name, Block block, boolean hasItem, boolean is3D) {
+	private static RegistryObject<Block> register(String name, Block block, boolean hasItem, boolean is3D) {
 		return register(name, block, new Item.Properties(), hasItem, is3D);
 	}
 	
-	public static RegistryObject<Block> register(String name, Block block, boolean hasItem) {
+	private static RegistryObject<Block> register(String name, Block block, boolean hasItem) {
 		return register(name, block, new Item.Properties(), hasItem, false);
 	}	
 	

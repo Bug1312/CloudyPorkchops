@@ -37,7 +37,6 @@ public class CloudyTags {
 	public static class Items {
 
 		public static final Tags.IOptionalNamedTag<Item> EXTRA_FOODS = createTag(CloudyTagKeys.EXTRA_FOODS);
-
 		
 		// Creation Method
 		private static IOptionalNamedTag<Item> createTag(String name) {

@@ -4,6 +4,7 @@ import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.tileentity.TileEntityType;
@@ -22,6 +23,7 @@ public class RegistryHandler {
 	public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES,CloudyPorkchops.MODID);
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, CloudyPorkchops.MODID);
 	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, CloudyPorkchops.MODID);
+    public static final DeferredRegister<ContainerType<?>> CONTAINER_TYPE = DeferredRegister.create(ForgeRegistries.CONTAINERS, CloudyPorkchops.MODID);  
 	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, CloudyPorkchops.MODID);
 
 	public static void init(IEventBus eventBus) {
@@ -31,6 +33,7 @@ public class RegistryHandler {
 		CloudyBiomes.init();
 		CloudyEntities.init();
 		CloudySounds.init();
+		CloudyContainers.init();
 		CloudyTiles.init();
 						
 		FMLJavaModLoadingContext.get().getModEventBus().register(CloudyParticles.class);
@@ -41,6 +44,7 @@ public class RegistryHandler {
 		BIOMES.register(eventBus);
 		ENTITY_TYPES.register(eventBus);
 		SOUNDS.register(eventBus);
+		CONTAINER_TYPE.register(eventBus);
 		TILE_ENTITY_TYPES.register(eventBus);
 	}
 }

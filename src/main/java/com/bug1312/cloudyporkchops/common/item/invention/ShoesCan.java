@@ -155,7 +155,7 @@ public class ShoesCan extends Item3D {
 		BlockPos newBlockPos = pos.relative(face);
 		BlockState state = world.getBlockState(newBlockPos);
 		Direction newBlockDir = face.getOpposite();
-		BooleanProperty newBlockDirProp = DirectionHelper.getProp(newBlockDir);
+		BooleanProperty newBlockDirProp = DirectionHelper.toProperty(newBlockDir);
 
 		Boolean flag = HorizontalFaceBlock.canAttach(world, newBlockPos, newBlockDir);
 
