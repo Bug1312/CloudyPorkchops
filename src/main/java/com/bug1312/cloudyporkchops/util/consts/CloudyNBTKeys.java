@@ -3,7 +3,7 @@ package com.bug1312.cloudyporkchops.util.consts;
 public class CloudyNBTKeys {
 
 	/* Minecraft */
-	public static String ID = "Id";
+	public static String ID = "id";
 	
 	/* Minecraft Mimics */
 	public static String OWNER = "Owner";

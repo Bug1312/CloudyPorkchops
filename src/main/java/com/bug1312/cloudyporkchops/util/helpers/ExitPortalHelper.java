@@ -15,6 +15,8 @@ import net.minecraft.world.server.ServerWorld;
 
 public class ExitPortalHelper {	
 	public static void summonPortal(ServerWorld world, BlockPos pos) {
+		if(!world.isLoaded(pos)) return;
+		
 		CompoundNBT portalNBT = new CompoundNBT();
 		portalNBT.putString(CloudyNBTKeys.ID, CloudyEntities.EXIT_PORTAL.get().getRegistryName().toString());
 
