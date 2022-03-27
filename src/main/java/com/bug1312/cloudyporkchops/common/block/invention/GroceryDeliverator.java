@@ -8,7 +8,6 @@ import com.bug1312.cloudyporkchops.common.init.CloudyItems;
 import com.bug1312.cloudyporkchops.common.item.invention.GroceryDeliveratorItem;
 import com.bug1312.cloudyporkchops.common.tile.invention.GroceryDeliveratorTile;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
-import com.bug1312.cloudyporkchops.util.consts.CloudyProperties;
 import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper;
 import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper.Location;
 
@@ -31,7 +30,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -80,22 +78,6 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 		return PORTAL_SHAPE;
 	}
 		
-	public void updatePortalSize(BlockState thisState, World world, BlockPos thisPos) {
-		boolean isTop = (thisState.getValue(BlockStateProperties.HALF) == Half.TOP);
-		BlockPos pos = isTop ? thisPos.below() : thisPos;
-		BlockPos otherPos = pos.above().above();
-		BlockState state = world.getBlockState(pos);
-		
-		VoxelShape portalCollision = VoxelShapes.create(getPortalCollider(state).bounds());
-		VoxelShape blockCollisions = world.getBlockState(otherPos).getCollisionShape(world, otherPos).move(0, 2, 0);				
-		boolean output = !VoxelShapes.joinIsNotEmpty(blockCollisions, portalCollision, IBooleanFunction.AND);
-
-		if(state.getValue(CloudyProperties.TALL_PORTAL) != output) {
-			world.setBlock(pos, state.setValue(CloudyProperties.TALL_PORTAL, output), GroceryDeliverator.PORTAL_TOP_UPDATE_FLAG);
-
-		}
-	}
-		
 	@Override
 	public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if(!world.isClientSide && entity instanceof PlayerEntity && state.getValue(BlockStateProperties.HALF) == Half.BOTTOM) {
@@ -132,7 +114,6 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 	@Override @SuppressWarnings("deprecation")
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block u_1, BlockPos u_2, boolean u_3) {
 		super.neighborChanged(state, world, pos, u_1, u_2, u_3);
-		updatePortalSize(state, world, pos);
 		if(state.getValue(BlockStateProperties.HALF) == Half.TOP) return;
 		boolean flag = isPowered(pos, world);
 		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, flag));
@@ -202,7 +183,6 @@ public class GroceryDeliverator extends TileEntityBaseBlock.WaterLoggable {
 		builder.add(BlockStateProperties.HORIZONTAL_AXIS);
 		builder.add(BlockStateProperties.POWERED);
 		builder.add(BlockStateProperties.HALF);
-		builder.add(CloudyProperties.TALL_PORTAL);
 	}
 	
 	public BlockState rotate(BlockState state, Rotation rotation) {

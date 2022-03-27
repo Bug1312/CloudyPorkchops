@@ -21,7 +21,7 @@ public class ExitPortalHelper {
 		portalNBT.putString(CloudyNBTKeys.ID, CloudyEntities.EXIT_PORTAL.get().getRegistryName().toString());
 
 		Entity portalEntity = EntityType.loadEntityRecursive(portalNBT, world, (e) -> {
-			e.moveTo(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
+			e.moveTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 0, 0);
 			return e;
 		});
 		

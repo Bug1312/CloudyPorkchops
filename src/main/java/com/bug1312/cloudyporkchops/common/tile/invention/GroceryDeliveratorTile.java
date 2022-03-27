@@ -10,13 +10,12 @@ import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
 import com.bug1312.cloudyporkchops.util.consts.CloudyDamageSources;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 import com.bug1312.cloudyporkchops.util.helpers.IsFoodHelper;
-import com.bug1312.cloudyporkchops.util.helpers.SecondsToTickHelper;
 import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper.Location;
+import com.bug1312.cloudyporkchops.util.helpers.SecondsToTickHelper;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -113,7 +112,7 @@ public class GroceryDeliveratorTile extends TileEntity implements ITickableTileE
 		Vector3d entityPos = entity.position();
 		double dir = 1;
 		double height = 0.3;
-		double multiple = (entity instanceof LivingEntity) ? 1.5 : 1;
+		double multiple = 0.8;
 		
 		switch(this.getBlockState().getValue(BlockStateProperties.HORIZONTAL_AXIS)) {
 			case X: default: {

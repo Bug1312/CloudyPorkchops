@@ -58,7 +58,7 @@ public class CommonBusEvents {
 			compoundtag.putString(CloudyNBTKeys.ID, entity.getType().getRegistryName().toString());
 
 			Entity newEntity = EntityType.loadEntityRecursive(compoundtag, exitDim, (e) -> {
-				e.moveTo(exitPos.getX(), exitPos.getY() - 0.5D, exitPos.getZ(), 0, 0);
+				e.moveTo(exitPos.getX() + 0.5D, exitPos.getY() - 0.5D, exitPos.getZ() + 0.5D, 0, 0);
 				return e;
 			});
 			
