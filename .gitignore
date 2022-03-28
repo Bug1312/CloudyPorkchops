@@ -28,3 +28,8 @@ forge*changelog.txt
 /.apt_generated/
 /.apt_generated_tests/
 /home/
+
+# generation scripts
+/gen/input/*
+!/gen/input/.dont_ignore/
+/gen/output

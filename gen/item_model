@@ -1,0 +1,6 @@
+#!/bin/bash
+
+__dirname=$(dirname $0)
+
+node "$__dirname/src/setup.js";
+node "$__dirname/src/item_model.js" cloudyporkchops;
