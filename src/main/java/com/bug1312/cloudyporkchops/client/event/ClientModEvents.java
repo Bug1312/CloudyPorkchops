@@ -13,6 +13,7 @@ import com.bug1312.cloudyporkchops.client.render.Item3DRendering.ItemRenderInfo.
 import com.bug1312.cloudyporkchops.client.render.entity.ExitDeliveratorPortalRenderer;
 import com.bug1312.cloudyporkchops.common.init.CloudyBlocks;
 import com.bug1312.cloudyporkchops.common.init.CloudyEntities;
+import com.bug1312.javajson.ModelReloadListener;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.block.BlockState;
@@ -35,13 +36,14 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientModEvents {
-	
+		
 	@SubscribeEvent
 	public static void renderSetup(FMLClientSetupEvent event) {
 		CloudyTileRenders.init();
 		CloudyEntityRenders.init();
 		CloudyOverlays.init(); 
-		
+		ModelReloadListener.init();
+
 		RenderingRegistry.registerEntityRenderingHandler(CloudyEntities.EXIT_PORTAL.get(), ExitDeliveratorPortalRenderer::new);
 		
 		RenderTypeLookup.setRenderLayer(CloudyBlocks.SPRAY_ON_SIDE.get(), RenderType.translucent());
