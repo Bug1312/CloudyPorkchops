@@ -17,16 +17,16 @@ public class ModelLoader {
 
 	private static Gson GSON = new Gson();
 	public static ModelRendererWrapper NULL_PART = new ModelRendererWrapper(new BlankModel());
-	private static Map<ResourceLocation, JSONModel> cache = new HashMap<ResourceLocation, JSONModel>();
+	private static Map<ResourceLocation, JSONModel> bakedCache = new HashMap<ResourceLocation, JSONModel>();
 
 	public static JSONModel loadModel(ResourceLocation rl) {
-		if (cache.containsKey(rl)) {
-			return cache.get(rl);
+		if (bakedCache.containsKey(rl)) {
+			return bakedCache.get(rl);
 		}
 
 		JSONModel m = new JSONModel(rl);
 		m.load();
-		cache.put(rl, m);
+		bakedCache.put(rl, m);
 
 		return m;
 	}
@@ -108,7 +108,7 @@ public class ModelLoader {
 	}
 
 	public static Map<ResourceLocation, JSONModel> getCache() {
-		return cache;
+		return bakedCache;
 	}
 
 }

@@ -12,7 +12,7 @@
 				{
 					"group_name": "Head",
 					"pivot": [0,-23.25,-0.5],
-					"rotation": [-15,0,0],
+					"rotation": [15,0,0],
 					"cubes": [
 						{
 							"uv": [0,0],
