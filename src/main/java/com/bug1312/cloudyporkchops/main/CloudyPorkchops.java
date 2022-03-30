@@ -3,13 +3,17 @@ package com.bug1312.cloudyporkchops.main;
 import com.bug1312.cloudyporkchops.client.event.ClientBusEvents;
 import com.bug1312.cloudyporkchops.client.event.ClientModEvents;
 import com.bug1312.cloudyporkchops.common.event.CommonBusEvents;
+import com.bug1312.cloudyporkchops.common.init.CloudyEntities;
 import com.bug1312.cloudyporkchops.common.init.RegistryHandler;
+import com.bug1312.test.AutonEntity;
 
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(CloudyPorkchops.MODID)
@@ -22,11 +26,19 @@ public class CloudyPorkchops {
 		RegistryHandler.init(modEventBus);
 		
 		modEventBus.register(ClientModEvents.class);
-				
+		modEventBus.addListener(this::setup);
+		
 		MinecraftForge.EVENT_BUS.register(ClientBusEvents.class);
 		MinecraftForge.EVENT_BUS.register(CommonBusEvents.class);
 	
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec, MODID + "-client.toml");		
+	}
+	
+	private void setup(FMLCommonSetupEvent event) {
+		event.enqueueWork(() -> {
+		
+			GlobalEntityTypeAttributes.put(CloudyEntities.AUTON_ENTITY.get(), AutonEntity.setCustomAttributes().build());
+		});
 	}
 	
 }

@@ -4,8 +4,7 @@ import java.util.function.Function;
 
 import com.bug1312.cloudyporkchops.common.init.CloudyTiles;
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
-import com.bug1312.javajson.JSONModel;
-import com.bug1312.javajson.ModelLoader;
+import com.bug1312.javajson.JavaJsonRegistry;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -27,11 +26,7 @@ public class CloudyTileRenders {
 	}
 	
 	public static <T extends TileEntity> void  register(TileEntityType<T> tileEntityType, ResourceLocation location) {
-		JSONModel model = ModelLoader.loadModel(location);
-		if(model != null) {
-			Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<? super T>> rendererFactory = (s -> new RenderTileEntityBase(s, model.getModelData().getModel(), model.getModelData().getTexture()));
-			ClientRegistry.bindTileEntityRenderer(tileEntityType, rendererFactory);
-		}
+		JavaJsonRegistry.bindTileEntityRenderer(tileEntityType, location);
 	}
 
 }

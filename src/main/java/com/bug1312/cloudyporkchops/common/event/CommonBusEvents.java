@@ -9,10 +9,10 @@ import com.bug1312.cloudyporkchops.common.item.invention.ShoesCan;
 import com.bug1312.cloudyporkchops.util.consts.CloudyNBTKeys;
 import com.bug1312.cloudyporkchops.util.helpers.ExitPortalHelper;
 import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper;
+import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper.Location;
 import com.bug1312.cloudyporkchops.util.helpers.RaytraceHelper;
 import com.bug1312.cloudyporkchops.util.helpers.SecondsToTickHelper;
 import com.bug1312.cloudyporkchops.util.helpers.SprayEntityHelper;
-import com.bug1312.cloudyporkchops.util.helpers.PlayerSpawnHelper.Location;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
