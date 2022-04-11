@@ -14,6 +14,7 @@ import com.bug1312.cloudyporkchops.client.render.entity.ExitDeliveratorPortalRen
 import com.bug1312.cloudyporkchops.common.init.CloudyBlocks;
 import com.bug1312.cloudyporkchops.common.init.CloudyEntities;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.swdteam.javajson.JavaJSONModel;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.RenderType;
@@ -66,7 +67,7 @@ public class ClientModEvents {
 				public IBakedModel handlePerspective(ItemCameraTransforms.TransformType transformType, MatrixStack mat) {					
 					IBakedModel model = renderInfo.getTransforms().get(transformType).getModel();
 					if (model == null) model = baseModel;
-					
+
 					return ForgeHooksClient.handlePerspective(model, transformType, mat);
 				}
 				

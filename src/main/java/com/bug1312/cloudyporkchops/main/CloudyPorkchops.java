@@ -4,6 +4,7 @@ import com.bug1312.cloudyporkchops.client.event.ClientBusEvents;
 import com.bug1312.cloudyporkchops.client.event.ClientModEvents;
 import com.bug1312.cloudyporkchops.common.event.CommonBusEvents;
 import com.bug1312.cloudyporkchops.common.init.RegistryHandler;
+import com.swdteam.javajson.JavaJSON;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,7 +27,9 @@ public class CloudyPorkchops {
 		MinecraftForge.EVENT_BUS.register(ClientBusEvents.class);
 		MinecraftForge.EVENT_BUS.register(CommonBusEvents.class);
 	
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec, MODID + "-client.toml");		
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec, MODID + "-client.toml");
+		
+		JavaJSON.initialize();
 	}
 	
 }

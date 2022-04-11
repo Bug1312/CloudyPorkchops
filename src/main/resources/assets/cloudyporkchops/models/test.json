@@ -1,0 +1,43 @@
+{
+	"credit": "Made with Blockbench",
+	"texture": "textures:texture.png/texture",
+	"texture_width": 16,
+	"texture_height": 16,
+	"scale": 1,
+	"groups": [
+		{
+			"pivot": [0,24,0],
+			"rotation": [0,0,0],
+			"cubes": [
+				{
+					"uv": [0,0],
+					"size": [2,4,2],
+					"origin": [-1,-12,-1],
+					"inflate": 0,
+					"mirror": false
+				}
+			]
+		},
+		{
+			"group_name": "reference",
+			"pivot": [8,24,-8],
+			"rotation": [0,0,0],
+			"cubes": [
+				{
+					"uv": [0,8],
+					"size": [8,8,8],
+					"origin": [-12.2,-8.2,3.8],
+					"inflate": 0,
+					"mirror": false
+				},
+				{
+					"uv": [4,0],
+					"size": [8,8,8],
+					"origin": [-12,-8,4],
+					"inflate": 0,
+					"mirror": true
+				}
+			]
+		}
+	]
+}
