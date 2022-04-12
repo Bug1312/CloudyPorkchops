@@ -51,12 +51,12 @@ public class ForkKnifeSpooninator extends ArmorItem implements IItem3D {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public <M extends BipedModel<?>> M getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, M _default) {
-		return (M) new ForkKnifeSpooninatorModel();
+		return (M) new ForkKnifeSpooninatorModel(_default);
 	}
 
 	@Override
 	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-		return new ForkKnifeSpooninatorModel().getTexture().toString();
+		return new ForkKnifeSpooninatorModel(null).getTexture().toString();
 	}
 	
 }
