@@ -13,6 +13,9 @@ out
 *.iml
 .idea
 
+# vs
+.vscode
+
 # gradle
 build
 .gradle
@@ -20,6 +23,8 @@ build
 # other
 eclipse
 run
+svr
+gradle.properties
 src/generated
 src/test
 
