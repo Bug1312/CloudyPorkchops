@@ -1,8 +1,8 @@
 package com.bug1312.cloudyporkchops.util.helpers;
 
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class DirectionHelper {
 	public static BooleanProperty toProperty(Direction direction) {

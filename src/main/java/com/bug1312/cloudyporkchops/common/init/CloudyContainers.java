@@ -1,23 +1,21 @@
 package com.bug1312.cloudyporkchops.common.init;
 
-import java.util.function.Supplier;
-
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraftforge.common.extensions.IForgeContainerType;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.network.IContainerFactory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.network.IContainerFactory;
+import net.minecraftforge.registries.RegistryObject;
 
 @SuppressWarnings("unused")
 public class CloudyContainers {
-	
+
 	/* Register Methods */
-	private static <C extends Container> RegistryObject<ContainerType<C>> register(String id, IContainerFactory<C> container) {
-		RegistryObject<ContainerType<C>> registryItem = RegistryHandler.CONTAINER_TYPE.register(id, () -> IForgeContainerType.create(container));
+	private static <C extends AbstractContainerMenu> RegistryObject<MenuType<C>> register(String id, IContainerFactory<C> container) {
+		RegistryObject<MenuType<C>> registryItem = RegistryHandler.CONTAINER_TYPE.register(id, () -> IForgeMenuType.create(container));
 		return registryItem;
 	}
-	
-	public static void init() {};	
-	
+
+	public static void init() {};
+
 }
 

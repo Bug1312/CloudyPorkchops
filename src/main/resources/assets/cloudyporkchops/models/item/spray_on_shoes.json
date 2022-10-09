@@ -1,1 +1,18 @@
-{"parent":"item/generated","textures":{"layer0":"cloudyporkchops:item/spray_on_shoes_can"}}
+{
+	"parent":"forge:item/default",
+	"loader":"forge:separate_transforms",
+	"base": {
+		"parent": "cloudyporkchops:item/spray_on_shoes_3d"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "cloudyporkchops:item/spray_on_shoes_2d"
+		},
+		"ground": {
+			"parent": "cloudyporkchops:item/spray_on_shoes_2d"
+		},
+		"fixed": {
+			"parent": "cloudyporkchops:item/spray_on_shoes_2d"
+		}
+	}
+}

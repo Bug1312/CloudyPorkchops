@@ -3,33 +3,33 @@ package com.bug1312.cloudyporkchops.util.helpers;
 import java.util.Optional;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 public class RaytraceHelper {
 
-	public static EntityRayTraceResult getHitResult(LivingEntity lookingEntity, double range) {
-		float playerRotX = lookingEntity.xRot;
-		float playerRotY = lookingEntity.yRot;
-		Vector3d startPos = lookingEntity.getEyePosition(1.0F);
+	public static EntityHitResult getHitResult(LivingEntity lookingEntity, double range) {
+		float playerRotX = lookingEntity.getXRot();
+		float playerRotY = lookingEntity.getYRot();
+		Vec3 startPos = lookingEntity.getEyePosition(1.0F);
 		double f2 = Math.cos(-playerRotY * ((float) Math.PI / 180F) - (float) Math.PI);
 		double f3 = Math.sin(-playerRotY * ((float) Math.PI / 180F) - (float) Math.PI);
 		double f4 = -Math.cos(-playerRotX * ((float) Math.PI / 180F));
 		double additionY = Math.sin(-playerRotX * ((float) Math.PI / 180F));
 		double additionX = f3 * f4;
 		double additionZ = f2 * f4;
-		Vector3d endVec = startPos.add((double) additionX * range, (double) additionY * range, (double) additionZ * range);
-		AxisAlignedBB startEndBox = new AxisAlignedBB(startPos, endVec);
+		Vec3 endVec = startPos.add((double) additionX * range, (double) additionY * range, (double) additionZ * range);
+		AABB startEndBox = new AABB(startPos, endVec);
 		Entity lookedAtEntity = null;
 		for (Entity ent : lookingEntity.level.getEntities(lookingEntity, startEndBox, (val) -> true)) {
-			AxisAlignedBB aabb = ent.getBoundingBox().inflate(ent.getPickRadius());
-			Optional<Vector3d> optional = aabb.clip(startPos, endVec);
+			AABB aabb = ent.getBoundingBox().inflate(ent.getPickRadius());
+			Optional<Vec3> optional = aabb.clip(startPos, endVec);
 			if (aabb.contains(startPos)) {
 				if (range >= 0.0D) {
 					lookedAtEntity = ent;
@@ -37,7 +37,7 @@ public class RaytraceHelper {
 					range = 0.0D;
 				}
 			} else if (optional.isPresent()) {
-				Vector3d vec31 = optional.get();
+				Vec3 vec31 = optional.get();
 				double d1 = startPos.distanceToSqr(vec31);
 				if (d1 < range || range == 0.0D) {
 					if (ent.getRootVehicle() == lookingEntity.getRootVehicle() && !ent.canRiderInteract()) {
@@ -54,17 +54,17 @@ public class RaytraceHelper {
 			}
 		}
 
-		return (lookedAtEntity == null) ? null : new EntityRayTraceResult(lookedAtEntity);
+		return (lookedAtEntity == null) ? null : new EntityHitResult(lookedAtEntity);
 	}
 
 	@SuppressWarnings("resource")
-	public static BlockRayTraceResult getPlayerBlockResult(LivingEntity player, double range) {
-		if(!(player instanceof PlayerEntity) || !player.level.isClientSide) return null;
-		RayTraceResult rt = Minecraft.getInstance().hitResult;
-		
-		if(rt instanceof BlockRayTraceResult) return (BlockRayTraceResult) rt;
+	public static BlockHitResult getPlayerBlockResult(LivingEntity player, double range) {
+		if (!(player instanceof Player) || !player.level.isClientSide) return null;
+		HitResult rt = Minecraft.getInstance().hitResult;
+
+		if (rt instanceof BlockHitResult) return (BlockHitResult) rt;
 		return null;
-		
+
 	}
 
 }

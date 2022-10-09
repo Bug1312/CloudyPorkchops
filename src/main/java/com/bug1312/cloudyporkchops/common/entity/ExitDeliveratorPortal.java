@@ -2,36 +2,36 @@ package com.bug1312.cloudyporkchops.common.entity;
 
 import com.bug1312.cloudyporkchops.util.helpers.SecondsToTickHelper;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 
 public class ExitDeliveratorPortal extends Entity {
-	 	 
+
 	public long timeToDie;
-	
-	public ExitDeliveratorPortal(EntityType<?> entity, World world) {
+
+	public ExitDeliveratorPortal(EntityType<?> entity, Level world) {
 		super(entity, world);
 	}
-	
+
 	@Override public void defineSynchedData() {}
-	@Override public void readAdditionalSaveData(CompoundNBT nbt) {}
-	@Override public void addAdditionalSaveData(CompoundNBT nbt) {}
+	@Override public void readAdditionalSaveData(CompoundTag nbt) {}
+	@Override public void addAdditionalSaveData(CompoundTag nbt) {}
 
 	@Override
-	public IPacket<?> getAddEntityPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
-	
+
 	@Override
 	public void tick() {
 		super.tick();
-		if(!level.isClientSide && level.getGameTime() > timeToDie) remove();
+		if (!level.isClientSide && level.getGameTime() > timeToDie) remove(RemovalReason.DISCARDED);
 	}
-	
+
 	@Override
 	public void onAddedToWorld() {
 		super.onAddedToWorld();

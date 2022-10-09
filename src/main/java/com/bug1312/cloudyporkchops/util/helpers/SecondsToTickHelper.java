@@ -5,5 +5,5 @@ public class SecondsToTickHelper {
 	public static int toTicks(int seconds) {
 		return seconds * 20;
 	}
-	
+
 }

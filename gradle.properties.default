@@ -1,9 +1,6 @@
 org.gradle.jvmargs=-Xmx2G
 org.gradle.daemon=false
 
-minecraft_version = 1.16.5
-forge_version = 36.2.30
-jei_version = 7.7.1.129
-
+mods.jei = true
+mods.configured = true
 mods.dev_auth = true
-mods.antique_atlas = false

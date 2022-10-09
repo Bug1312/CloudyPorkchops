@@ -1,6 +1,7 @@
 {
 	"credit": "Made by Bug1312",
 	"ambientocclusion": false,
+	"render_type": "translucent",
 	"textures": {
 		"particle": "cloudyporkchops:block/elastic_biopolymer_adhesive",
 		"texture": "cloudyporkchops:block/elastic_biopolymer_adhesive"

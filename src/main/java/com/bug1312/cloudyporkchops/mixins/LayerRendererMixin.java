@@ -5,23 +5,23 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import com.bug1312.cloudyporkchops.util.helpers.SprayEntityHelper;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
-@Mixin(LayerRenderer.class)
+@Mixin(RenderLayer.class)
 public class LayerRendererMixin<T extends Entity, M extends EntityModel<T>> {
-	
-	@ModifyVariable(at = @At("STORE"), ordinal = 0, method = "Lnet/minecraft/client/renderer/entity/layers/LayerRenderer;renderColoredCutoutModel(Lnet/minecraft/client/renderer/entity/model/EntityModel;Lnet/minecraft/util/ResourceLocation;Lcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;ILnet/minecraft/entity/LivingEntity;FFF)V")
-	private static <T extends LivingEntity> IVertexBuilder swapTexture(IVertexBuilder def, EntityModel<T> u_0, ResourceLocation texture, MatrixStack u_2, IRenderTypeBuffer buffer, int u_3, T entity) {
-		if(SprayEntityHelper.isEntitySprayedOn(entity)) return buffer.getBuffer(RenderType.entityCutoutNoCull(SprayEntityHelper.getTexture(texture)));
+
+	@ModifyVariable(at = @At("STORE"), ordinal = 0, method = "Lnet/minecraft/client/renderer/entity/layers/RenderLayer;renderColoredCutoutModel(Lnet/minecraft/client/model/EntityModel;Lnet/minecraft/resources/ResourceLocation;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/LivingEntity;FFF)V")
+	private static <T extends LivingEntity> VertexConsumer swapTexture(VertexConsumer def, EntityModel<T> u_0, ResourceLocation texture, PoseStack u_2, MultiBufferSource buffer, int u_3, T entity) {
+		if (SprayEntityHelper.isEntitySprayedOn(entity)) return buffer.getBuffer(RenderType.entityCutoutNoCull(SprayEntityHelper.getTexture(texture)));
 		return def;
 	}
 

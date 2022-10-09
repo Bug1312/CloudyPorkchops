@@ -1,31 +1,31 @@
 package com.bug1312.cloudyporkchops.common.block.food;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SlimeBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.EntitySelectionContext;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.SlimeBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class Jello extends SlimeBlock {
 
-	private static final VoxelShape FALLING_COLLISION_SHAPE = VoxelShapes.box(0.0D, 0.0D, 0.0D, 1.0D, 0.9D, 1.0D);
+	private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box(0.0D, 0.0D, 0.0D, 1.0D, 0.9D, 1.0D);
 
 	public Jello(Properties properties) {
 		super(properties);
 	}
 
 	@Override @SuppressWarnings("deprecation")
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader block, BlockPos pos, ISelectionContext context) {
-		if (context instanceof EntitySelectionContext) {
-			EntitySelectionContext entitycollisioncontext = (EntitySelectionContext) context;
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter block, BlockPos pos, CollisionContext context) {
+		if (context instanceof EntityCollisionContext) {
+			EntityCollisionContext entitycollisioncontext = (EntityCollisionContext) context;
 			Entity entity = entitycollisioncontext.getEntity();
 			if (entity != null) {
 				if (entity.fallDistance > 2.5F) {
@@ -33,33 +33,33 @@ public class Jello extends SlimeBlock {
 				}
 
 				boolean flag = entity instanceof FallingBlockEntity;
-				if (flag || context.isAbove(VoxelShapes.block(), pos, false) && !context.isDescending()) {
+				if (flag || context.isAbove(Shapes.block(), pos, false) && !context.isDescending()) {
 					return super.getCollisionShape(state, block, pos, context);
 				}
 			}
 		}
 
-		return VoxelShapes.empty();
+		return Shapes.empty();
 	}
 
 	@Override
-	public void fallOn(World world, BlockPos pos, Entity entity, float speed) {}
-	
+	public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float speed) {}
+
 	@Override
-	public void updateEntityAfterFallOn(IBlockReader world, Entity entity) {
+	public void updateEntityAfterFallOn(BlockGetter world, Entity entity) {
 		if (world.getBlockState(entity.blockPosition()).getBlock() instanceof Jello) return;
 		super.updateEntityAfterFallOn(world, entity);
 	}
 
 	@Override
-	public VoxelShape getVisualShape(BlockState state, IBlockReader block, BlockPos pos, ISelectionContext context) {
-		return VoxelShapes.empty();
+	public VoxelShape getVisualShape(BlockState state, BlockGetter block, BlockPos pos, CollisionContext context) {
+		return Shapes.empty();
 	}
-	
+
 	@Override
-	public boolean isLadder(BlockState state, IWorldReader world, BlockPos pos, LivingEntity entity) {
-//		if(entity.getDeltaMovement().y < 0) return false; // Must check game feel
+	public boolean isLadder(BlockState state, LevelReader world, BlockPos pos, LivingEntity entity) {
+//		if (entity.getDeltaMovement().y < 0) return false; // Must check game feel
 		return true;
 	}
-	
+
 }

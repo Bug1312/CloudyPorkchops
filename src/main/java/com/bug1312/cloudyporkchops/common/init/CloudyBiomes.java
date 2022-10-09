@@ -2,18 +2,18 @@ package com.bug1312.cloudyporkchops.common.init;
 
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
 
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 @SuppressWarnings("unused")
 public class CloudyBiomes {
 
-	private static RegistryKey<Biome> register(String name) {
-		return RegistryKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(CloudyPorkchops.MODID, name));
+	private static RegistryObject<Biome> register(String name) {
+		return RegistryObject.create(new ResourceLocation(CloudyPorkchops.MODID, name), ForgeRegistries.BIOMES);
 	}
-	
-	public static void init() {};	
+
+	public static void init() {};
 
 }

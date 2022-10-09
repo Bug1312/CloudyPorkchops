@@ -1,1 +1,18 @@
-{"parent":"item/generated","textures":{"layer0":"cloudyporkchops:item/grocery_deliverator"}}
+{
+	"parent":"forge:item/default",
+	"loader":"forge:separate_transforms",
+	"base": {
+		"parent": "cloudyporkchops:block/grocery_deliverator"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "cloudyporkchops:item/grocery_deliverator_2d"
+		},
+		"ground": {
+			"parent": "cloudyporkchops:item/grocery_deliverator_2d"
+		},
+		"fixed": {
+			"parent": "cloudyporkchops:item/grocery_deliverator_2d"
+		}
+	}
+}

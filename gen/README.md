@@ -5,13 +5,13 @@
 > Is removed.
 
 ## > item_model
-### `input` 
+### `input`
 > Contains item textures.
-### `ouput` 
+### `ouput`
 > Generates minecraft:item/generated file and moves `input` to correct path.
 
 ## > loot_table
-### `input` 
+### `input`
 > Contains blockstates.
-### `ouput` 
+### `ouput`
 > Generates loot table file and moves `input` to correct path.

@@ -4,10 +4,10 @@ public class CloudyNBTKeys {
 
 	/* Minecraft */
 	public static String ID = "id";
-	
+
 	/* Minecraft Mimics */
 	public static String OWNER = "Owner";
-	
+
 	/* Cloudy Porkchops */
 	public static String SPRAYED_ON = "SprayOn";
 	public static String EXIT_PORTAL_POS  = "ExitPortalPos";

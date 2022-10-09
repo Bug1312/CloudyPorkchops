@@ -2,19 +2,17 @@ package com.bug1312.cloudyporkchops.common.init;
 
 import com.bug1312.cloudyporkchops.main.CloudyPorkchops;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraftforge.registries.RegistryObject;
 
 @SuppressWarnings("unused")
 public class CloudySounds {
-    
-    private static RegistryObject<SoundEvent> register(DeferredRegister<SoundEvent> register, String registryName) {	
-        RegistryObject<SoundEvent> SOUND = register.register(registryName,() -> new SoundEvent(new ResourceLocation(CloudyPorkchops.MODID,registryName)));
-        return SOUND;
+
+    private static RegistryObject<SoundEvent> register(String registryName) {
+        return RegistryHandler.SOUNDS.register(registryName, () -> new SoundEvent(new ResourceLocation(CloudyPorkchops.MODID,registryName)));
     }
 
-	public static void init() {};	
-    
+	public static void init() {};
+
 }
